@@ -187,3 +187,7 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 - 将计算的布局信息应用于视图。
 - 调用视图控制器的`viewDidLayoutSubviews`方法。
 - 调用当前`UIPresentationController`对象的`containerViewDidLayoutSubviews`方法。
+
+视图控制器可以使用`viewWillLayoutSubviews`和`viewDidLayoutSubviews`方法来执行可能影响布局过程的附加更新。在布局之前，可以添加或删除视图，更新视图的大小或位置，更新约束或更新其他视图相关的属性。布局之后，可以重新加载表格数据，更新其他视图的内容，或对视图的大小和位置进行最终调整。
+
+
