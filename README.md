@@ -230,4 +230,16 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 
 ![图5-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG-split-view-inerface_5-2_2x.png)
 
+### 在Interface Builder中配置容器
+
+要在设计时创建父子容器关系，需要将一个容器视图对象添加到视图控制器中，如下图所示。容器视图对象是代表子视图控制器内容的占位符对象。使用该视图来调整和定位与容器中其他视图相关的子视图。
+
+![图5-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/container_view_embed_2x.png)
+
+当使用一个或多个容器视图加载视图控制器时，Interface Builder还会加载与这些视图关联的子视图控制器。子视图控制器必须与父视图控制器同时实例化，以便建立适当的父子关系。
+
+如果不使用Interface Builder来设置父 - 子容器关系，则必须通过将每个子项添加到容器视图控制器来以编程方式创建这些关系。
+
+### 实现自定义容器视图控制器
+
 
