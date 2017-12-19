@@ -173,4 +173,17 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 - 在屏幕上显示视图。
 - 视图显示后，调用视图控制器的`viewDidAppear:`方法。
 
+添加、删除或修改视图的大小或者位置时，也要添加和删除适用于这些视图的任何约束。对视图层次结构进行与布局相关的更改会导致UIKit将布局标记为脏。在下一个更新周期中，布局引擎使用当前布局约束条件计算视图的大小和位置，并将这些更改应用于视图层次结构。
 
+### 管理视图布局
+
+当视图的大小和位置发生变化时，UIKit将更新视图层次结构的布局信息。对于使用Auto Layout配置的视图，UIKit将使用Auto Layout引擎根据当前约束来更新布局。UIKit还会通知其他感兴趣的对象（如正在呈现的控制器）布局发生更改，以便它们可以做出相应的响应。
+
+在布局过程中，UIKit会在几个时间点发出通知，以便我们可以执行其他与布局相关的任务。使用这些用纸来修改布局约束，或者在应用布局约束后对布局进行最终的调整。在布局过程中，UIKit为每个受影响的视图控制器执行以下操作：
+- 根据需要更新视图控制器及其视图的特征集合。
+- 调用视图控制器的`viewWillLayoutSubviews`方法。
+- 调用当前`UIPresentationController`的`containerViewWillLayoutSubviews`方法。
+- 调用视图控制器的根视图的`layoutSubviews`方法。此方法默认使用可用的约束来计算新的布局信息。然后该方法遍历视图层，并调用每个子视图的`layoutSubviews`方法。
+- 将计算的布局信息应用于视图。
+- 调用视图控制器的`viewDidLayoutSubviews`方法。
+- 调用当前`UIPresentationController`对象的`containerViewDidLayoutSubviews`方法。
