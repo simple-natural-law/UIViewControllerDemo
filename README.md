@@ -252,4 +252,14 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 - 添加任何约束来管理子视图控制器的根视图的大小和位置。
 - 调用子视图控制器的`didMoveToParentViewController:`方法。
 
+以下代码展示了如何在容器视图控制器中嵌入一个子视图控制器。建立父子关系后，容器视图控制器设置其子视图控制器内容的框架，并将子视图控制器的根视图添加到自己的视图层次结构中。设置子视图控制器的根视图的大小很重要，能够确保视图在容器中正确显示。在添加视图之后，容器视图控制器调用子视图控制器的`didMoveToParentViewController:`方法，以使子视图控制器有机会响应视图所有权的更改。
+```
+- (void) displayContentController: (UIViewController*) content {
+    [self addChildViewController:content];
+    content.view.frame = [self frameForContentController];
+    [self.view addSubview:self.currentClientView];
+    [content didMoveToParentViewController:self];
+}
+```
+
 
