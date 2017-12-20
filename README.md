@@ -261,5 +261,9 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
     [content didMoveToParentViewController:self];
 }
 ```
+**注意**，在上面的例子中，只调用了子视图控制器的`didMoveToParentViewController:`方法。容器视图控制器的`addChildViewController:`方法只会调用子视图控制器的`willMoveToParentViewController:`方法，我们必须自己手动调用子视图控制器的`didMoveToParentViewController:`。因为只有在将子视图嵌入容器的视图层次结构中后，才能调用此方法。
 
+使用自动布局时，在将子对象添加到容器的视图层次结构后，在容器和子对象之间设置约束。添加的约束只会影响子视图控制器的根视图的大小和位置。请勿直接更改子视图层次结构中的根视图或任何其他视图的内容。
+
+####### 移除子视图控制器
 
