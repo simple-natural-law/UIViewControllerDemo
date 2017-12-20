@@ -284,4 +284,37 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 }
 ```
 
+#### 子视图控制器之间的过渡转换动画
+
+当需要用一个子视图控制器动画替换另一个子视图控制器时，可以将子视图控制器的添加和删除合并到过渡转换动画过程中。在执行动画前，请确保两个子视图控制器都是容器视图控制器内容的一部分，但是让当前的子视图控制器知道它即将被移除。在动画过程中，将新子视图控制器的视图移动到位并移除旧子视图控制器的视图。动画完成后，移除旧子视图控制器。
+
+以下代码显示了如何使用过渡转换动画将一个子视图控制器替换成另一个子视图控制器的示例。在这个示例中，`transitionFromViewController:toViewController:duration:options:animations:completion:`方法会自动更新容器视图控制器的视图层次机构，不需要我们自己手动添加和删除视图。
+```
+- (void)cycleFromViewController:(UIViewController*)oldVC toViewController:(UIViewController*)newVC {
+    // Prepare the two view controllers for the change.
+    [oldVC willMoveToParentViewController:nil];
+    [self addChildViewController:newVC];
+
+    // Get the start frame of the new view controller and the end frame
+    // for the old view controller. Both rectangles are offscreen.
+    newVC.view.frame = [self newViewStartFrame];
+    CGRect endFrame = [self oldViewEndFrame];
+
+    // Queue up the transition animation.
+    [self transitionFromViewController: oldVC toViewController: newVC
+    duration: 0.25 options:0
+    animations:^{
+    
+        // Animate the views to their final positions.
+        newVC.view.frame = oldVC.view.frame;
+        oldVC.view.frame = endFrame;
+        
+    }completion:^(BOOL finished) {
+        // Remove the old view controller and send the final
+        // notification to the new view controller.
+        [oldVC removeFromParentViewController];
+        [newVC didMoveToParentViewController:self];
+    }];
+}
+```
 
