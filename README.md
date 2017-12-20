@@ -318,3 +318,36 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 }
 ```
 
+#### 管理子视图控制器的外观更新
+
+在将子视图控制器添加到容器视图控制器后，容器视图控制器会自动将外观相关的消息转发给子视图控制器。大多数情况下，这样能确保所有事件都正确发生。但是，有时默认行为可能会以无意义的顺序发送这些事件。例如，如果多个子视图控制器同时改变其视图状态，则可能需要合并这些更改，以使外观回调都以更合理的顺序同时发生。
+
+要接管外观回调的责任，需要覆写容器视图控制器的`shouldAutomaticallyForwardAppearanceMethods`方法并返回`NO`。
+```
+- (BOOL) shouldAutomaticallyForwardAppearanceMethods {
+    return NO;
+}
+```
+当有过渡转换动画发生时，根据需要调用子视图控制器的`beginAppearanceTransition:animated:`或者`endAppearanceTransition`方法。
+```
+-(void) viewWillAppear:(BOOL)animated {
+    [self.child beginAppearanceTransition: YES animated: animated];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [self.child endAppearanceTransition];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    [self.child beginAppearanceTransition: NO animated: animated];
+}
+
+-(void) viewDidDisappear:(BOOL)animated {
+    [self.child endAppearanceTransition];
+}
+```
+
+#### 自定义容器视图控制器的几点建议
+
+设计、开发和测试新的容器视图控制器需要时间。虽然每个视图控制器的行为是直截了当的，但整体控制起来可能相当复杂。在自定义容器控制器时，请考虑以下提示：
+- 只访问子视图控制器的根视图。
