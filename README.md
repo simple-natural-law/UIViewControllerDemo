@@ -267,3 +267,21 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 
 #### 移除子视图控制器
 
+要从那个容器视图控制器中删除子视图控制器，可以通过执行以下操作来删除视图控制器之间的父子关系：
+- 调用子视图控制器的`willMoveToParentViewController:`方法且传入的值为`nil`。
+- 删除为子视图控制器的根视图配置的约束。
+- 从容器视图控制器的视图层中移除该子视图控制器的根视图。
+- 调用子视图控制器的`removeFromParentViewController`方法来结束父子关系。
+
+删除子视图控制器会永久切断容器视图控制器与子视图控制器之间的关系。只有当不再需要引用子视图控制器时，才能移除子视图控制器。例如，当一个新视图控制器推入导航堆栈时，导航控制器并不会移除当前的子视图控制器。只有当它们从堆栈中弹出时，才会被删除。
+
+以下代码显示了如何从容器视图控制器中删除子视图控制器。调用子视图控制器的`willMoveToParentViewController:`方法且传入`nil`值为子视图控制器提供了为更改做准备的机会。子视图控制器的`removeFromParentViewController`方法还会调用其`didMoveToParentViewController:`方法其传入`nil`值。将容器视图控制器设置为`nil`，也会从容器中删除子视图。
+```
+- (void) hideContentController: (UIViewController*) content {
+    [content willMoveToParentViewController:nil];
+    [content.view removeFromSuperview];
+    [content removeFromParentViewController];
+}
+```
+
+
