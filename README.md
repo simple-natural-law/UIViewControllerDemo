@@ -361,3 +361,7 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 - 让子视图控制器指定自己的尺寸。具有灵活布局的容器视图控制器可以使用其子视图控制器的`preferredContentSize`属性来帮助确定子视图控制器的大小。
 
 ## 支持辅助功能
+
+iOS系统为了帮助盲人进行人机交互，使用了VoiceOver读屏技术。VoiceOver能够读出屏幕上的信息，其属于辅助功能的一部分。有关让`UIViewController`支持辅助功能的详细信息，请参看[Supporting Accessibility](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/SupportingAccessibility.html#//apple_ref/doc/uid/TP40007457-CH12-SW1)。
+
+## 
