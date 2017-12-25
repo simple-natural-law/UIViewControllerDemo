@@ -364,4 +364,17 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 
 iOS系统为了帮助盲人进行人机交互，设计了VoiceOver读屏技术。VoiceOver能够读出屏幕上的信息，其属于辅助功能的一部分。有关让`UIViewController`支持辅助功能的详细信息，请参看[Supporting Accessibility](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/SupportingAccessibility.html#//apple_ref/doc/uid/TP40007457-CH12-SW1)。
 
-##
+## 保存和恢复状态
+
+视图控制器在应用程序状态保存和恢复过程中起着重要作用。状态保存会在应用程序被挂起之前保存其当前配置，以便后续应用程序启动时恢复之前的配置。将应用程序恢复到以前的配置为用户节省来时间，并提供来更好的用户体验。
+
+保存和恢复过程大都是自动的，但是需要我们告知系统应用程序的哪些部分要保存。保存应用程序的视图控制器的步骤如下：
+- （必需）将恢复标识符分配给要保留其配置的视图控制器。
+- （必需）告诉系统如何在启动时创建或定位新的视图控制器对象。
+- （可选）对于每个视图控制器，存储能将视图控制器返回到其之前配置所需的任何特定配置数据。
+
+有关保存和恢复过程的概述，可以参看[App Programming Guide for iOS](https://developer.apple.com/library/content/documentation/iPhone/Conceptual/iPhoneOSProgrammingGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007072)。
+
+### 标记需要保存的视图控制器
+
+
