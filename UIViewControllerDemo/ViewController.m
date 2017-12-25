@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SplitViewController.h"
 
 @interface ViewController ()
 
@@ -19,9 +20,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    UIButton *leftItem = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftItem.frame = CGRectMake(0, 0, 30.0, 30.0);
+    [leftItem setTitle:@"显示" forState:UIControlStateNormal];
+    [leftItem setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [leftItem addTarget:self action:@selector(showBar) forControlEvents:UIControlEventTouchUpInside];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItem];
 }
 
+
+- (void)showBar
+{
+    SplitViewController *vc = (SplitViewController *)self.navigationController.parentViewController;
+    
+    [vc show];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

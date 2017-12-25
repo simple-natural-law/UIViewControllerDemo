@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AB847C61FEA659E009DF2CA /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB847C51FEA659E009DF2CA /* SplitViewController.m */; };
+		1AB847C91FEA6A79009DF2CA /* SideBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AB847C81FEA6A79009DF2CA /* SideBarViewController.m */; };
 		1AFB53C01FD943F5003BCFA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */; };
 		1AFB53C31FD943F5003BCFA3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53C21FD943F5003BCFA3 /* ViewController.m */; };
 		1AFB53C61FD943F5003BCFA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFB53C41FD943F5003BCFA3 /* Main.storyboard */; };
@@ -16,6 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1AB847C41FEA659E009DF2CA /* SplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitViewController.h; sourceTree = "<group>"; };
+		1AB847C51FEA659E009DF2CA /* SplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplitViewController.m; sourceTree = "<group>"; };
+		1AB847C71FEA6A79009DF2CA /* SideBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SideBarViewController.h; sourceTree = "<group>"; };
+		1AB847C81FEA6A79009DF2CA /* SideBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SideBarViewController.m; sourceTree = "<group>"; };
 		1AFB53BB1FD943F5003BCFA3 /* UIViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFB53BE1FD943F5003BCFA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -62,6 +68,10 @@
 				1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */,
 				1AFB53C11FD943F5003BCFA3 /* ViewController.h */,
 				1AFB53C21FD943F5003BCFA3 /* ViewController.m */,
+				1AB847C41FEA659E009DF2CA /* SplitViewController.h */,
+				1AB847C51FEA659E009DF2CA /* SplitViewController.m */,
+				1AB847C71FEA6A79009DF2CA /* SideBarViewController.h */,
+				1AB847C81FEA6A79009DF2CA /* SideBarViewController.m */,
 				1AFB53C41FD943F5003BCFA3 /* Main.storyboard */,
 				1AFB53C71FD943F5003BCFA3 /* Assets.xcassets */,
 				1AFB53C91FD943F5003BCFA3 /* LaunchScreen.storyboard */,
@@ -145,6 +155,8 @@
 				1AFB53C31FD943F5003BCFA3 /* ViewController.m in Sources */,
 				1AFB53CE1FD943F5003BCFA3 /* main.m in Sources */,
 				1AFB53C01FD943F5003BCFA3 /* AppDelegate.m in Sources */,
+				1AB847C91FEA6A79009DF2CA /* SideBarViewController.m in Sources */,
+				1AB847C61FEA659E009DF2CA /* SplitViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
