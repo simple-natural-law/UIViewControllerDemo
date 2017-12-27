@@ -413,3 +413,27 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 为视图分配一个恢复标识符将告知UIKit应该将视图的状态写入恢复归档，当视图控制器稍后被恢复时，UIKit还恢复具有恢复标识符的任何视图的状态。
 
 ### 在应用程序启动时恢复视图控制器
+
+在应用程序启动时，UIKit会尝试将应用程序恢复到之前的状态。此时，UIKit会要求应用程序创建（或定位）包含之前保存的用户界面的视图控制器。UIKit在尝试定位视图控制器时，会按照以下顺序去搜索：
+1. 如果视图控制器有恢复类，UIkit会要求该类提供视图控制器。UIKit会调用关联的恢复类的`viewControllerWithRestorationIdentifierPath:coder:`方法来检索视图控制器。如果该方法返回`nil`，UIkit会假定应用程序不用重新创建视图控制器并且会停止查找。
+2. 如果视图控制器没有关联恢复类，UIKit会要求应用程序委托提供视图控制器。UIKit调用应用程序委托的`application:viewControllerWithRestorationIdentifierPath:coder:`方法来查找没有恢复类的视图控制器。如果该方法返回`nil`，UIKit将尝试隐式查找视图控制器。
+3. 如果具有正确恢复路径的视图控制器已经存在，UIKit就会使用该视图控制器对象。如果应用程序在启动时创建视图控制器（以编程方式或者从storyboard中加载），且视图控制器具有恢复标识符，则UIKit会根据其恢复路径隐式查找它们。
+4. 如果视图控制器最初是从storyboarrd中加载的，则UIKit使用保存的storyboard信息来定位和创建它。UIKit将有关视图控制器的storyboard信息保存在恢复归档中，在恢复时，UIKit使用该信息来定位相同的storyboard文件，并且会在使用任何其他方式都没有查找到视图控制器的情况下实例化相应的视图控制器。
+
+为视图控制器分配一个恢复类可以避免UIKit隐式地检索该视图控制器。使用恢复类可以更好地控制是否真的要创建视图控制器。例如，如果恢复类确定不应该重新创建视图控制器，则`viewControllerWithRestorationIdentifierPath:coder:`方法可以返回`nil`。当没有恢复类时，UIkit会尽其所能找到或者创建视图控制器，并将其恢复。
+
+当使用恢复类时，`viewControllerWithRestorationIdentifierPath:coder:`方法应该创建一个类的新实例对象，执行最低限度的初始化，并返回结果对象。以下代码展示了一个如何使用此方法从storyboard中加载视图控制器的例子。由于视图控制器最初是从storyboard加载的，因此此方法使用`UIStateRestorationViewControllerStoryboardKey`键值从存档中获取storyboard。**注意，此方法不会尝试配置视图控制器的数据内容。当视图控制器的状态被解码后，才会去配置视图控制器的数据内容。**
+```
++ (UIViewController*)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder {
+    MyViewController* vc;
+    UIStoryboard* sb = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+    if (sb) {
+        vc = (PushViewController*)[sb instantiateViewControllerWithIdentifier:@"MyViewController"];
+        vc.restorationIdentifier = [identifierComponents lastObject];
+        vc.restorationClass = [MyViewController class];
+    }
+    return vc;
+}
+```
+
+###
