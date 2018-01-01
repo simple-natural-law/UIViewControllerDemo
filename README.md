@@ -439,4 +439,29 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 对于在应用程序启动时从**main storyboard**文件中创建的对象，请勿为每个对象创建新的实例。请让UIKit隐式查找这些对象，或者使用应用程序委托对象的`application:viewControllerWithRestorationIdentifierPath:coder:`方法来查找现有对象。
 
-###
+### 编码和解码视图控制器的状态
+
+对于每个要保存的对象，UIKit都会调用对象的`encodeRestorableStateWithCoder:`方法，使其有机会保存其状态。在恢复过程中，UIKit会调用对应的`decodeRestorableStateWithCoder:`方法来解码该状态并将其用于对象。对于视图控制器，这些方法的实现是可选的，但建议实现。可以使用它们来保存和恢复以下类型的信息：
+- 关联引用所显示的任何数据（不是数据本身）。
+- 对于容器视图控制器，关联引用其子视图控制器。
+- 与当前选择有关的信息。
+- 对于具有用户可配置视图的视图控制器，提供关于该视图当前配置的信息。
+
+在编码和解码方法中，可以对编码器支持的对象和任何数据类型进行编码。对于除视图和视图控制器以外的所有对象，对象必须遵循`NSCoding`协议，并使用该协议的方法来写入其状态。对于视图和视图控制器，编码器并不使用`NSCoding`协议来保存对象的状态。取而代之的是，编码器保存对象的恢复标识符并将其添加到可保存对象的列表中，这会导致对象的`encodeRestorableStateWithCoder:`方法被调用。
+
+在实现视图控制器的`encodeRestorableStateWithCoder:`和`decodeRestorableStateWithCoder:`方法时，必须调用`super`的该方法。调用`super`的该方法让父类有机会保存和恢复任何附加信息。以下代码展示来这些方法的一个示例实现，它们保存用于标识指定视图控制器的数字值。
+```
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+
+    [coder encodeInt:self.number forKey:MyViewControllerNumber];
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+
+    self.number = [coder decodeIntForKey:MyViewControllerNumber];
+}
+```
+
+
