@@ -435,5 +435,8 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
     return vc;
 }
 ```
+在手动重新创建视图控制器时，重新分配恢复标识符和恢复类是一个好习惯。恢复恢复标识符的最简单方法是获取`identifierComponents`数组中的最后一项，并将其分配给视图控制器。
+
+对于在应用程序启动时从**main storyboard**文件中创建的对象，请勿为每个对象创建新的实例。请让UIKit隐式查找这些对象，或者使用应用程序委托对象的`application:viewControllerWithRestorationIdentifierPath:coder:`方法来查找现有对象。
 
 ###
