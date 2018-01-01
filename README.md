@@ -463,5 +463,16 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
     self.number = [coder decodeIntForKey:MyViewControllerNumber];
 }
 ```
+编码器对象在编码和解码过程并不共享。每个具有可保存状态的对象都会接收到自己的编码器对象。使用各自的编码器意味着我们不用担心密钥之间的命名空间冲突。但是，请不要使用`UIApplicationStateRestorationBundleVersionKey`、`UIApplicationStateRestorationUserInterfaceIdiomKey`和`UIStateRestorationViewControllerStoryboardKey`键名称。UIKit使用这些键来存储关于视图控制器状态的附加信息。
+
+有关实现视图控制器的编码和解码的更多信息，请参看[UIViewController Class Reference](https://developer.apple.com/documentation/uikit/uiviewcontroller)。
+
+### 保存和恢复视图控制器的几点建议
+
+在视图控制器中添加对状态保存和恢复的支持时，请考虑一下准则：
+- 请记住，我们可能不像保留所有视图控制器。在某些情况下，保留视图控制器可能没有意义。例如，如果应用程序正在显示更改，则可能需要取消操作并将应用程序还原到上一个屏幕。在这种情况下，我们不需要保留要求输入新密码信息的视图控制器。
+- 避免在恢复过程中换掉视图控制器对象所属的类。状态保存系统对它保存的视图控制器的类进行进行编码。在恢复过程中，如果应用程序返回的对象的类不匹配（或者不是原始对象的子类），则系统不会要求视图控制器解码任何状态信息。
+- 状态保存系统希望我们按照预期使用视图控制器。恢复过程依赖于视图控制器的包含关系来重建界面。如果我们没有正确使用容器视图控制器，保存系统将找不到视图控制器。例如，除非在相应的视图控制器之间存在包含关系，否则不要将视图控制器的视图嵌入到不同的视图中。
+
 
 
