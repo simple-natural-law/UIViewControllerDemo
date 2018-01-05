@@ -506,8 +506,13 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 ![图8-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_popover-style_2x.png)
 
+因为弹出窗口会适配在水平紧凑环境中的全屏呈现，所以通常需要修改弹出窗口代码来处理适配。在全屏模式下，需要一种方法来移除被呈现的弹出窗口。可以通过添加一个按钮，将弹出窗口嵌入到一个可用的容器视图控制器中，或者改变适配行为本身。
 
+##### 当前上下文样式
 
+`UIModalPresentationCurrentContext`样式覆盖了界面中的特定视图控制器。使用上下文样式时，通过将视图控制器的`definesPresentationContext`属性值设为`YES`来指定要覆盖此视图控制器。下图显示了一个当前上下文样式的呈现，它只覆盖了分割视图控制器的一个子视图控制器。
+
+![图8-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_CurrentContextStyles_2x.png)
 
 
 
