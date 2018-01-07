@@ -522,6 +522,8 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 ##### 自定义呈现样式
 
+转场过渡呈现样式确定了用于呈现一个视图控制器的动画类型。对于官方提供的转场过渡呈现样式，可以将其中一种标准样式分配给需要呈现的视图控制器的`modalTransitionStyle`属性。呈现一个视图控制器时，UIKit会创建与该样式相对应的动画。例如，下图说明了标准的`UIModalTransitionStyleCoverVertical`滑动转场过渡样式如何为屏幕上的视图控制器生成动画。视图控制器B开始进入屏幕时，动画滑动到视图控制器A的顶部上方。当视图控制器B被移除时，动画反转，以便B向下滑动以显示A。
 
+![图8-4](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_SlideTransition_fig_8-1_2x.png)
 
 
