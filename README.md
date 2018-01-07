@@ -514,6 +514,13 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 ![图8-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_CurrentContextStyles_2x.png)
 
+> **注意**：当使用`UIModalPresentationFullScreen`样式来呈现一个视图控制器时，UIKit通常会在转场动画执行完成后删除处于被呈现的视图控制器之下的视图控制器的视图。可以通过指定`UIModalPresentationOverCurrentContext`样式来防止删除这些视图。当被呈现的视图控制器具有让底层内容显示的透明区域时，可以使用该样式。
+
+定义了呈现上下文的视图控制器也可以定义在呈现过程中使用的转场动画。通常情况下，UIKit使用起始视图控制器的`modalTransitionStyle`属性值来在屏幕上动画视图控制器。如果呈现上下文视图控制器的`providesPresentationContextTransitionStyle`属性值为`YES`，则UIKit将使用该视图控制器的`modalTransitionStyle`属性值。
+
+当切换到水平紧凑环境（横屏）时，当前上下文样式会适应`UIModalPresentationFullScreen`样式。要更改此行为，请使用自适应呈现委托来指定不同的呈现样式或视图控制器。
+
+##### 自定义呈现样式
 
 
 
