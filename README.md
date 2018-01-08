@@ -526,4 +526,7 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 ![图8-4](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_SlideTransition_fig_8-1_2x.png)
 
+可以使用动画对象和转场过渡委托来创建自定义转场。动画对象创建用于将视图控制器显示到屏幕上的过渡动画。转场过渡委托在适当的时候将动画对象提供给UIKit。
+
+
 
