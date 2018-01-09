@@ -532,7 +532,7 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 可以使用动画对象和转场过渡委托来创建自定义转场。动画对象创建用于将视图控制器显示到屏幕上的过渡动画。转场过渡委托在适当的时候将动画对象提供给UIKit。
 
-#### 呈现与显示一个视图控制器
+#### 呈现一个视图控制器的方式
 
 UIViewController类提供了两种方式来显示视图控制器：
 - `showViewController:sender:`和`showDetailViewController:sender:`方法提供了最适应和最灵活的方式来显示视图控制器。这些方法让起始控制器决定如何最好地处理呈现。例如，容器视图控制器可以让视图控制器作为一个子视图控制器来呈现，而不是以模态方式呈现。默认行为以模态方式呈现一个视图控制器。
@@ -551,10 +551,22 @@ UIViewController类提供了两种方式来显示视图控制器：
 
 当使用`showViewController:sender:`和`showDetailViewController:sender:`方法时，将新视图控制器添加到屏幕上的过程很简单：
 - 创建需要呈现的视图控制器对象。在创建视图控制器时，需要使用任何需要执行其任务的数据对其进行初始化。
-- 将视图控制器的`modalPresentationStyle`属性设置为比较喜欢的样式。这种样式可能不会在最终呈现中使用。
+- 将视图控制器的`modalPresentationStyle`属性设置为需要的样式。这种样式可能不会在最终呈现中使用。
 - 将视图控制器的`modalTransitionStyle`属性设置为需要的转场过渡动画样式。这种样式可能不会在最终呈现中使用。
 - 调用当前视图控制器的`showViewController:sender:`和`showDetailViewController:sender:`方法。
 
 UIKit会将对`showViewController:sender:`和`showDetailViewController:sender:`方法的调用转发给合适的视图控制器。该视图控制器可以决定如何最好地执行呈现，并可以根据需要更改呈现样式和转场过渡样式。例如，导航控制器可能会将视图控制器推到其导航堆栈上。
+
+#### 模态呈现视图控制器
+
+当直接呈现视图控制器时，需要告诉UIKit如何显示新的视图控制器以及如何动画显示到屏幕上：
+- 创建需要呈现的视图控制器对象。在创建视图控制器时，需要使用任何需要执行其任务的数据对其进行初始化。
+- 将视图控制器的`modalPresentationStyle`属性设置为需要的样式。
+- 将视图控制器的`modalTransitionStyle`属性设置为需要的转场过渡动画样式。
+- 调用当前视图控制器的`presentViewController:animated:completion:`方法。
+
+调用`presentViewController:animated:completion:`方法的视图控制器可能不是实际发起模态呈现的视图控制器。呈现样式决定来如何呈现视图控制器，包括发起呈现的视图控制器所需的特性。例如，全屏呈现必须由覆盖全屏的视图控制器发起。如果当前视图控制器不合适，UIKit将遍历视图控制器层次结构，直到找到一个为止。UIKit在完成模态呈现后，会更新受影响的视图控制器的`presentsViewController`和`presentedViewController`属性。
+
+#### 在弹窗中呈现一个视图控制器
 
 
