@@ -502,11 +502,11 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 ##### 弹出样式
 
-`UIModalPresentationPopover`样式在弹出视图中显示视图控制器。弹出样式对于显示附加信息或者与焦点、选定对象相关的项目列表非常有用。在水平常规环境中，弹出视图仅覆盖部分屏幕，如下图所示。在水平紧凑的环境中，默认情况下，弹出视图会适应`UIModalPresentationOverFullScreen`呈现样式。点击弹出视图之外的屏幕会自动移除弹出视图。
+`UIModalPresentationPopover`样式在Popover中显示视图控制器。弹出样式对于显示附加信息或者与焦点、选定对象相关的项目列表非常有用。在水平常规环境中，Popover仅覆盖部分屏幕，如下图所示。在水平紧凑的环境中，默认情况下，Popover会适应`UIModalPresentationOverFullScreen`呈现样式。点击弹出视图之外的屏幕会自动移除Popover。
 
 ![图8-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_popover-style_2x.png)
 
-因为弹出窗口会适配在水平紧凑环境中的全屏呈现，所以通常需要修改弹出窗口代码来处理适配。在全屏模式下，需要一种方法来移除被呈现的弹出窗口。可以通过添加一个按钮，将弹出窗口嵌入到一个可用的容器视图控制器中，或者改变适配行为本身。
+因为Popover会自动适配在水平紧凑环境中的全屏呈现，所以通常需要修改Popover代码来处理适配。在全屏模式下，需要一种方法来移除被呈现的Popover。可以通过添加一个按钮，将Popover嵌入到一个可用的容器视图控制器中，或者改变适配行为本身。
 
 ##### 当前上下文样式
 
@@ -567,6 +567,15 @@ UIKit会将对`showViewController:sender:`和`showDetailViewController:sender:`�
 
 调用`presentViewController:animated:completion:`方法的视图控制器可能不是实际发起模态呈现的视图控制器。呈现样式决定来如何呈现视图控制器，包括发起呈现的视图控制器所需的特性。例如，全屏呈现必须由覆盖全屏的视图控制器发起。如果当前视图控制器不合适，UIKit将遍历视图控制器层次结构，直到找到一个为止。UIKit在完成模态呈现后，会更新受影响的视图控制器的`presentsViewController`和`presentedViewController`属性。
 
-#### 在弹窗中呈现一个视图控制器
+#### 在Popover中呈现一个视图控制器
 
+在呈现Popover之前，需要一些额外配置。在设置模态呈现样式为`UIModalPresentationPopover`后，配置以下与Popover相关的属性：
+- 将视图控制器的`preferredContentSize`属性设置为所需的大小。
+- 访问视图控制器的`popoverPresentationController`属性获得与其相关联的`UIPopoverPresentationController`对象，并使用该对象来设置Popover的锚点。只需要设置下列之一：
+    - 将`barButtonItem`属性值设为一个`UIBarButtonItem`对象。
+    - 将`sourceView`属性值设置为当前视图层中的某个视图，`sourceRect`属性值设置为`sourceView`中的某个特定区域。
+    
+可以使用`UIPopoverPresentationController`对象根据需要对Popover的外观进行其他调整。Popover控制器对象还支持设置委托对象来响应在呈现过程中的更改。例如，当Popover出现、消失或在屏幕上重新定位时，可以使用委托对象来响应。有关此对象的更多信息，可以参阅[UIPopoverPresentationController Class Reference](https://developer.apple.com/documentation/uikit/uipopoverpresentationcontroller)。
+
+### 移除被呈现的视图控制器
 
