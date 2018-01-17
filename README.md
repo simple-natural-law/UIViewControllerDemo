@@ -579,3 +579,21 @@ UIKit会将对`showViewController:sender:`和`showDetailViewController:sender:`�
 
 ### 移除被呈现的视图控制器
 
+要移除当前被呈现的视图控制器，需要调用该视图控制器的`dismissViewControllerAnimated:completion:`方法。也可以调用呈现该视图控制器的起始视图控制器的该方法来移除当前被呈现的视图控制器。当调用起始视图控制器的该方法时，UIKit会自动将移除请求转发给被呈现的视图控制器。
+
+在移除视图控制器之前，请总是保持视图控制器中的重要信息。移除视图控制器会将其从视图控制器层次结构中删除，并将其视图从屏幕上移除。如果没有强引用该视图控制器，移除该视图控制器将释放与之关联的内存。
+
+如果被呈现的视图控制器必须传输数据给发起呈现的视图控制器，则使用委托设计模式来促进传输。委托可以使在应用程序的不同部分来重用视图控制器变得简单。使用委托，被呈现的视图控制器会存储对实现来协议方法的委托对象的引用。当被呈现的视图控制器需要接收数据时，其会调用委托对象的协议方法。
+
+### 在不同storyboard文件中的视图控制器之间发起呈现
+
+我们可以在同一个storyboard文件中的视图控制器之间创建`segues`，但不能在不同storyboard文件中的视图控制器之间创建`segues`。当需要呈现一个存储在不同storyboard文件中的视图控制器时，必须在呈现其之前明确地实例化这个视图控制器，如下所示。该示例以模态方式呈现视图控制器，但我们也可以将其推到导航堆栈上或以其他方式显示。
+```
+UIStoryboard* sb = [UIStoryboard storyboardWithName:@"SecondStoryboard" bundle:nil];
+MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewController"];
+
+// Configure the view controller.
+
+// Display the view controller
+[self presentViewController:myVC animated:YES completion:nil];
+```
