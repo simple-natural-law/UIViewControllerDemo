@@ -22,6 +22,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    self.title = @"UIViewControllerDemo";
+    
+    UIBarButtonItem * backButtonItem = [[UIBarButtonItem alloc] init];
+    backButtonItem.title = @"返回";
+    self.navigationItem.backBarButtonItem = backButtonItem;
+    
     self.dataSource = @[@{@"title":@"呈现一个视图控制器",@"target":@"PresentingViewController"}];
 }
 
@@ -34,7 +40,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
     cell.textLabel.text = self.dataSource[indexPath.row][@"title"];
     
