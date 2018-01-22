@@ -145,7 +145,7 @@
 
 可以使用Xcode中的storyboard文件直观地定义视图控制器的UI，也可以以编程方式来创建UI。但storyboard可以将视图的内容可视化，并根据需要自定义视图层次结构。以可视化方式构建UI界面，可以让我们快速进行更改并能看到结果，而无需构建和运行应用程序。
 
-下图显示了一个storyboard的例子。每个矩形区域代表一个视图控制器及其相关视图，视图控制器之间的箭头是视图控制器的关系和节点。关系将容器视图控制器连接到其子视图控制器。Segues可用于在界面中的视图控制器之间导航。
+下图显示了一个storyboard的例子。每个矩形区域代表一个视图控制器及其相关视图，视图控制器之间的箭头是视图控制器的关系和节点。关系将容器视图控制器连接到其子视图控制器。Segue可用于在界面中的视图控制器之间导航。
 
 ![图4-1](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/storyboard_bird_sightings_2x.png)
 
@@ -587,7 +587,7 @@ UIKit会将对`showViewController:sender:`和`showDetailViewController:sender:`�
 
 ### 在不同storyboard文件中的视图控制器之间发起呈现
 
-我们可以在同一个storyboard文件中的视图控制器之间创建`segues`，但不能在不同storyboard文件中的视图控制器之间创建`segues`。当需要呈现一个存储在不同storyboard文件中的视图控制器时，必须在呈现其之前明确地实例化这个视图控制器，如下所示。该示例以模态方式呈现视图控制器，但我们也可以将其推到导航堆栈上或以其他方式显示。
+我们可以在同一个storyboard文件中的视图控制器之间创建segue，但不能在不同storyboard文件中的视图控制器之间创建segue。当需要呈现一个存储在不同storyboard文件中的视图控制器时，必须在呈现其之前明确地实例化这个视图控制器，如下所示。该示例以模态方式呈现视图控制器，但我们也可以将其推到导航堆栈上或以其他方式显示。
 ```
 UIStoryboard* sb = [UIStoryboard storyboardWithName:@"SecondStoryboard" bundle:nil];
 MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewController"];
@@ -597,3 +597,17 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 // Display the view controller
 [self presentViewController:myVC animated:YES completion:nil];
 ```
+
+## 使用Segue
+
+使用segue来定义应用程序界面的跳转流程。segue定义了storyboard文件中的两个视图控制器之间的转换。segue的起始点是启动segue的按钮、表格行或者手势识别器。segue的结束点是想要显示的视图控制器。segue总是呈现一个新的视图控制器，但是也可以使用unwind segue来移除视图控制器。
+
+![图9-1](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_defined_2x.png)
+
+我们不需要以编程方式触发segue。在运行时，UIKit加载与视图控制器相关联的segue，并将它们连接到相应的元素。当用户与元素产生交互时，UIKit会加载相应的视图控制器，通知应用程序即将触发segue，并执行转换。可以使用UIKit发送的通知将数据传递到新的视图控制器或者防止此种情况发生。
+
+### 在视图控制器之间创建一个segue
+
+要在同一个storyboard文件中的视图控制器之间创建一个segue，请按住`Control`键单击第一个视图控制器中的相应元素，然后拖动到目标视图控制器。segue的起始点必须是具有已经定义了action的视图或者对象，例如control、bar button item或者gesture recognizer。也可以从基于单元格的视图（如table view和collection view）创建segue。下图显示了创建一个当单元格被点击时显示一个新视图控制器的segue。
+
+![图9-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_creating_2x.png)
