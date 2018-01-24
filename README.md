@@ -608,6 +608,15 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 
 ### 在视图控制器之间创建一个segue
 
-要在同一个storyboard文件中的视图控制器之间创建一个segue，请按住`Control`键单击第一个视图控制器中的相应元素，然后拖动到目标视图控制器。segue的起始点必须是具有已经定义了action的视图或者对象，例如control、bar button item或者gesture recognizer。也可以从基于单元格的视图（如table view和collection view）创建segue。下图显示了创建一个当单元格被点击时显示一个新视图控制器的segue。
+要在同一个storyboard文件中的视图控制器之间创建一个segue，请按住`Control`键并单击第一个视图控制器中的相应元素，然后拖动到目标视图控制器。segue的起始点必须是具有已经定义了action的视图或者对象，例如control、bar button item或者gesture recognizer。也可以从基于单元格的视图（如table view和collection view）创建segue。下图显示了创建一个当单元格被点击时显示一个新视图控制器的segue。
 
 ![图9-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_creating_2x.png)
+
+> **注意**：某些元素支持关联多个segue。例如，可以为cell上的button点击配置一个segue，同时也可以为cell点击配置另一个segue。
+
+当松开鼠标按钮时，Interface Builder会提示我们选择要在两个视图控制器之间创建的关系类型，如下图所示。选择符合我们需要的转换的segue。
+
+![图9-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_creating_relationships_2x.png)
+
+当为segue选择关系类型时，尽可能选择一个自适应segue。自适应segue会根据当前屏幕环境调整其行为。例如，Show segue的行为基于需要呈现的视图控制器而改变。非自适应segue适用于必须在iOS 7系统运行的应用程序。下表列出了自适应segue以及它们在应用程序中的表现。
+
