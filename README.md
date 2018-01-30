@@ -618,7 +618,7 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 
 ![图9-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_creating_relationships_2x.png)
 
-当为segue选择关系类型时，尽可能选择一个自适应segue。自适应segue会根据当前屏幕环境调整其行为。例如，Show segue的行为基于需要呈现的视图控制器而改变。非自适应segue适用于必须在iOS 7系统运行的应用程序。以下列出了自适应segue类型以及它们在应用程序中的表现：
+当为segue选择关系类型时，尽可能选择一个自适应segue。自适应segue会根据当前屏幕环境调整其行为。例如，Show segue的行为基于需要呈现的视图控制器而改变。非自适应segue适用于必须在iOS 7系统运行的应用程序。以下列出了自适应segue类型以及它们在应用程序中的行为：
 - Show (Push) : 该segue使用目标视图控制器的`showViewController:sender:`方法来显示新的内容。对于大多数视图控制器，该segue在源视图控制器上以模态方式呈现新内容。一些视图控制器专门覆盖该方法并使用它来实现不同的行为。例如，导航控制器将新的视图控制器推到其导航堆栈上。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
 - Show Detail (Replace) : 该segue使用目标视图控制器的`showDetailViewController:sender:`方法来显示新的内容。其仅与嵌入在`UISplitViewController`对象内的视图控制器有关。通过该segue，分割视图控制器用新的内容替换它的第二个子视图控制器（细节控制器）。大多数其他控制器以模态方式呈现新内容。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
 - Present Modally : 该segue使用指定的呈现样式和转场过渡样式以模态方式显示视图控制器。定义了相应的呈现上下文的视图控制器会处理实际的呈现。
@@ -626,4 +626,17 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 
 创建一个segue之后，选中segue对象并使用属性检查器为其分配一个标识符。在执行segue时，可以使用标识符来确定哪个segue被触发。如果视图控制器支持多个segue，那么这样做是特别有用的。标识符包含在执行segue时传递给视图控制器的`UIStoryboardSegue`对象中。
 
+### 在运行时修改segue的行为
+
+下图显示了当一个segue被触发时发生了什么。大多数工作发生在发起呈现的视图控制器中，其管理着到新视图控制器的转场过渡。新视图控制器的配置与以编码方式创建视图控制器并呈现它的过程基本相同。由于是在storyboard文件中配置segue，所以与segue关联的两个视图控制器必须在同一个storyboard文件中。
+
+![图9-4](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_displaying-view-controller-using-segue_9-4_2x.png)
+
+在执行segue期间，UIKit调用当前视图控制器的方法来提供机会让我们影响segue的结果。
+- `shouldPerformSegueWithIdentifier:sender:`方法提供了阻止segue执行的机会。该方法返回`NO`会导致segue执行失败，但不会阻止其他行为的发生。例如，点击tableview的cell仍然会导致tableview调用任何相关的委托方法。
+- 源视图控制器的`prepareForSegue:sender:`方法允许我们将数据从源视图控制器传递到目标视图控制器。传递给该方法的`UIStoryboardSegue`对象包含对目标视图控制器的引用以及其他与segue相关的信息。
+
+### 创建一个unwind segue
+
+unwind segue能够移除已经被呈现的视图控制器。可以在Interface Builder中通过关联一个按钮或者其他合适的对象到当前视图控制器的Exit对象来创建unwind segue。当用户点击按钮或者与适当的对象交互时，UIKit会搜索视图控制器层次结构来找到一个能够处理unwind segue的对象。然后移除当前视图控制器和任何中间视图控制器来展示与unwind segue关联的目标视图控制器。
 
