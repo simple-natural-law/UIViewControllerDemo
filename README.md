@@ -650,5 +650,11 @@ unwind segue能够移除已经被呈现的视图控制器。可以在Interface B
 
 ![图9-5](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_unwind_linking_2x.png)
 
+在Interface Builder中创建相应的unwind segue之前，必须在发起unwind segue的视图控制器中定义一个unwind操作方法。该方法的存在是必需的，其告知Interface Builder有一个有效的unwind segue目标。
+
+使用unwind操作方法的实现来执行应用程序中特定的任何任务。UIKit会自动移除视图控制器，而不需要我们手动移除发起segue的任何视图控制器。可以使用segue对象获取正在被移除的视图控制器，以便从其中回收数据。也可以使用unwind操作方法在unwind segue结束之前更新当前视图控制器。
+
+### 以编程方式发起segue
+
 
 
