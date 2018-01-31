@@ -640,3 +640,14 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 
 unwind segue能够移除已经被呈现的视图控制器。可以在Interface Builder中通过关联一个按钮或者其他合适的对象到当前视图控制器的Exit对象来创建unwind segue。当用户点击按钮或者与适当的对象交互时，UIKit会搜索视图控制器层次结构来找到一个能够处理unwind segue的对象。然后移除当前视图控制器和任何中间视图控制器来展示与unwind segue关联的目标视图控制器。
 
+创建一个unwind segue遵循以下步骤：
+    1. 选择unwind segue执行结束后应该显示在屏幕上的视图控制器。
+    2. 在选择的视图控制器中定义一个unwind 操作方法，这个操作方法的Objective-C语法如下：
+        `- (IBAction)myUnwindAction:(UIStoryboardSegue*)unwindSegue`
+    3. 导航到发起unwind segue的视图控制器。
+    4. 按住Control键点击执行unwind segue的按钮（或其他对象）。该按钮（或其他对象）应该存在于需要被移除的视图控制器中。
+    5. 拖动到视图控制器顶部的`Exit`对象。
+    ![图9-5](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_unwind_linking_2x.png)
+    6. 在relationship panel中选择unwind操作方法。
+    
+
