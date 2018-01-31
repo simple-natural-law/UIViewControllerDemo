@@ -619,10 +619,10 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 ![图9-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_creating_relationships_2x.png)
 
 当为segue选择关系类型时，尽可能选择一个自适应segue。自适应segue会根据当前屏幕环境调整其行为。例如，Show segue的行为基于需要呈现的视图控制器而改变。非自适应segue适用于必须在iOS 7系统运行的应用程序。以下列出了自适应segue类型以及它们在应用程序中的行为：
-- Show (Push) : 该segue使用目标视图控制器的`showViewController:sender:`方法来显示新的内容。对于大多数视图控制器，该segue在源视图控制器上以模态方式呈现新内容。一些视图控制器专门覆盖该方法并使用它来实现不同的行为。例如，导航控制器将新的视图控制器推到其导航堆栈上。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
-- Show Detail (Replace) : 该segue使用目标视图控制器的`showDetailViewController:sender:`方法来显示新的内容。其仅与嵌入在`UISplitViewController`对象内的视图控制器有关。通过该segue，分割视图控制器用新的内容替换它的第二个子视图控制器（细节控制器）。大多数其他控制器以模态方式呈现新内容。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
-- Present Modally : 该segue使用指定的呈现样式和转场过渡样式以模态方式显示视图控制器。定义了相应的呈现上下文的视图控制器会处理实际的呈现。
-- Present as Popover : 在水平常规屏幕环境中，视图控制器显示在popover中。在水平紧凑屏幕环境中，视图控制器使用全屏呈现样式来被显示。
+- **Show (Push)** : 该segue使用目标视图控制器的`showViewController:sender:`方法来显示新的内容。对于大多数视图控制器，该segue在源视图控制器上以模态方式呈现新内容。一些视图控制器专门覆盖该方法并使用它来实现不同的行为。例如，导航控制器将新的视图控制器推到其导航堆栈上。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
+- **Show Detail (Replace)** : 该segue使用目标视图控制器的`showDetailViewController:sender:`方法来显示新的内容。其仅与嵌入在`UISplitViewController`对象内的视图控制器有关。通过该segue，分割视图控制器用新的内容替换它的第二个子视图控制器（细节控制器）。大多数其他控制器以模态方式呈现新内容。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
+- **Present Modally** : 该segue使用指定的呈现样式和转场过渡样式以模态方式显示视图控制器。定义了相应的呈现上下文的视图控制器会处理实际的呈现。
+- **Present as Popover** : 在水平常规屏幕环境中，视图控制器显示在popover中。在水平紧凑屏幕环境中，视图控制器使用全屏呈现样式来被显示。
 
 创建一个segue之后，选中segue对象并使用属性检查器为其分配一个标识符。在执行segue时，可以使用标识符来确定哪个segue被触发。如果视图控制器支持多个segue，那么这样做是特别有用的。标识符包含在执行segue时传递给视图控制器的`UIStoryboardSegue`对象中。
 
@@ -641,13 +641,14 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 unwind segue能够移除已经被呈现的视图控制器。可以在Interface Builder中通过关联一个按钮或者其他合适的对象到当前视图控制器的Exit对象来创建unwind segue。当用户点击按钮或者与适当的对象交互时，UIKit会搜索视图控制器层次结构来找到一个能够处理unwind segue的对象。然后移除当前视图控制器和任何中间视图控制器来展示与unwind segue关联的目标视图控制器。
 
 创建一个unwind segue遵循以下步骤：
-    1. 选择unwind segue执行结束后应该显示在屏幕上的视图控制器。
-    2. 在选择的视图控制器中定义一个unwind 操作方法，这个操作方法的Objective-C语法如下：
-        `- (IBAction)myUnwindAction:(UIStoryboardSegue*)unwindSegue`
-    3. 导航到发起unwind segue的视图控制器。
-    4. 按住Control键点击执行unwind segue的按钮（或其他对象）。该按钮（或其他对象）应该存在于需要被移除的视图控制器中。
-    5. 拖动到视图控制器顶部的`Exit`对象。
-    ![图9-5](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_unwind_linking_2x.png)
-    6. 在relationship panel中选择unwind操作方法。
-    
+1. 选择unwind segue执行结束后应该显示在屏幕上的视图控制器。
+2. 在选择的视图控制器中定义一个unwind 操作方法，这个操作方法的Objective-C语法为`- (IBAction)myUnwindAction:(UIStoryboardSegue*)unwindSegue`
+3. 导航到发起unwind segue的视图控制器。
+4. 按住Control键点击执行unwind segue的按钮（或其他对象）。该按钮（或其他对象）应该存在于需要被移除的视图控制器中。
+5. 拖动到视图控制器顶部的`Exit`对象。
+6. 在relationship panel中选择unwind操作方法。
+
+![图9-5](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_unwind_linking_2x.png)
+
+
 
