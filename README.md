@@ -656,5 +656,27 @@ unwind segue能够移除已经被呈现的视图控制器。可以在Interface B
 
 ### 以编程方式发起segue
 
+segue通常是由在storyboard文件中创建的连接触发的。但是，有时可能无法在storyboard文件中创建segue，可能是因为无法确定目标视图控制器。例如，游戏应用程序可能会根据游戏的结果转场过渡到不同的界面。在这些情况下，可以使用当前视图控制器的`performSegueWithIdentifier:sender:`方法编程方式出发segue。
 
+以下代码演示了从纵向到横向旋转时呈现特定视图控制器的segue。因为这种情况下的通知对象没有提供执行segue命令的有用信息，视图控制器就将自己指定为segue的发起者。
+```
+- (void)orientationChanged:(NSNotification *)notification
+{
+    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+    
+    if (UIDeviceOrientationIsLandscape(deviceOrientation) && !isShowingLandscapeView)
+    {
+        [self performSegueWithIdentifier:@"DisplayAlternateView" sender:self];
+        
+        isShowingLandscapeView = YES;
+    }
+    // Remainder of example omitted.
+}
+```
+
+### 创建自定义的segue
+
+Interface Builder提供了从一个视图控制器转换到另一个视图控制器的所有标准方式。如果这些方式不能满足需求，也可以创建一个自定义segue。
+
+#### segue的生命周期
 
