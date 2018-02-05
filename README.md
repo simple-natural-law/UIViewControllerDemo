@@ -1,6 +1,5 @@
 # UIViewController详解
 
-
 ## 概述
 
 视图控制器管理着构成应用程序用户界面中的一部分视图，其负责加载和处理这些视图，管理与这些视图的交互，并协调视图对其展示的数据内容的变更作出响应。视图控制器还能与其他视图控制器对象协调工作，帮助管理应用程序的整体界面。
@@ -679,4 +678,13 @@ segue通常是由在storyboard文件中创建的连接触发的。但是，有�
 Interface Builder提供了从一个视图控制器转换到另一个视图控制器的所有标准方式。如果这些方式不能满足需求，也可以创建一个自定义segue。
 
 #### segue的生命周期
+
+要理解自定义segue如何工作，就需要了解segue对象的生命周期。segue对象是`UIStoryboardSegue`类或其子类的实例，应用程序永远不会直接创建segue对象。当一个segue被触发时，UIKit会自动创建segue对象。以下是segue被触发时所发生的事情：
+1. 创建并初始化需要呈现的视图控制器。
+2. 创建segue对象并调用其`initWithIdentifier:source:destination:`方法来初始化。`identifier`是在Interface Builder中为segue提供的唯一字符串，另外两个参数为参与转换的两个视图控制器对象。
+3. 调用发起呈现的视图控制器的`prepareForSegue:sender:`方法。
+4. 调用segue对象的`perform`方法。该方法执行转换以将新的视图控制器显示在屏幕上。
+5. 释放被引用的segue对象。
+
+#### 实现一个自定义segue
 
