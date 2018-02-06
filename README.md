@@ -688,3 +688,18 @@ Interface Builder提供了从一个视图控制器转换到另一个视图控制
 
 #### 实现一个自定义segue
 
+为了实现一个自定义segue，需要子类化`UIStoryboardSegue`并实现以下方法：
+- 覆写`initWithIdentifier:source:destination:`方法，并使用该方法来初始化自定义的segue对象。需要首先调用`super`。
+- 实现`perform`方法并使用该方法来配置转场过渡动画。
+
+> **注意**：如果自定义segue类中添加了配置segue的属性，是无法在Interface Builder中配置这些属性的。但可以在触发segue的源视图控制器的`prepareForSegue:sender:`方法中配置自定义segue的附加属性。
+
+以下代码展示了一个简单的自定义segue，其只是简单的呈现了目标视图控制器，没有使用任何动画，但可以根据需要来扩展该它。
+```
+- (void)perform
+{
+    // Add your own animation code here.
+
+    [[self sourceViewController] presentViewController:[self destinationViewController] animated:NO completion:nil];
+}
+```
