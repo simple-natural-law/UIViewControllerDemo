@@ -703,3 +703,21 @@ Interface Builder提供了从一个视图控制器转换到另一个视图控制
     [[self sourceViewController] presentViewController:[self destinationViewController] animated:NO completion:nil];
 }
 ```
+
+# 自定义转场动画
+
+转场动画提供了与应用程序的界面更改有关的视觉反馈。UIKit提供了一组用于呈现一个视图控制器的标准转场动画样式，我们也可以使用自定义转场动画来实现特定的视觉效果。
+
+## 转场动画序列
+
+转场动画将一个视图控制器的内容替换为另一个视图控制器的内容。有两种类型的转场：present和dismiss。present转场会将新的视图控制器添加到应用程序的视图控制器结构层次中，而dismiss转场会从视图控制器层次结构中移除一个或者多个视图控制器。
+
+实现转场动画需要许多对象协同工作。UIKit提供了转场过程中涉及的所有对象的默认版本，我们可以自定义所有对象或者仅仅子类化UIKit提供的默认对象。
+
+### 转场动画委托对象
+
+转场动画委托对象是转场动画和自定义呈现的起点，它是我们定义的遵循`UIViewControllerTransitioningDelegate`协议的对象。其工作是为UIKit提供以下对象：
+- **Animator对象**：animator对象负责创建用于显示或者隐藏视图控制器的动画。转场动画委托对象可以提供对应的animator对象来呈现和移除视图控制器。animator对象需要遵循`UIViewControllerAnimatedTransitioning`协议。
+- **交互式animator对象**：交互式animator对象使用触摸事件或者手势识别器来驱动自定义动画的校时，其遵循`UIViewControllerInteractiveTransitioning`协议。创建交互式animator对象的最简单方法是子类化`UIPercentDrivenInteractiveTransition`类并添加事件处理代码到子类中。这个类控制着使用**现有animator对象**创建的动画的校时。转场动画委托对象可以选择我们提供的animator对象。如果我们不提供animator对象，则UIKit在视图控制器的`modalPresentationStyle`中使用标准转场动画。
+
+
