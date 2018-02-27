@@ -564,7 +564,7 @@ UIKit会将对`showViewController:sender:`和`showDetailViewController:sender:`�
 - 将视图控制器的`modalTransitionStyle`属性设置为需要的转场过渡动画样式。
 - 调用当前视图控制器的`presentViewController:animated:completion:`方法。
 
-调用`presentViewController:animated:completion:`方法的视图控制器可能不是实际发起模态呈现的视图控制器。呈现样式决定来如何呈现视图控制器，包括发起呈现的视图控制器所需的特性。例如，全屏呈现必须由覆盖全屏的视图控制器发起。如果当前视图控制器不合适，UIKit将遍历视图控制器层次结构，直到找到一个为止。UIKit在完成模态呈现后，会更新受影响的视图控制器的`presentsViewController`和`presentedViewController`属性。
+调用`presentViewController:animated:completion:`方法的视图控制器可能不是实际发起模态呈现的视图控制器。呈现样式决定来如何呈现视图控制器，包括发起呈现的视图控制器所需的特性。例如，全屏呈现必须由覆盖全屏的视图控制器发起。如果当前视图控制器不合适，UIKit将遍历视图控制器层次结构，直到找到一个为止。UIKit在完成模态呈现后，会更新受影响的视图控制器的`presentingViewController`和`presentedViewController`属性。
 
 #### 在Popover中呈现一个视图控制器
 
@@ -718,6 +718,13 @@ Interface Builder提供了从一个视图控制器转换到另一个视图控制
 
 转场动画委托对象是转场动画和自定义呈现的起点，它是我们定义的遵循`UIViewControllerTransitioningDelegate`协议的对象。其工作是为UIKit提供以下对象：
 - **Animator对象**：animator对象负责创建用于显示或者隐藏视图控制器的动画。转场动画委托对象可以提供对应的animator对象来呈现和移除视图控制器。animator对象需要遵循`UIViewControllerAnimatedTransitioning`协议。
-- **交互式animator对象**：交互式animator对象使用触摸事件或者手势识别器来驱动自定义动画的校时，其遵循`UIViewControllerInteractiveTransitioning`协议。创建交互式animator对象的最简单方法是子类化`UIPercentDrivenInteractiveTransition`类并添加事件处理代码到子类中。这个类控制着使用**现有animator对象**创建的动画的校时。转场动画委托对象可以选择我们提供的animator对象。如果我们不提供animator对象，则UIKit在视图控制器的`modalPresentationStyle`中使用标准转场动画。
+- **交互式animator对象**：交互式animator对象使用触摸事件或者手势识别器来驱动自定义动画的校时，其遵循`UIViewControllerInteractiveTransitioning`协议。创建交互式animator对象的最简单方法是子类化`UIPercentDrivenInteractiveTransition`类并添加事件处理代码到子类中。其控制着动画的校时。如果需要自行创建特定的交互式animator对象，则必须自己渲染动画的每一帧。
+- **Presentation controller**：presentation controller管理着视图控制器在屏幕上显示时的呈现样式。系统为内置的呈现样式提供了presentation controller，我们也可以为自定义的呈现样式提供自定义的presentation controller。
+
+为视图控制器的`transitioningDelegate`属性值分配一个转场动画委托对象会告知UIKit需要执行自定义转场。转场动画委托对象可以选择其自身提供的对象。如果我们没有提供animator对象，则UIKit在视图控制器的`modalTransitionStyle`属性中使用标准转场动画。
+
+图10-1显示了转场动画委托和animator对象与被呈现的视图控制器的关系。仅当视图控制器的`modalPresentationStyle`属性值设为`UIModalPresentationCustom`时，才使用presentation controller。
+
+![图10-1](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_custom-presentation-and-animator-objects_10-1_2x.png)
 
 
