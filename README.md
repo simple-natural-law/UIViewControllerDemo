@@ -727,4 +727,12 @@ Interface Builder提供了从一个视图控制器转换到另一个视图控制
 
 ![图10-1](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_custom-presentation-and-animator-objects_10-1_2x.png)
 
+### 自定义动画序列
 
+当需要呈现的视图控制器的`transitioningDelegate`属性包含一个有效对象时，UIKit会使用我们提供的自定义animator对象来呈现此视图控制器。在准备转场动画时，UIKit会调用转场动画委托的`animationControllerForPresentedController:presentingController:sourceController:`方法来检索自定义animator对象。如果有对象可用，UIKit将执行以下步骤：
+1. UIKit调用转场动画委托的`interactionControllerForPresentation:`方法来查看交互式animator对象是否可用。如果该方法返回`nil`，UIKit将执行动画而不需要用户交互。
+2. UIKit调用animator对象的`transitionDuration:`方法来获取动画时长。
+3. UIKit调用适当的方法来启动动画：
+    - 对于非交互式动画，UIKit调用animator对象的`animateTransition:`方法。
+    - 对于交互式动画，UIKit调用交互式animator对象的`startInteractiveTransition:`方法。
+4. UIKit等待aniamtor对象调用转场上下文对象的`completeTransition:`方法。自定义animator对象会在动画执行完毕后，在动画的completion block中调用该方法。调用该方法结束了转场动画，并告知UIKit可以调用`presentViewController:animated:completion:`方法中的completion handler以及animator对象的`animationEnded:`方法。
