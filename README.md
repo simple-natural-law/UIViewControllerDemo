@@ -730,9 +730,26 @@ Interface Builder提供了从一个视图控制器转换到另一个视图控制
 ### 自定义动画序列
 
 当需要呈现的视图控制器的`transitioningDelegate`属性包含一个有效对象时，UIKit会使用我们提供的自定义animator对象来呈现此视图控制器。在准备转场动画时，UIKit会调用转场动画委托的`animationControllerForPresentedController:presentingController:sourceController:`方法来检索自定义animator对象。如果有对象可用，UIKit将执行以下步骤：
-1. UIKit调用转场动画委托的`interactionControllerForPresentation:`方法来查看交互式animator对象是否可用。如果该方法返回`nil`，UIKit将执行动画而不需要用户交互。
+1. UIKit调用转场动画委托的`interactionControllerForPresentation:`方法来查看交互式animator对象是否可用。如果该方法返回`nil`，UIKit将执行动画而不需要发生用户交互。
 2. UIKit调用animator对象的`transitionDuration:`方法来获取动画时长。
 3. UIKit调用适当的方法来启动动画：
     - 对于非交互式动画，UIKit调用animator对象的`animateTransition:`方法。
     - 对于交互式动画，UIKit调用交互式animator对象的`startInteractiveTransition:`方法。
-4. UIKit等待aniamtor对象调用转场上下文对象的`completeTransition:`方法。自定义animator对象会在动画执行完毕后，在动画的completion block中调用该方法。调用该方法结束了转场动画，并告知UIKit可以调用`presentViewController:animated:completion:`方法中的completion handler以及animator对象的`animationEnded:`方法。
+4. UIKit等待aniamtor对象调用转场动画上下文对象的`completeTransition:`方法。自定义animator对象会在动画执行完毕后，在动画的completion block中调用该方法。调用该方法结束了转场动画，并告知UIKit可以调用`presentViewController:animated:completion:`方法中的completion handler以及animator对象的`animationEnded:`方法。
+
+移除视图控制器时，UIKit会调用转场动画委托的`animationControllerForDismissedController:`方法并执行以下步骤：
+1. UIKit调用转场动画委托的`interactionControllerForDismissal:`方法来查看交互式animator对象是否可用。如果该方法返回`nil`，UIKit将执行动画而不需要发生用户交互。
+2. UIKit调用animator对象的`transitionDuration:`方法来获取动画时长。
+3. UIKit调用适当的方法来启动动画：
+    - 对于非交互式动画，UIKit调用aniamtor对象的`animateTransition:`方法。
+    - 对于交互式动画，UIKit调用交互式animator对象的`startInteractiveTransition:`方法。
+4. UIKit等待animator对象调用转场动画上下文对象的`completeTransition:`方法。自定义animator对象会在动画执行完毕后，在动画的completion block中调用该方法。调用该方法结束了转场动画，并告知UIKit可以调用`dismissViewControllerAnimated:completion:`方法中的completion handler以及animator对象的`animationEnded:`方法。
+
+> **重要**：在动画结束时调用`completeTransition:`方法是必需的。在调用该方法之前，UIKit不会结束转场动画并将控制器返回给应用程序。
+
+### 转场动画上下文对象
+
+在转场动画开始执行前，UIKit会创建一个转场动画上下文对象，该转场动画上下文对象会保存关于如何执行动画的信息。转场动画上下文对象是我们代码的重要组成部分，它实现了`UIViewControllerContextTransitioning`协议并存储对转场动画中涉及的视图控制器和视图的引用。它还存储有关如何执行转场动画的信息，包括动画是否为交互式。animator对象需要所有这些信息来设置和执行实际的动画。
+
+> **重要**：在设置自定义动画时，请始终使用转场动画上下文对象中的对象和数据，不要使用自己管理的任何缓存信息。转场动画可能发生在各种情况下，其中一些情况可能会改变动画参数。转场动画上下文对象能够保证执行动画所需的信息正确，而在调用animator对象的方法时，我们自己缓存的信息可能已经过时。
+
