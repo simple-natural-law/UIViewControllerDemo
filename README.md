@@ -753,3 +753,50 @@ Interface Builder提供了从一个视图控制器转换到另一个视图控制
 
 > **重要**：在设置自定义动画时，请始终使用转场动画上下文对象中的对象和数据，不要使用自己管理的任何缓存信息。转场动画可能发生在各种情况下，其中一些情况可能会改变动画参数。转场动画上下文对象能够保证执行动画所需的信息正确，而在调用animator对象的方法时，我们自己缓存的信息可能已经过时。
 
+图10-2显示了转场动画上下文对象如何与其他对象进行交互。animator对象在其`animateTransition:`方法中接收转场动画上下文对象，我们创建的动画应该在应该在提供的容器视图中执行。例如，当呈现一个视图控制器时，将该视图控制器的视图添加到容器视图中。容器视图可能是window或者常规视图，但其始终被配置去执行动画。
+
+![图10-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_transitioning-context-object_10-2_2x.png)
+
+有关转场动画上下文对象的更多信息，请参看[UIViewControllerContextTransitioning Protocol Reference](https://developer.apple.com/documentation/uikit/uiviewcontrollercontexttransitioning)。
+
+### 转场动画协调器
+
+对于系统提供的转场动画和自定义动画，UIKit都会创建一个转场动画协调器对象来促成我们可能需要执行的任何额外动画。除了呈现和移除视图控制器外，当屏幕旋转或者视图控制器的frame更改时，也可能会触发转场动画。所有的转场动画都意味着对视图层次结构的更改。转场动画协调器是一种跟踪这些更高并同时执行额外动画的方式。要访问转场动画协调器，请获取参与转场的视图控制器的`transitionCoordinator`属性，转场动画协调器仅在转场动画执行过程中存在。
+
+图10-3显示了转场动画协调器与参与转换的视图控制器之间的关系。使用转场动画协调器获取有关转场动画的信息，并注册想要与转场动画一起同时执行的动画块。转场动画协调器遵循`UIViewControllerTransitionCoordinatorContext`协议，该协议提供时间信息、有关动画当前状态的信息以及转场过程中涉及的视图和视图控制器。当注册的动画快被执行时，同样会接收到一个具有含有相同信息的转场动画上下文对象。
+
+![图10-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_transition-coordinator-objects_10-3_2x.png)
+
+有关转场动画协调器对象的更多信息，请参看[UIViewControllerTransitionCoordinator Protocol Reference](https://developer.apple.com/documentation/uikit/uiviewcontrollertransitioncoordinator?language=objc)。
+有关可用于配置动画的上下文信息的信息，请参看[UIViewControllerTransitionCoordinatorContext Protocol Reference](https://developer.apple.com/documentation/uikit/uiviewcontrollertransitioncoordinatorcontext?language=objc)。
+
+## 使用自定义动画来呈现一个视图控制器
+
+要使用自定义动画来呈现一个视图控制器，需要在现有视图控制器的操作方法中执行以下操作：
+1. 创建需要呈现的视图控制器。
+2. 创建自定义转场动画委托对象并将其分配给视图控制器的`transitioningDelegate`属性。转场动画委托的方法应该在被访问前创建并返回自定义的animator对象。
+3. 调用`presentViewController:animated:completion:`方法来呈现视图控制器。
+
+当我们调用`presentViewController:animated:completion:`方法时，UIKit会启动转场。转场会在runloop的下一周期开始执行并继续，直到自定义animator对象调用`completeTransition:`方法。交互式转场允许我们在转场过程中处理触摸事件，但非交互式转场会在aniamtor对象指定的持续时间内运行。
+
+## 实现转场动画委托方法
+
+转场动画委托的目的是创建并返回自定义animator对象。以下代码展示了转场动画委托方法的实现是多么简单。本示例创建并返回一个自定义aniamtor对象，大部分实际工作都由aniamtor对象本身处理。
+```
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    MyAnimator* animator = [[MyAnimator alloc] init];
+    return animator;
+}
+```
+转场动画委托的其他方法的实现与上面的方法一样简单。可以结合自定义逻辑，根据应用程序的当前状态返回不同的aniamtor对象。有关转场动画委托方法的更多信息，可以参看[UIViewControllerTransitioningDelegate Protocol Reference](https://developer.apple.com/documentation/uikit/uiviewcontrollertransitioningdelegate?language=objc)。
+
+## 实现自定义animator对象
+
+animator对象是任何符合`UIViewControllerAnimatedTransitioning`协议的对象。animator对象创建在固定时间段内执行的动画。aniamtor对象的关键是其`animateTransition:`方法，可以使用该方法来创建实际的动画。动画过程大致分为以下几个部分：
+1. 获取动画参数。
+2. 使用Core Animation或者UIView动画方法创建动画。
+3. 清理并完成转场动画。
+
+### 获取动画参数
+
+传递给`animateTransition:`方法的转场动画上下文对象包含执行动画时需要使用的数据。绝对不要使用自己的缓存信息或者从视图控制器获取的信息，因为可以从转场动画上下文对象中获取更多最新信息，并且呈现和移除视图控制器时会涉及视图控制器之外的对象。例如，使用自定义呈现样式的视图控制器可能会添加一个背景视图作为该视图控制器的一部分。转场动画上下文对象会考虑额外的视图和对象，并为我们提供正确的视图去执行动画。
