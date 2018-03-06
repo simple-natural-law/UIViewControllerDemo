@@ -815,3 +815,81 @@ animator对象是任何符合`UIViewControllerAnimatedTransitioning`协议的对
 ### 创建转场动画
 
 在典型的转场过程中，需要呈现的视图控制器的视图动画显示到屏幕上。其他视图也可能执行动画，该动画属于整个转场动画的一部分。动画的主要目标始终是视图被添加到视图层次结构中。
+
+- 呈现动画：
+    - 使用`viewControllerForKey:`和`viewForKey:`方法来得到转场过程中涉及的视图控制器和视图。
+    - 设置"to"视图的起始位置，以及设置其他任何属性的起始值。
+    - 从转场动画上下文对象的`finalFrameForViewController:`方法获取“to”视图的最终位置。
+    - 添加“to”视图到容器视图上。
+    - 创建动画。
+        - 在动画Block中，将“to”视图从起始位置动画到在容器视图中的最终位置。同时，将其他任何属性也设置为它们的最终值。
+        - 在完成Block中，调用`completeTransition:`方法并执行任何其他清理。
+
+- 移除动画：
+    - 使用`viewControllerForKey:`和`viewForKey:`方法来得到转场过程中涉及的视图控制器和视图。
+    - 计算"from"视图的最终位置，此视图属于目前被移除的已经呈现的视图控制器。
+    - 添加“to”视图到容器视图上。在执行呈现转场动画过程中，发起呈现的视图控制器的视图会在转场完成后被删除。因此，我们必须在移除转场动画过程中将该视图添加回容器视图中。
+    - 创建动画。
+        - 在动画Block中，将“from”视图从起始位置动画到在容器视图中的最终位置。同时，将其他任何属性也设置为它们的最终值。
+        - 在完成Block中，从视图层中移除“from”视图并调用`completeTransition:`方法并执行需要的任何其他清理。
+        
+图10-5显示了一个自定义的呈现和移除转场动画，它们可以对角地呈现视图。在呈现过程中，需要呈现的视图从屏幕边缘开始沿着对角线向左上方移动，直至完全可见。在移除过程中，动画方向颠倒，视图向右下方移动，直到它完全离开屏幕。
+
+![图10-5](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_custom-presentation-and-dismissal_10-5_2x.png)
+
+以下代码显示了如何实现图10-5中的转场动画：
+```
+- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    // Get the set of relevant objects.
+    UIView *containerView = [transitionContext containerView];
+    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toVC   = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+
+    UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
+    UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
+
+    // Set up some variables for the animation.
+    CGRect containerFrame = containerView.frame;
+    CGRect toViewStartFrame = [transitionContext initialFrameForViewController:toVC];
+    CGRect toViewFinalFrame = [transitionContext finalFrameForViewController:toVC];
+    CGRect fromViewFinalFrame = [transitionContext finalFrameForViewController:fromVC];
+
+    // Set up the animation parameters.
+    if (self.presenting) {
+        // Modify the frame of the presented view so that it starts
+        // offscreen at the lower-right corner of the container.
+        toViewStartFrame.origin.x = containerFrame.size.width;
+        toViewStartFrame.origin.y = containerFrame.size.height;
+    }else {
+        // Modify the frame of the dismissed view so it ends in
+        // the lower-right corner of the container view.
+        fromViewFinalFrame = CGRectMake(containerFrame.size.width,containerFrame.size.height,toView.frame.size.width,toView.frame.size.height);
+    }
+
+    // Always add the "to" view to the container.
+    // And it doesn't hurt to set its start frame.
+    [containerView addSubview:toView];
+    toView.frame = toViewStartFrame;
+
+    // Animate using the animator's own duration value.
+    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+        if (self.presenting) {
+            // Move the presented view into position.
+            [toView setFrame:toViewFinalFrame];
+        }else {
+            // Move the dismissed view offscreen.
+            [fromView setFrame:fromViewFinalFrame];
+        }
+    }completion:^(BOOL finished){
+        BOOL success = ![transitionContext transitionWasCancelled];
+
+        // After a failed presentation or successful dismissal, remove the view.
+        if ((self.presenting && !success) || (!self.presenting && success)) {
+            [toView removeFromSuperview];
+        }
+
+        // Notify UIKit that the transition has finished
+        [transitionContext completeTransition:success];
+    }];
+}
+```
