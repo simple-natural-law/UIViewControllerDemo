@@ -894,7 +894,7 @@ animator对象是任何符合`UIViewControllerAnimatedTransitioning`协议的对
 }
 ```
 
-### 动画结束后清理
+### 动画结束后的清理
 
 在转场动画结束时，调用`completeTransition:`方法至关重要。调用该方法会告知UIKit转场动画已完成并且用户可能会开始使用所呈现的视图控制器，还会触发其他完成处理操作，包括发起呈现的视图控制器的`presentViewController:animated:completion:`方法和animator对象的`animationEnded:`方法的完成处理操作。调用`completeTransition:`方法的最佳位置在动画块的完成处理操作中。
 
@@ -1142,6 +1142,20 @@ presentation Controller负责创建和管理与呈现有关的所有自定义视
 
 # 自适应和大小的变化
 
-## 自适应模式
+## 自适应模型
 
+自适应界面能够充分利用屏幕的可用空间，适应性意味着能够调整内容以便其能够适合任何iOS设备。iOS中的自适应模型支持以简单但是动态的方式来重新排列和调整内容，以响应更改。当使用这种模型时，一个应用程序只需要很少的额外代码就可以适应不同的屏幕尺寸（如图12-1所示）。
 
+![图12-1](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_AdaptiveModel_13-1_2x.png)
+
+Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们可以定义管理视图控制器视图布局的规则（称为约束）。可以在Interface Builder中以可视化方式创建约束，也可以在代码中编程创建约束。当父视图的大小发生变化时，iOS系统将根据我们指定的约束条件自动调整视图的大小并重新定位其余视图。
+
+特征（trait）是自适应模型的另一个重要组成部分。特征描述了视图控制器和视图必须运行的环境，特征可以帮助我们做出关于界面的高层决策。
+
+## 特征的作用
+
+当约束不足以管理布局时，视图控制器有几个机会去进行更改。视图控制器、视图和一些其他对象管理着一个特征集合，这些特征指定了与该对象关联的当前环境。下表描述了这些特征以及如何使用它们来影响用户界面。
+
+| 特征 | 示例 | 描述 |
+| horizontalSizeClass | UIUserInterfaceSizeClassCompact | 此特征表达了界面的一般宽度。使用它来做出粗略的布局决策，例如视图是垂直堆叠、并排显示、全部隐藏还是以其他方法显示。 |
+| verticalSizeClass | UIUserInterfaceSizeClassRegular | 此特征表达了界面的一般高度。如果界面设计要求所有内容都适配在屏幕上而不滚动，请使用此特征来作出布局决策。 |
