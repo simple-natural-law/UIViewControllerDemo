@@ -1140,3 +1140,8 @@ presentation Controller负责创建和管理与呈现有关的所有自定义视
 有关如何适应新的trait和size的信息，请参看[Building an Adaptive Interface](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/BuildinganAdaptiveInterface.html#//apple_ref/doc/uid/TP40007457-CH32-SW1)。
 
 
+# 自适应和大小的变化
+
+## 自适应模式
+
+
