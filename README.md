@@ -1160,3 +1160,7 @@ Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们�
 |------|-------|-------|
 | horizontalSizeClass | UIUserInterfaceSizeClassCompact | 此特征表达了界面的一般宽度。使用它来做出粗略的布局决策，例如视图是垂直堆叠、并排显示、全部隐藏还是以其他方法显示。 |
 | verticalSizeClass | UIUserInterfaceSizeClassRegular | 此特征表达了界面的一般高度。如果界面设计要求所有内容都适配在屏幕上而不滚动，请使用此特征来作出布局决策。 |
+| displayScale | 2.0 | 此特征表达内容是显示在Retina显示屏上还是标准分辨率显示屏上。使用它（根据需要）来做出像素级布局决策或者选择要显示的图像版本。 |
+| userInterfaceIdiom | UIUserInterfaceIdiomPhone | 此特征提供了向后兼容性，并表达了运行应用程序的设备类型。尽可能避免使用这个特征。对于布局决策，请改为使用horizontal 和 vertical size classes 代替。 |
+
+
