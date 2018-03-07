@@ -970,5 +970,18 @@ animator对象是任何符合`UIViewControllerAnimatedTransitioning`协议的对
 
 # 创建自定义presentation controller
 
+UIKit将视图控制器的内容与内容被呈现和显示在屏幕上的方式分开。呈现的视图控制器由底层的presentation controller对象管理，该对象管理用于显示视图控制器的视图的视觉样式。presentation controller可以执行以下操作：
+- 设置所呈现的视图控制器的大小。
+- 添加自定义视图来更改所呈现内容的视觉外观。
+- 为其任何自定义视图提供转场动画。
+- 当应用程序的屏幕环境发生变化时，调整所呈现内容的视觉外观。
+
+UIKit为标准呈现样式提供了presentation controller，当我们将视图控制器的呈现样式设置为`UIModalPresentationCustom`并提供合适的转场动画委托时，UIKit会改为使用我们自定义的presentation controller。
+
+## 自定义呈现过程
+
+当呈现一个呈现样式为`UIModalPresentationCustom`的视图控制器时，UIKit会查看一个自定义presentation controller来管理呈现过程。随着呈现的进行，UIKit会调用presentation controller的方法，使其有机会设置任何自定义视图并将视图动画到某个位置。
+
+presentation controller与任何animator对象一起工作来实现整体转场。animator对象将视图控制器的内容动画显示到屏幕上，而presentation controller处理所有其他事情。通常情况下，我们自定义的presentation controller会为其自己的视图创建动画。但是我们也可以覆写presentation controller的`presentedView`方法，让animator对象为所有或者部分视图创建动画。
 
 
