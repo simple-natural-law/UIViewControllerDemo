@@ -1082,5 +1082,61 @@ presentation Controller负责创建和管理与呈现有关的所有自定义视
     }
 }
 ```
+在呈现结束时，使用`presentationTransitionDidEnd:`方法来处理由于取消呈现所导致的任何清理。如果不满足阀值条件，交互式animator对象可能会取消转场动画。发生这种情况时，UIKit会调用`presentationTransitionDidEnd:`方法并传递`NO`值给该方法。当发生取消转场动画操作时，删除在呈现开始时添加的任何自定义视图，并将其他视图还原为之前的配置，如下所示。
+```
+- (void)presentationTransitionDidEnd:(BOOL)completed
+{
+    // If the presentation was canceled, remove the dimming view.
+    if (!completed)
+        [self.dimmingView removeFromSuperview];
+}
+```
+当视图控制器被移除时，使用`dismissalTransitionDidEnd:`方法从视图层次结构中删除自定义视图。如果想要视图动画消失，请在`dismissalTransitionDidEnd:`方法中配置这些动画。以下代码显示了在前面的例子中移除调光视图的两种方法的实现。始终检查`dismissalTransitionDidEnd:`方法的参数以确定移除是成功还是被取消。
+```
+- (void)dismissalTransitionWillBegin
+{
+    // Fade the dimming view back out.
+    if([[self presentedViewController] transitionCoordinator])
+    {
+        [[[self presentedViewController] transitionCoordinator] animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>context) {
+            [[self dimmingView] setAlpha:0.0];
+        } completion:nil];
+    }else
+    {
+        [[self dimmingView] setAlpha:0.0];
+    }
+}
+
+- (void)dismissalTransitionDidEnd:(BOOL)completed
+{
+    // If the dismissal was successful, remove the dimming view.
+    if (completed)
+        [self.dimmingView removeFromSuperview];
+}
+```
+
+## 传递presentation Controller给UIKit
+
+呈现一个视图控制器时，请执行以下操作来使用自定义presentation Controller显示视图控制器：
+- 将需要呈现的视图控制器的`UIModalPresentationCustom`属性设置为`UIModalPresentationCustom`。
+- 给需要呈现的视图控制器的`transitioningDelegate`属性分配一个转场动画委托对象。
+- 实现转场动画委托对象的`presentationControllerForPresentedViewController:presentingViewController:sourceViewController:`方法。
+
+当UIKit需要使用自定义presentation Controller时，会调用转场动画委托对象的`presentationControllerForPresentedViewController:presentingViewController:sourceViewController:`方法。该方法的实现应该以下代码那样简单，只需要创建自定义的presentation Controller，进行配置并返回。如果此方法返回`nil`，则UIKit会使用全屏呈现样式来呈现视图控制器。
+```
+- (UIPresentationController *)presentationControllerForPresentedViewController:
+(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source
+{
+    MyPresentationController* myPresentation = [[MyPresentationController] initWithPresentedViewController:presented presentingViewController:presenting];
+
+    return myPresentation;
+}
+```
+
+## 适应不同的屏幕环境
+
+在屏幕上呈现内容时，UIKit会在底层特征发生改变或者容器视图的大小发生变化时通知我们自定义的presentation Controller。这种变化通常发生在设备旋转过程中，但也可能发生在其他时间。可以使用trait和size通知来适当调整presentation Controller的自定义视图并更新为合适的呈现样式。
+
+有关如何适应新的trait和size的信息，请参看[Building an Adaptive Interface](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/BuildinganAdaptiveInterface.html#//apple_ref/doc/uid/TP40007457-CH32-SW1)。
 
 
