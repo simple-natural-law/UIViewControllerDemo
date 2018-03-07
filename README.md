@@ -1030,4 +1030,57 @@ presentation controller与任何animator对象一起工作来实现整体转场�
 }
 ```
 
+### 管理和动画自定义视图
+
+自定义呈现样式通常涉及向呈现的内容中添加自定义视图。使用自定义视图来实现纯粹的视觉装饰或者使用它们将实际行为添加到呈现中。例如，背景视图可能包含手势识别器来跟踪呈现内容边界之外的特定操作。
+
+presentation Controller负责创建和管理与呈现有关的所有自定义视图。通常情况下，在presentation Controller的初始化过程中创建自定义视图。以下代码显示了创建自己的调光视图的自定义视图控制器的初始化方法，此方法创建视图并执行一些最小配置。
+```
+- (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController presentingViewController:(UIViewController *)presentingViewController
+{
+    self = [super initWithPresentedViewController:presentedViewController presentingViewController:presentingViewController];
+    
+    if(self)
+    {
+        // Create the dimming view and set its initial appearance.
+        self.dimmingView = [[UIView alloc] init];
+        
+        [self.dimmingView setBackgroundColor:[UIColor colorWithWhite:0.0 alpha 0.4]];
+        
+        [self.dimmingView setAlpha:0.0];
+    }
+    return self;
+}
+```
+使用`presentationTransitionWillBegin`方法将自定义视图动画显示到屏幕上。在此方法的实现中，配置自定义视图并将其添加到容器视图中，如下代码所示。使用发起呈现或者呈现的视图控制器的转场动画协调器来创建任何动画。**切勿**在此方法中修改呈现的视图控制器的视图。animator对象负责将呈现的视图控制器动画显示到`frameOfPresentedViewInContainerView`方法返回的`frame`去。
+```
+- (void)presentationTransitionWillBegin
+{
+    // Get critical information about the presentation.
+    UIView* containerView = [self containerView];
+    
+    UIViewController* presentedViewController = [self presentedViewController];
+
+    // Set the dimming view to the size of the container's
+    // bounds, and make it transparent initially.
+    [[self dimmingView] setFrame:[containerView bounds]];
+    [[self dimmingView] setAlpha:0.0];
+
+    // Insert the dimming view below everything else.
+    [containerView insertSubview:[self dimmingView] atIndex:0];
+
+    // Set up the animations for fading in the dimming view.
+    if([presentedViewController transitionCoordinator])
+    {
+        [[presentedViewController transitionCoordinator] animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>context){
+            // Fade in the dimming view.
+            [[self dimmingView] setAlpha:1.0];
+        } completion:nil];
+    }else
+    {
+        [[self dimmingView] setAlpha:1.0];
+    }
+}
+```
+
 
