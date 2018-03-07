@@ -81,7 +81,7 @@
 
 由于容器视图控制器管理其子项，UIKit定义了如何在自定义容器中设置这些子项的规则。
 
-### 呈现视图控制器
+### 呈现一个视图控制器
 
 呈现一个视图控制器时，通常会隐藏当前视图控制器的内容来将当前视图控制器的内容替换为新视图控制器的内容。**呈现最常用于模态地显示新内容。**在呈现一个视图控制器时，UIKit会在呈现视图控制器和其呈现的视图控制器之间创建如下图所示的关系。
 
@@ -283,11 +283,11 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 }
 ```
 
-#### 子视图控制器之间的过渡转换动画
+#### 子视图控制器之间的转场动画
 
-当需要用一个子视图控制器动画替换另一个子视图控制器时，可以将子视图控制器的添加和删除合并到过渡转换动画过程中。在执行动画前，请确保两个子视图控制器都是容器视图控制器内容的一部分，但是让当前的子视图控制器知道它即将被移除。在动画过程中，将新子视图控制器的视图移动到位并移除旧子视图控制器的视图。动画完成后，移除旧子视图控制器。
+当需要用一个子视图控制器动画替换另一个子视图控制器时，可以将子视图控制器的添加和删除合并到转场动画过程中。在执行动画前，请确保两个子视图控制器都是容器视图控制器内容的一部分，但是让当前的子视图控制器知道它即将被移除。在动画过程中，将新子视图控制器的视图移动到位并移除旧子视图控制器的视图。动画完成后，移除旧子视图控制器。
 
-以下代码显示了如何使用过渡转换动画将一个子视图控制器替换成另一个子视图控制器的示例。在这个示例中，`transitionFromViewController:toViewController:duration:options:animations:completion:`方法会自动更新容器视图控制器的视图层次机构，不需要我们自己手动添加和删除视图。
+以下代码显示了如何使用转场动画将一个子视图控制器替换成另一个子视图控制器的示例。在这个示例中，`transitionFromViewController:toViewController:duration:options:animations:completion:`方法会自动更新容器视图控制器的视图层次机构，不需要我们自己手动添加和删除视图。
 ```
 - (void)cycleFromViewController:(UIViewController*)oldVC toViewController:(UIViewController*)newVC {
     // Prepare the two view controllers for the change.
@@ -327,7 +327,7 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
     return NO;
 }
 ```
-当有过渡转换动画发生时，根据需要调用子视图控制器的`beginAppearanceTransition:animated:`或者`endAppearanceTransition`方法。
+当有转场动画发生时，根据需要调用子视图控制器的`beginAppearanceTransition:animated:`或者`endAppearanceTransition`方法。
 ```
 -(void) viewWillAppear:(BOOL)animated {
     [self.child beginAppearanceTransition: YES animated: animated];
@@ -351,7 +351,7 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 设计、开发和测试新的容器视图控制器需要时间。虽然每个视图控制器的行为是直截了当的，但整体控制起来可能相当复杂。在自定义容器控制器时，请考虑以下提示：
 - 只访问子视图控制器的根视图。容器视图控制器只能访问每个子视图控制器的根视图，也就是子视图控制器的`view`属性，它不应该访问任何子视图控制器的其他视图。
 - 子视图控制器应该对其容器视图控制器有最少的了解。子视图控制器应该关注自己的内容。如果容器视图控制器允许其行为受到子视图控制器的影响，则应该使用委托设计模式来管理这些交互。
-- 首选使用常规视图来设计容器视图控制器。使用常规视图（而不是来自子视图控制器的视图）使我们有机会在简单的环境中测试布局约束和动画过渡转换。当常规视图能按照预期工作时，再将常规视图替换成子视图控制器的视图。
+- 首选使用常规视图来设计容器视图控制器。使用常规视图（而不是来自子视图控制器的视图）使我们有机会在简单的环境中测试布局约束和转场动画。当常规视图能按照预期工作时，再将常规视图替换成子视图控制器的视图。
 
 #### 将控制委派给子视图控制器
 
@@ -479,7 +479,7 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 `UIViewController`类支持呈现一个视图控制器，并可用于所有视图控制器对象。我们可以使用任何视图控制器来呈现其他的任何视图控制器，但UIKit可能会将请求重新路由到不同的视图控制器。正在被呈现的视图控制器会在其和呈现它的起始视图控制器之间创建一种关系，正在被呈现的视图控制器是起始视图控制器的`presentedViewController`，起始视图控制器是正在被呈现的视图控制器的`presentingViewController`。这种关系构成了视图控制器层次结构的一部分，并保持原样直到视图控制器被从屏幕上移除。
 
-### 呈现和转场过渡过程
+### 呈现和转场动画过程
 
 呈现一个视图控制器是将新内容动画化到屏幕上的快捷方式。内置于UIKit中的呈现机制允许我们使用内置或者自定义的动画显示一个新的视图控制器。实现内置的呈现和动画只需要很少的代码，UIKit会处理所有的工作。我们也可以创建自定义的呈现和动画，只需要少许额外处理，就能将其用于任何视图控制器。
 
@@ -799,11 +799,11 @@ animator对象是任何符合`UIViewControllerAnimatedTransitioning`协议的对
 
 ### 获取动画参数
 
-传递给`animateTransition:`方法的转场动画上下文对象包含执行动画时需要使用的数据。绝对不要使用自己的缓存信息或者从视图控制器获取的信息，因为可以从转场动画上下文对象中获取更多最新信息，并且呈现和移除视图控制器时会涉及视图控制器之外的对象。例如，使用自定义呈现样式的视图控制器可能会添加一个背景视图作为该视图控制器的一部分。转场动画上下文对象会考虑额外的视图和对象，并为我们提供正确的视图去执行动画。
+传递给`animateTransition:`方法的转场动画上下文对象包含执行动画时需要使用的数据。绝对不要使用自己的缓存信息或者从视图控制器获取的信息，因为可以从转场动画上下文对象中获取更多最新信息，并且呈现和移除视图控制器时会涉及视图控制器之外的对象。例如，使用presentation controller可能会添加一个背景视图作为呈现内容的一部分。转场动画上下文对象会考虑额外的视图和对象，并为我们提供正确的视图去执行动画。
 
 - 两次调用`viewControllerForKey:`方法以获得转场过程中涉及的“from”和“to”视图控制器。**切勿**假设我们已经知道哪些视图控制器参与了转场，UIKit可能会在适应新的屏幕特性环境或者响应该应用程序的请求时更改视图控制器。
 - 调用`containerView`方法来获取动画的容器视图，并将所有关键子视图添加到此视图上。例如，在呈现期间，将被呈现的视图控制器的视图添加到此视图。
-- 调用`viewForKey:`方法获取需要被添加或者移除的视图。视图控制器的视图可能不是在转场动画期间添加或者删除的唯一视图。需要呈现的视图控制器可能会将某些视图插入到也必须被添加或者删除的视图层次结构中。`viewForKey:`方法返回包含需要添加或者删除的所有内容的根视图。
+- 调用`viewForKey:`方法获取需要被添加或者移除的视图。视图控制器的视图可能不是在转场动画期间添加或者删除的唯一视图。presentation controller可能会将某些视图插入到视图层次结构中，这些视图也必须被添加或者删除。`viewForKey:`方法返回包含需要添加或者删除的所有内容的根视图。
 - 调用`finalFrameForViewController:`方法来获取被添加或者删除的视图的最终`frame`。
 
 转场动画上下文对象使用“from”和“to”命名来标识转场中涉及的视图控制器、视图和frame。“from"视图控制器始终是其视图在转场动画刚开始时就在屏幕上的视图控制器，而“to”视图控制器是其视图在转场动画结束时可见的视图控制器。如图10-4所示，“from”和“to”视图控制器在呈现和移除之间交换位置。
@@ -893,3 +893,73 @@ animator对象是任何符合`UIViewControllerAnimatedTransitioning`协议的对
     }];
 }
 ```
+
+### 动画结束后清理
+
+在转场动画结束时，调用`completeTransition:`方法至关重要。调用该方法会告知UIKit转场动画已完成并且用户可能会开始使用所呈现的视图控制器，还会触发其他完成处理操作，包括发起呈现的视图控制器的`presentViewController:animated:completion:`方法和animator对象的`animationEnded:`方法的完成处理操作。调用`completeTransition:`方法的最佳位置在动画块的完成处理操作中。
+
+因为转场动画在执行过程中能够被取消，所以应该使用转场动画上下文对象的`transitionWasCancelled`方法的返回值来确定需要进行的清理。当呈现被取消时，animator对象必须撤销对视图层次结构所做的任何修改。移除也需要采取类似的行动。
+
+## 为转场动画添加交互性
+
+使用动画交互的最简单方法是使用`UIPercentDrivenInteractiveTransition`对象。`UIPercentDrivenInteractiveTransition`对象与现有的animator对象配合使用来控制动画的时间，其使用我们提供的完成百分比来执行此操作。我们只需要配置好计算完成百分比和在每个新事件到达时更新完成百分比的代码。
+
+我们可以直接使用`UIPercentDrivenInteractiveTransition`类，也可以使用其子类。如果使用其子类，则使用子类的`init`方（或者`startInteractiveTransition:`方法）来执行事件处理代码的一次性设置。之后，使用自定义的事件处理代码来计算新的完成百分比并调用`updateInteractiveTransition:`方法。当确定已完成转场时，请调用`finishInteractiveTransition`方法。
+
+以下代码显示了`UIPercentDrivenInteractiveTransition`子类的`startInteractiveTransition:`方法的自定义实现。此方法设置了一个拖拽手势识别器来跟踪触摸事件，并将其与执行动画的容器视图相关联。该方法还保存了对转场动画上下文对象的引用以供以后使用。
+```
+- (void)startInteractiveTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    // Always call super first.
+    [super startInteractiveTransition:transitionContext];
+
+    // Save the transition context for future reference.
+    self.contextData = transitionContext;
+
+    // Create a pan gesture recognizer to monitor events.
+    self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpdate:)];
+    self.panGesture.maximumNumberOfTouches = 1;
+
+    // Add the gesture recognizer to the container view.
+    UIView* container = [transitionContext containerView];
+    [container addGestureRecognizer:self.panGesture];
+}
+```
+每当有新的触摸事件传入时，手势识别器调用其关联的操作方法。实现操作方法时，可以使用手势识别器的状态信息来确定手势是成功、失败还是仍在进行中。同时，可以使用最新的触摸事件信息来计算新的完成百分比值。
+
+以下代码显示了配置的拖拽手势识别器关联的操作方法。当有新事件传入时，此方法会使用触摸位置在垂直方向上移动的距离来计算动画的完成百分比。当手势结束时，完成转场。
+```
+- (void)handleSwipeUpdate:(UIGestureRecognizer *)gestureRecognizer {
+    UIView* container = [self.contextData containerView];
+
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        // Reset the translation value at the beginning of the gesture.
+        [self.panGesture setTranslation:CGPointMake(0, 0) inView:container];
+    }else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        // Get the current translation value.
+        CGPoint translation = [self.panGesture translationInView:container];
+
+        // Compute how far the gesture has travelled vertically,
+        // relative to the height of the container view.
+        CGFloat percentage = fabs(translation.y / CGRectGetHeight(container.bounds));
+
+        // Use the translation value to update the interactive animator.
+        [self updateInteractiveTransition:percentage];
+    }else if (gestureRecognizer.state >= UIGestureRecognizerStateEnded) {
+        // Finish the transition and remove the gesture recognizer.
+        [self finishInteractiveTransition];
+        [[self.contextData containerView] removeGestureRecognizer:self.panGesture];
+    }
+}
+```
+> **重要**：我们计算出来的值代表着动画的完成百分比。对于交互式动画，可能需要避免非线性效应。例如，动画本身的初始速度、阻尼值和非线性完成曲线。这些效应倾向于将触摸位置于任何底层视图的移动分开。
+
+## 创建与转场动画同时执行的动画
+
+转场动画过程中涉及的视图控制器可以在转场动画过程中同时执行其他动画。例如，要呈现的视图控制器可能需要在转场过程中对其自己的视图层次结构进行动画处理，并在转场开始时添加运动效果或者其他视觉效果。任何对象都可以创建动画，只要其能访问发起呈现或者被呈现的视图控制器的`transitionCoordinator`属性即可。转场动画协调器只在转场过程中才存在。
+
+要创建动画，请调用转场动画协调器的`animateAlongsideTransition:completion:`或者`animateAlongsideTransitionInView:animation:completion:`方法。我们提供的动画块将被存储直到转场动画开始，此时它们将会与其余的转场动画一起执行。
+
+## 在转场动画中使用presentation controller
+
+对于自定义呈现，我们可以提供自定义的presentation controller，为需要呈现的视图控制器提供自定义外观。presentation controller管理着与视图控制器及其内容分离的任何视图。例如，
+
