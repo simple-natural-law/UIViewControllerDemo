@@ -951,7 +951,7 @@ animator对象是任何符合`UIViewControllerAnimatedTransitioning`协议的对
     }
 }
 ```
-> **重要**：我们计算出来的值代表着动画的完成百分比。对于交互式动画，可能需要避免非线性效应。例如，动画本身的初始速度、阻尼值和非线性完成曲线。这些效应倾向于将触摸位置于任何底层视图的移动分开。
+> **重要**：我们计算出来的值代表着动画的完成百分比。对于交互式动画，可能需要避免非线性效应。例如，动画本身的初始速度、阻尼值和非线性完成曲线。这些效应倾向于将触摸位置与任何底层视图的移动分开。
 
 ## 创建与转场动画同时执行的动画
 
@@ -978,10 +978,56 @@ UIKit将视图控制器的内容与内容被呈现和显示在屏幕上的方式
 
 UIKit为标准呈现样式提供了presentation controller，当我们将视图控制器的呈现样式设置为`UIModalPresentationCustom`并提供合适的转场动画委托时，UIKit会改为使用我们自定义的presentation controller。
 
-## 自定义呈现过程
+## 自定义呈现的过程
 
 当呈现一个呈现样式为`UIModalPresentationCustom`的视图控制器时，UIKit会查看一个自定义presentation controller来管理呈现过程。随着呈现的进行，UIKit会调用presentation controller的方法，使其有机会设置任何自定义视图并将视图动画到某个位置。
 
-presentation controller与任何animator对象一起工作来实现整体转场。animator对象将视图控制器的内容动画显示到屏幕上，而presentation controller处理所有其他事情。通常情况下，我们自定义的presentation controller会为其自己的视图创建动画。但是我们也可以覆写presentation controller的`presentedView`方法，让animator对象为所有或者部分视图创建动画。
+presentation controller与任何animator对象一起工作来实现整体转场。animator对象将视图控制器的内容动画显示到屏幕上，而presentation controller处理所有其他事情。通常情况下，自定义presentation controller会为其自己的视图创建动画。但是我们也可以覆写presentation controller的`presentedView`方法，让animator对象为所有或者部分视图创建动画。
+
+在呈现过程中，UIKit：
+1. 调用转场动画委托对象的`presentationControllerForPresentedViewController:presentingViewController:sourceViewController:`方法来检索我们自定义的presentation controller。
+2. 如果存在animator对象或者交互式animator对象的话，会向转场动画委托对象请求获取它们。
+3. 调用自定义presentation controller的`presentationTransitionWillBegin`方法。在该方法的实现中，应该将任何自定义视图添加到视图层次结构中，并为这些视图创建动画。
+4. 调用presentation controller的`presentedView`方法获取需要呈现的视图。`presentedView`方法返回的视图由animator对象为其创建动画。通常情况下，该方法返回需要呈现的视图控制器的根视图。自定义presentation controller可以根据需要来决定是否使用自定义背景视图来替换该视图。如果确实指定了不同的视图，则必须将需要呈现的视图控制器的根视图嵌入到presentation controller的视图层次结构中。
+5. 执行转场动画。转场动画包括animator对象创建的主要动画以及我们配置的与主要动画一起执行的任何动画。在动画过程中，UIKit会调用presentation controller的`containerViewWillLayoutSubviews`和`containerViewDidLayoutSubviews`方法，以便我们可以根据需要调整自定义视图的布局。
+6. 在转场动画结束时，调用presentation controller的`presentationTransitionDidEnd:`方法。
+
+在移除过程中，UIKit：
+1. 从呈现的视图控制器中获取我们自定义的presentation controller。
+2. 如果存在animator对象或者交互式animator对象的话，会向转场动画委托对象请求获取它们。
+3. 调用presentation controller的`dismissalTransitionWillBegin`方法。在该方法的实现中，应该将任何自定义视图添加到视图层次结构中，并为这些视图创建动画。
+4. 调用presentation controller的`presentedView`方法获取已经呈现的视图。
+5. 执行转场动画。转场动画包括animator对象创建的主要动画以及我们配置的与主要动画一起执行的任何动画。在动画过程中，UIKit会调用presentation controller的`containerViewWillLayoutSubviews`和`containerViewDidLayoutSubviews`方法，以便我们能够删除任何自定义约束。
+6. 在转场动画结束时，调用presentation controller的`dismissalTransitionDidEnd:`方法。
+
+在呈现过程中，presentation controller的`frameOfPresentedViewInContainerView`和`presentedView`方法可能会被多次调用，因此这两个方法的实现应该尽量简单。另外，在`presentedView`方法的实现中不应该尝试去设置视图层次结构。在调用该方法时，应该已经设置好视图层次结构。
+
+## 创建自定义presentation Controller
+
+要实现自定义呈现样式，请子类化`UIPresentationController`并添加代码为自定义呈现创建视图和动画。创建自定义presentation Controller时，请考虑以下问题：
+- 想添加哪些视图。
+- 想要屏幕上的视图执行怎样的动画效果。
+- 呈现的视图控制器的大小应该是多少。
+- 呈现的内容应该如何在水平正常和水平紧凑的屏幕环境之间进行适应。
+- 呈现完成后，是否移除发起呈现的视图控制器的视图。
+
+所有这些决定都要求覆写`UIPresentationController`类的不同方法。
+
+### 设置呈现的视图控制器的Frame
+
+可以修改呈现的视图控制器的`frame`，使其仅填充部分可用空间。默认情况下，呈现的视图控制器的大小能够完全填充容器视图。要更改`frame`，请覆写presentation Controller的`frameOfPresentedViewInContainerView`方法。以下代码显示了一个示例，其中呈现的视图控制器的大小被改为仅覆盖容器视图的右半部分。在这种情况下，presentation Controller使用背景调光视图来覆盖容器视图的另一半。
+```
+- (CGRect)frameOfPresentedViewInContainerView
+{
+    CGRect presentedViewFrame = CGRectZero;
+    CGRect containerBounds = [[self containerView] bounds];
+
+    presentedViewFrame.size = CGSizeMake(floorf(containerBounds.size.width / 2.0), containerBounds.size.height);
+    
+    presentedViewFrame.origin.x = containerBounds.size.width - presentedViewFrame.size.width;
+    
+    return presentedViewFrame;
+}
+```
 
 
