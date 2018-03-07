@@ -961,5 +961,14 @@ animator对象是任何符合`UIViewControllerAnimatedTransitioning`协议的对
 
 ## 在转场动画中使用presentation controller
 
-对于自定义呈现，我们可以提供自定义的presentation controller，为需要呈现的视图控制器提供自定义外观。presentation controller管理着与被呈现的视图控制器及其内容分离的任何视图。例如，放置在被呈现的视图控制器的视图后面的调光视图就由presentation controller管理。它不管理特定视图控制器的视图的事实意味着我们可以在应用程序中使用与presentation controller相同的任何视图控制器。
+对于自定义呈现，我们可以提供自定义的presentation controller，为需要呈现的视图控制器提供自定义外观。presentation controller管理着与被呈现的视图控制器及其内容分离的任何视图。例如，放置在被呈现的视图控制器的视图后面的调光视图就由presentation controller管理。
+
+我们可以在呈现的视图控制器的转场动画代理中提供自定义presentation controller（视图控制器的`modalTransitionStyle`属性值必须为`UIModalPresentationCustom`）。presentation controller与任何animator对象并行操作。随着animator对象将视图控制器的视图动画到其最终位置，presentation controller也会同时将任何其他视图动画到它们的最终位置。在转场结束时，presentation controller有机会对视图层次结构执行任何最终调整。
+
+有关如何创建自定义presentation controller的信息，请参看[Creating Custom Presentations](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/DefiningCustomPresentations.html#//apple_ref/doc/uid/TP40007457-CH25-SW1);
+
+
+# 创建自定义presentation controller
+
+
 
