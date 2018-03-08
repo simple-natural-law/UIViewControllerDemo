@@ -1163,4 +1163,27 @@ Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们�
 | displayScale | 2.0 | 此特征表达内容是显示在Retina显示屏上还是标准分辨率显示屏上。使用它（根据需要）来做出像素级布局决策或者选择要显示的图像版本。 |
 | userInterfaceIdiom | UIUserInterfaceIdiomPhone | 此特征提供了向后兼容性，并表达了运行应用程序的设备类型。尽可能避免使用这个特征。对于布局决策，请改为使用horizontal 和 vertical size classes 代替。 |
 
+使用特征来做出关于如何呈现用户界面的决策。在Interface Builder中构建界面时，使用特征来更改显示的视图和图像，或者使用特征来应用不同的约束集合。许多UIKit类（如UIImageAsset）使用指定的特征来裁剪它们提供的信息。
+
+以下时一些提示，可以帮助我们了解何时使用不同类型的特征：
+- 使用size class对界面进行粗略更改。size class更改是一个合适的时机去添加或删除视图，添加或删除子视图控制器或更改布局约束。我们也可以不做任何事情，并让界面使用其现有布局约束去自动适应。
+- 切勿假设size class与视图的特定宽度或高度相符合。视图控制器的size class可能会因多种原因而发生更改。例如，iPhone上的容器视图控制器可能会使其某个子视图控制器在水平方向上固定来强制其以不同方式显示其内容。
+- 使用Interface Builder为每个size class指定不同的布局约束。使用Interface Builder来指定约束比编程添加和移除约束要简单得多。视图控制器通过应用其storyboard的对应的约束来自动处理size class更改。
+- 避免使用idiom信息来做出关于界面布局或界面内容的决策。在iPad和iPhone上运行的应用程序通常应显示相同的信息，并应该使用size class来进行布局决策。
+
+## 特征和大小的改变会在何时发生?
+
+特征的改变很少发生，但确实会发生。UIKit根据底层环境的变化来更新视图控制器的特征，size class特征比display scale特征更可能发生改变，idiom特征很少会改变。size class会由于以下原因而发生改变：
+- 通常情况下，由于设备的旋转，视图控制器窗口的垂直或者水平size class发生改变。
+- 容器视图控制器的垂直或者水平size class已改变。
+- 当前视图控制器的垂直或者水平size class由其容器显式更改。
+
+视图控制器层次结构中的size class更改会传递到任何子视图控制器。window对象作为该层次结构的最底层，为其根视图控制器提供baseline size class特征。当设备方向在纵向和横向之间变化时，window会更新其自己的size class信息并沿着视图控制器层次结构传递该信息。容器视图控制器可以将size class更改传递给未经修改的子视图控制器，也可以覆盖每个子视图控制器的特征。
+
+在iOS 8以上系统版本中，window的原点（origin）始终位于左上角，当设备在横向和纵向之间旋转时，window的bounds会发生改变。window的大小的变化会与任何相应的特征变化一起沿着视图控制器层次结构向下传递。对于层次结构中的每个视图控制器，UIKit会调用以下方法来报告这些更改：
+- `willTransitionToTraitCollection:withTransitionCoordinator:`方法告知每个相关的视图控制器其特征即将改变。
+- `viewWillTransitionToSize:withTransitionCoordinator:`方法告知每个相关的视图控制器其大小即将改变。
+- `traitCollectionDidChange:`方法告知每个相关的视图控制器，其特征现在已经改变了。
+
+在沿着视图控制器层次结构传递时，
 
