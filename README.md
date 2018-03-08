@@ -1209,4 +1209,39 @@ Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们�
 
 自适应界面应该对特征和尺寸的改变做出响应。在视图控制器级别，可以使用特征对显示的内容和该内容的布局进行粗略的确定。例如，在不同的size class之间切换时，可以选择更改视图属性，显示或者隐藏视图，或者显示完全不同的视图集。做出这些重大决策之后，可以选择使用尺寸更改来微调内容。
 
+### 适应特征变化
+
+特征为我们提供了一种在不同环境下配置应用程序使其有所不同的方式，我们可以使用它对界面进行粗略调整。对特征所做的大部分更改都可以直接在storyboard中完成，但有一些还需要额外的代码。
+
+#### 配置storyboard以处理不同的size class
+
+Interface Builder使我们可以轻松地将界面调整到不同的size class。storyboard编辑器支持配置不同size class的显示界面、在指定配置中删除视图以及指定不同的布局约束。 使用这些工具意味着不必在运行时以编程方式进行相同的更改。相反，UIKit会在当前size class更改时自动更新界面。
+
+图13-1显示了用于在Interface Builder中配置界面的工具。size class查看控件改变了界面的外观。使用该控件查看给定size class的界面的外观。对于单个视图，使用安装控件来查看对于给定的size class配置是否存在视图。使用复选框左侧的加号（+）按钮添加新配置。
+
+![图13-1](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/size_class_ib_setting_2x.png)
+
+image asset是存储应用程序图片资源的首选方式。每个image asset包含同一图像的多个版本，每个版本均为特定配置而设计。除了为标准分辨率显示屏和Retina显示屏指定不同的图像外，还可以为不同的水平和垂直size class指定不同的图像。使用image asset进行配置时，`UIImageView`对象会自动选择与当前size class和分辨率相关联的图像。
+
+图13-2显示了image asset的属性。更改宽度个高度属性为目录中的更多图像添加插槽。用这些图像填充这些插槽以用于每种size class组合。
+
+![图13-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/size_class_image_asset_2x.png)
+
+#### 更改子视图控制器的特征
+
+子视图控制器默认继承父视图控制器的特征。对于size class特征，每个子视图控制器都可能没有与其父视图控制器相同的特征。例如，常规环境中的视图控制器可能想要为其一个或者多个子视图控制器配置一个紧凑的size class，来反映该子视图控制器的空间减小。在实现容器视图控制器时，可以通过调用容器视图控制器的`setOverrideTraitCollection:forChildViewController:`来修改子视图控制器的特征。
+
+以下代码显示了如何创建一组新特征并将他们与子视图控制器关联。只需在父视图控制器执行这段代码一次。
+```
+UITraitCollection* horizTrait = [UITraitCollection traitCollectionWithHorizontalSizeClass:UIUserInterfaceSizeClassRegular];
+
+UITraitCollection* vertTrait = [UITraitCollection
+traitCollectionWithVerticalSizeClass:UIUserInterfaceSizeClassCompact];
+
+UITraitCollection* childTraits = [UITraitCollection
+traitCollectionWithTraitsFromCollections:@[horizTrait, vertTrait]];
+
+[self setOverrideTraitCollection:childTraits forChildViewController:self.childViewControllers[0]];
+```
+
 
