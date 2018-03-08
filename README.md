@@ -1152,7 +1152,7 @@ Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们�
 
 特征（trait）是自适应模型的另一个重要组成部分。特征描述了视图控制器和视图必须运行的环境，特征可以帮助我们做出关于界面的高层决策。
 
-## 特征的作用
+### 特征的作用
 
 当约束不足以管理布局时，视图控制器有几个机会去进行更改。视图控制器、视图和一些其他对象管理着一个特征集合，这些特征指定了与该对象关联的当前环境。下表描述了这些特征以及如何使用它们来影响用户界面。
 
@@ -1171,7 +1171,7 @@ Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们�
 - 使用Interface Builder为每个size class指定不同的布局约束。使用Interface Builder来指定约束比编程添加和移除约束要简单得多。视图控制器通过应用其storyboard的对应的约束来自动处理size class更改。
 - 避免使用idiom信息来做出关于界面布局或界面内容的决策。在iPad和iPhone上运行的应用程序通常应显示相同的信息，并应该使用size class来进行布局决策。
 
-## 特征和大小的改变会在何时发生?
+### 特征和大小的改变会在何时发生?
 
 特征的改变很少发生，但确实会发生。UIKit根据底层环境的变化来更新视图控制器的特征，size class特征比display scale特征更可能发生改变，idiom特征很少会改变。size class会由于以下原因而发生改变：
 - 通常情况下，由于设备的旋转，视图控制器窗口的垂直或者水平size class发生改变。
@@ -1191,12 +1191,16 @@ Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们�
 
 ![图12-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_RotationTraits_fig_13-2_2x.png)
 
-## 不同设备的默认size class
+### 不同设备的默认size class
 
 每个iOS设备都有一组默认的size class，我们可以在设计界面时作为指导。下表列出了设备在纵向和横向上的size class，未列在表格中的设备与具有相同屏幕尺寸的设备具有相同的size class。
 
 | 设备 | 纵向 | 横向 |
 |------|-------|-------|
 | iPad(all)<br>iPad Mini | Vertical size class: Regular<br>Horizontal size class: Regular | Vertical size class: Regular<br>Horizontal size class: Regular |
+| iPhone 6 Plus | Vertical size class: Regular<br>Horizontal size class: Compact | Vertical size class: Compact<br>Horizontal size class: Regular |
+| iPhone 6 | Vertical size class: Regular<br>Horizontal size class: Compact | Vertical size class: Compact<br>Horizontal size class: Compact |
+| iPhone 5s<br>iPhone 5c<br>iPhone 5 | Vertical size class: Regular<br>Horizontal size class: Compact | Vertical size class: Compact<br>Horizontal size class: Compact |
+| iPhone 4s | Vertical size class: Regular<br>Horizontal size class: Compact | Vertical size class: Compact<br>Horizontal size class: Compact |
 
-
+> **重要**：切勿假设应用程序以特定的size class在设备上显示。在决定如何配置某个对象时，应始终检查从该对象的特征集合中得到的size class。
