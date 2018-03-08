@@ -1243,5 +1243,14 @@ traitCollectionWithTraitsFromCollections:@[horizTrait, vertTrait]];
 
 [self setOverrideTraitCollection:childTraits forChildViewController:self.childViewControllers[0]];
 ```
+当父视图控制器的特征改变时，子视图控制器继承任何未由父视图控制器明确覆盖的特征。例如，当父视图控制器的水平size class从常规变为紧凑时，上面例子中的子视图控制器保留其常规水平size class。然而，如果`displayScale`特征发生改变，则子视图控制器会继承新值。
+
+#### 将呈现的视图控制器调整为新的样式
+
+呈现的视图控制器可以在水平常规环境和水平紧凑环境之间自动调整。当从水平常规环境切换到水平紧凑环境时，UIKit默认将内置的呈现样式更改为`UIModalPresentationFullScreen`。对于自定义呈现样式，presentation controller可以确定适应行为并相应地调整呈现内容。
+
+对于某些应用程序，适应全屏样式可能会出现问题。例如，popover通常是通过点击背景调光视图来移除的，但在popover覆盖整个屏幕的紧凑环境中这样做是不可能的，如图13-3所示。当默认的自适应样式不合适时，我们可以告诉UIKit使用不同的样式或呈现一个更适合全屏样式的完全不同的视图控制器。
+
+![图13-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_popover-in-regular-and-compact-views_13_3_2x.png)
 
 
