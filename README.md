@@ -621,7 +621,7 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 - **Show (Push)** : 该segue使用目标视图控制器的`showViewController:sender:`方法来显示新的内容。对于大多数视图控制器，该segue在源视图控制器上以模态方式呈现新内容。一些视图控制器专门覆盖该方法并使用它来实现不同的行为。例如，导航控制器将新的视图控制器推到其导航堆栈上。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
 - **Show Detail (Replace)** : 该segue使用目标视图控制器的`showDetailViewController:sender:`方法来显示新的内容。其仅与嵌入在`UISplitViewController`对象内的视图控制器有关。通过该segue，分割视图控制器用新的内容替换它的第二个子视图控制器（细节控制器）。大多数其他控制器以模态方式呈现新内容。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
 - **Present Modally** : 该segue使用指定的呈现样式和转场过渡样式以模态方式显示视图控制器。定义了相应的呈现上下文的视图控制器会处理实际的呈现。
-- **Present as Popover** : 在水平常规屏幕环境中，视图控制器显示在popover中。在水平紧凑屏幕环境中，视图控制器使用全屏呈现样式来被显示。
+- **Present as Popover** : 在水平常规屏幕环境中，视图控制器显示在Popover中。在水平紧凑屏幕环境中，视图控制器使用全屏呈现样式来被显示。
 
 创建一个segue之后，选中segue对象并使用属性检查器为其分配一个标识符。在执行segue时，可以使用标识符来确定哪个segue被触发。如果视图控制器支持多个segue，那么这样做是特别有用的。标识符包含在执行segue时传递给视图控制器的`UIStoryboardSegue`对象中。
 
@@ -1249,13 +1249,13 @@ traitCollectionWithTraitsFromCollections:@[horizTrait, vertTrait]];
 
 呈现的视图控制器可以在水平常规环境和水平紧凑环境之间自动调整。当从水平常规环境切换到水平紧凑环境时，UIKit默认将内置的呈现样式更改为`UIModalPresentationFullScreen`。对于自定义呈现样式，presentation controller可以确定适应行为并相应地调整呈现内容。
 
-对于某些应用程序，适应全屏样式可能会出现问题。例如，popover通常是通过点击背景调光视图来移除的，但在popover覆盖整个屏幕的紧凑环境中这样做是不可能的，如图13-3所示。当默认的自适应样式不合适时，我们可以告诉UIKit使用不同的样式或呈现一个更适合全屏样式的完全不同的视图控制器。
+对于某些应用程序，适应全屏样式可能会出现问题。例如，Popover通常是通过点击背景调光视图来移除的，但在Popover覆盖整个屏幕的紧凑环境中这样做是不可能的，如图13-3所示。当默认的自适应样式不合适时，我们可以告诉UIKit使用不同的样式或呈现一个更适合全屏样式的完全不同的视图控制器。
 
 ![图13-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_popover-in-regular-and-compact-views_13_3_2x.png)
 
 要更改呈现样式的默认自适应行为，请分配一个委托对象给关联的presentation controller。访问呈现的视图控制器的`presentationController`属性来获取presentation controller。在进行任何与适应性相关的更改之前，presentation controller都会询问委托对象。委托对象可以返回与默认不容的呈现样式，并且可以为presentation controller提供可选的视图控制器以进行显示。
 
-使用委托对象的`adaptivePresentationStyleForPresentationController:`方法来指定与默认不同的呈现样式。切换到紧凑环境时，唯一支持的样式是两种全屏样式或者`UIModalPresentationNone`。返回`UIModalPresentationNone`会通知presentation controller忽略紧凑环境并继续使用先前的呈现样式。在呈现popover时，忽略更改会为所有设备提供与iPad类似的弹出式行为。图13-4显示了默认的全屏适应并且没有并排适应，可以比较下结果。
+使用委托对象的`adaptivePresentationStyleForPresentationController:`方法来指定与默认不同的呈现样式。切换到紧凑环境时，唯一支持的样式是两种全屏样式或者`UIModalPresentationNone`。返回`UIModalPresentationNone`会通知presentation controller忽略紧凑环境并继续使用先前的呈现样式。在呈现Popover时，忽略更改会为所有设备提供与iPad类似的弹出式行为。图13-4显示了默认的全屏适应并且没有并排适应，可以比较下结果。
 
 ![图13-4](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_changing-adaptive-behavior-for-presented-view-controller_13-4_2x.png)
 
@@ -1263,4 +1263,19 @@ traitCollectionWithTraitsFromCollections:@[horizTrait, vertTrait]];
 
 #### 实现自适应Popover的技巧
 
+从水平正常环境切换到水平紧凑环境时，Popover需要额外的修改。水平紧凑环境的默认行为会将Popover改为全屏呈现。因为通常情况下，Popover是通过点击其背景调光视图来被移除的，改为全屏呈现就废除了移除Popover的主要方式。可以通过执行以下任一操作来补偿该行为：
+- **将Popover的视图控制器推入到现有导航堆栈上**。当有父导航控制器可用时，请移除Popover并将其视图控制器推入导航堆栈。
+- **添加控件以在全屏呈现时移除Popover**。可以将控件添加到Popover的视图控制器，但更好的选择是使用`presentationController:viewControllerForAdaptivePresentationStyle:`方法为导航控制器换掉Popover。使用导航控制器提供了一个模态界面和添加完成按钮或者其他控件（用来移除内容）的空间。
+- **使用presentation controller的委托对象去废除任何适应性更改**。获取Popover presentation controller并为其分配一个实现了`adaptivePresentationStyleForPresentationController:`方法的委托对象。从该方法返回`UIModalPresentationNone`会导致Popover继续使用之前的呈现样式。
+
+### 响应尺寸更改
+
+尺寸更改的发生有很多原因，包括以下：
+- 底层window的尺寸发生变化，通常是由于设备方向改变。
+- 父视图控制器调整其子视图控制器的尺寸。
+- presentation controller更改其呈现的视图控制器的尺寸。
+
+当尺寸发生改变时，UIKit会通过正常的布局过程自动更新可见的视图控制器层次结构的尺寸和位置。如果使用Auto Layout约束来指定视图的尺寸和位置，则应用程序会自动适应任何更改并且应该在不同屏幕尺寸的设备上运行。
+
+如果Auto Layout约束无法实现所需的外观，则可以使用`viewWillTransitionToSize:withTransitionCoordinator`方法来更改布局。还可以使用该方法创建其他动画与尺寸更改动画一起运行。例如，在界面旋转期间，可以使用转场动画协调器的`targetTransform`属性为界面的某些部分创建反向旋转矩阵。
 
