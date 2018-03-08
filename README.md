@@ -1197,5 +1197,8 @@ Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们�
 
 | 设备 | 纵向 | 横向 |
 |------|-------|-------|
-| iPad(all)\niPad Mini | Vertical size class: Regular\nHorizontal size class: Regular | Vertical size class: Regular\nHorizontal size class: Regular |
+| iPad(all)
+iPad Mini | Vertical size class: Regular
+Horizontal size class: Regular | Vertical size class: Regular
+Horizontal size class: Regular |
 
