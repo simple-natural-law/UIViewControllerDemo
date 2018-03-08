@@ -1185,5 +1185,17 @@ Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们�
 - `viewWillTransitionToSize:withTransitionCoordinator:`方法告知每个相关的视图控制器其大小即将改变。
 - `traitCollectionDidChange:`方法告知每个相关的视图控制器，其特征现在已经改变了。
 
-在沿着视图控制器层次结构传递时，
+在沿着视图控制器层次结构传递信息时，UIKit仅在有变化需要告知时才将变化告知给视图控制器。如果容器视图控制器覆盖了其子视图控制器的size class，则当容器的size class改变时，不会告知其子视图控制器。同样，如果视图控制器的视图具有固定的高度和宽度，它也不会收到大小改变通知。
+
+图12-2显示了在iPhone 6上发生旋转时视图控制器的特征和视图大小是如何更新的。从纵向到横向的旋转将屏幕的垂直size class从常规变为紧凑。size class更改后，相应视图的大小也更改，然后沿着视图控制器层次结构传递这些更改。将视图动画为新大小后，UIKit在调用视图控制器的`traitCollectionDidChange:`方法之前会应用size class和视图大小的更改。
+
+![图12-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_RotationTraits_fig_13-2_2x.png)
+
+## 不同设备的默认size class
+
+每个iOS设备都有一组默认的size class，我们可以在设计界面时作为指导。下表列出了设备在纵向和横向上的size class，未列在表格中的设备与具有相同屏幕尺寸的设备具有相同的size class。
+
+| 设备 | 纵向 | 横向 |
+|------|-------|-------|
+| iPad(all)\niPad Mini | Vertical size class: Regular\nHorizontal size class: Regular | Vertical size class: Regular\nHorizontal size class: Regular |
 
