@@ -1253,4 +1253,14 @@ traitCollectionWithTraitsFromCollections:@[horizTrait, vertTrait]];
 
 ![图13-3](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_popover-in-regular-and-compact-views_13_3_2x.png)
 
+要更改呈现样式的默认自适应行为，请分配一个委托对象给关联的presentation controller。访问呈现的视图控制器的`presentationController`属性来获取presentation controller。在进行任何与适应性相关的更改之前，presentation controller都会询问委托对象。委托对象可以返回与默认不容的呈现样式，并且可以为presentation controller提供可选的视图控制器以进行显示。
+
+使用委托对象的`adaptivePresentationStyleForPresentationController:`方法来指定与默认不同的呈现样式。切换到紧凑环境时，唯一支持的样式是两种全屏样式或者`UIModalPresentationNone`。返回`UIModalPresentationNone`会通知presentation controller忽略紧凑环境并继续使用先前的呈现样式。在呈现popover时，忽略更改会为所有设备提供与iPad类似的弹出式行为。图13-4显示了默认的全屏适应并且没有并排适应，可以比较下结果。
+
+![图13-4](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_changing-adaptive-behavior-for-presented-view-controller_13-4_2x.png)
+
+要完全替换视图控制器，请实现委托对象的`presentationController:viewControllerForAdaptivePresentationStyle:`方法。在适应紧凑型环境时，可以使用该方法将导航控制器插入视图层次结构中，或者加载专门为较小控件设计的视图控制器。
+
+#### 实现自适应Popover的技巧
+
 
