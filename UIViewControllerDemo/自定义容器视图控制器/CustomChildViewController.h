@@ -10,4 +10,6 @@
 
 @interface CustomChildViewController : UIViewController
 
+- (instancetype)initWithIdentifier:(NSString *)identifier;
+
 @end

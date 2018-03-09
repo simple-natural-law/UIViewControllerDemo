@@ -60,10 +60,10 @@
     {
         NSArray *titleArray = @[@"标题A",@"标题B",@"标题C",@"标题D"];
         
-        CustomChildViewController *childA = [[CustomChildViewController alloc] init];
-        CustomChildViewController *childB = [[CustomChildViewController alloc] init];
-        CustomChildViewController *childC = [[CustomChildViewController alloc] init];
-        CustomChildViewController *childD = [[CustomChildViewController alloc] init];
+        CustomChildViewController *childA = [[CustomChildViewController alloc] initWithIdentifier:@"childA"];
+        CustomChildViewController *childB = [[CustomChildViewController alloc] initWithIdentifier:@"childB"];
+        CustomChildViewController *childC = [[CustomChildViewController alloc] initWithIdentifier:@"childC"];
+        CustomChildViewController *childD = [[CustomChildViewController alloc] initWithIdentifier:@"childD"];
         NSArray *viewControllers = @[childA,childB,childC,childD];
         
         CustomContainerViewController *containerViewController = [[CustomContainerViewController alloc] initWithTitleArray:titleArray viewControllers:viewControllers];

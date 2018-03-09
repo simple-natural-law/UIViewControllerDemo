@@ -73,13 +73,36 @@
     
     titleLabel.text = self.titleArray[indexPath.row];
     
+    titleLabel.textColor = cell.selected ? [UIColor redColor] : [UIColor blackColor];
+    
     return cell;
 }
 
 #pragma mark- UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"row----> %ld",indexPath.row);
+    [self.contentView setContentOffset:CGPointMake(self.contentView.frame.size.width*indexPath.row, 0) animated:NO];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [collectionView reloadData];
+}
+
+#pragma mark- UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (scrollView == self.contentView)
+    {
+        int index = (int)(scrollView.contentOffset.x/scrollView.frame.size.width);
+        
+        UIViewController *childVC = self.viewControllers[index];
+        
+        if (![self.childViewControllers containsObject:childVC])
+        {
+            [self displayChildViewController:childVC atIndex:index];
+        }
+    }
 }
 
 #pragma mark- Methods
@@ -99,6 +122,7 @@
     self.collectionView.showsVerticalScrollIndicator   = NO;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
     [self.view addSubview:self.collectionView];
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];

@@ -10,15 +10,28 @@
 
 @interface CustomChildViewController ()
 
+@property (strong, nonatomic) NSString *identifier;
+
 @end
 
 @implementation CustomChildViewController
 
 - (void)dealloc
 {
-    NSLog(@"\n *** dealloc *** : %@", self);
+    NSLog(@"\n *** dealloc *** : %@---%@", self.identifier,self);
 }
 
+- (instancetype)initWithIdentifier:(NSString *)identifier
+{
+    self = [super init];
+    
+    if (self)
+    {
+        self.identifier = identifier;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,35 +39,35 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1.0];
     
-    NSLog(@"viewDidLoad");
+    NSLog(@"%@ --- viewDidLoad",self.identifier);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    NSLog(@"viewWillAppear");
+    NSLog(@"%@ --- viewWillAppear",self.identifier);
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    NSLog(@"viewDidAppear");
+    NSLog(@"%@ --- viewDidAppear",self.identifier);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    NSLog(@"viewWillDisappear");
+    NSLog(@"%@ --- viewWillDisappear",self.identifier);
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     
-    NSLog(@"viewDidDisappear");
+    NSLog(@"%@ --- viewDidDisappear",self.identifier);
 }
 
 - (void)didReceiveMemoryWarning {
