@@ -23,6 +23,12 @@
 
 @implementation CustomContainerViewController
 
+- (void)dealloc
+{
+    NSLog(@"\n *** dealloc *** : %@", self);
+}
+
+
 - (instancetype)initWithTitleArray:(NSArray<NSString *> *)titleArray viewControllers:(NSArray <UIViewController *>*)viewControllers
 {
     self = [super init];
@@ -41,8 +47,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.title = @"自定义容器视图控制器";
     
     [self setUI];
 }
@@ -81,6 +85,10 @@
 #pragma mark- Methods
 - (void)setUI
 {
+    self.title = @"自定义容器视图控制器";
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     flowLayout.itemSize = CGSizeMake(90.0, 50.0);
