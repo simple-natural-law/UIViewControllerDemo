@@ -1,6 +1,5 @@
-# UIViewController详解
+# UIViewController详解 -- 概述
 
-## 概述
 
 视图控制器管理着构成应用程序用户界面中的一部分视图，其负责加载和处理这些视图，管理与这些视图的交互，并协调视图对其展示的数据内容的变更作出响应。视图控制器还能与其他视图控制器对象协调工作，帮助管理应用程序的整体界面。
 
@@ -57,7 +56,7 @@
 
 ![图2-4](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_SizeClassChanges_fig_1-4_2x.png)
 
-根据给定的size class，可以随时进行更细粒度的尺寸更改。当用户将iPhone从纵向旋转到横向时，size class可能不会改变，但屏幕尺寸通常会改变。在使用自动布局时，UIKt会自动调整视图的尺寸和位置以匹配新维度。视图控制器可以根据需要进行其他调整。
+根据给定的size class，可以随时进行更细粒度的尺寸更改。当用户将iPhone从纵向旋转到横向时，size class可能不会改变，但屏幕尺寸通常会改变。在使用自动布局时，UIKt会自动调整视图的尺寸和位置以匹配新尺寸。视图控制器可以根据需要进行其他调整。
 
 ## 视图控制器层次结构
 
@@ -134,9 +133,14 @@
 
 `UIDocument`和`UIViewController`类之间的关系就是一个数据和接口分离的例子。具体而言，两者之间不存在默认关系。`UIDocument`对象负责协调数据的加载和保存，而`UIViewController`对象协调屏幕上的视图显示。如果需要在两个对象之间创建关系，请记住视图控制器应该只缓存文档中的信息以提高效率，实际的数据仍然属于文档对象。
 
+
 ### 适应变化
 
 应用程序可以在各种iOS设备上运行，并且视图控制器被设计为适应这些设备上不同尺寸的屏幕。并不是使用单独的视图控制器来管理不同屏幕上的内容，而是使用内置的适配性支持响应视图控制器中的尺寸和size class的更改。UIKit发送的通知使我们有机会对用户界面进行大规模和小规模的更改，而无需更改视图控制器代码的其余部分。
+
+
+# UIViewController详解 -- 定义
+
 
 ## 子类化视图控制器
 
@@ -219,7 +223,7 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 
 ![图5-1](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_structure-of-navigation-interface_5-1_2x.png)
 
-在紧凑和常规的状态下，导航控制器一次只显示一个子视图控制器。导航控制器调整其子视图控制器以适应可用空间。
+在紧凑和常规的环境下，导航控制器一次只显示一个子视图控制器。导航控制器调整其子视图控制器以适应可用空间。
 
 ### 示例：分割控制器
 
@@ -266,7 +270,7 @@ storyboard加载和显示视图控制器视图的过程非常简单。当需要�
 
 #### 移除子视图控制器
 
-要从那个容器视图控制器中删除子视图控制器，可以通过执行以下操作来删除视图控制器之间的父子关系：
+要从容器视图控制器中删除子视图控制器，可以通过执行以下操作来删除视图控制器之间的父子关系：
 - 调用子视图控制器的`willMoveToParentViewController:`方法且传入的值为`nil`。
 - 删除为子视图控制器的根视图配置的约束。
 - 从容器视图控制器的视图层中移除该子视图控制器的根视图。
@@ -473,6 +477,8 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 - 避免在恢复过程中换掉视图控制器对象所属的类。状态保存系统对它保存的视图控制器的类进行进行编码。在恢复过程中，如果应用程序返回的对象的类不匹配（或者不是原始对象的子类），则系统不会要求视图控制器解码任何状态信息。
 - 状态保存系统希望我们按照预期使用视图控制器。恢复过程依赖于视图控制器的包含关系来重建界面。如果我们没有正确使用容器视图控制器，保存系统将找不到视图控制器。例如，除非在相应的视图控制器之间存在包含关系，否则不要将视图控制器的视图嵌入到不同的视图中。
 
+# UIViewController详解 -- 呈现和转场动画
+
 ## 呈现一个视图控制器
 
 在屏幕上显示视图控制器有两种方法：将其嵌入到容器视图控制器中或者呈现它。容器视图控制器提供了一个应用程序的主要导航，但正在被呈现的视图控制器也是一个重要的导航工具。我们可以使用呈现来在当前视图控制器上层直接显示一个新的视图控制器。通常情况下，在实现模态界面时，我们需要呈现一个视图控制器，但也可以将其用于其他目的。
@@ -501,7 +507,7 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 ##### Popover样式
 
-`UIModalPresentationPopover`样式在Popover中显示视图控制器。弹出样式对于显示附加信息或者与焦点、选定对象相关的项目列表非常有用。在水平常规环境中，Popover仅覆盖部分屏幕，如下图所示。在水平紧凑的环境中，默认情况下，Popover会适应`UIModalPresentationOverFullScreen`呈现样式。点击弹出视图之外的屏幕会自动移除Popover。
+`UIModalPresentationPopover`样式在Popover中显示视图控制器。Popover对于显示附加信息或者与焦点、选定对象相关的项目列表非常有用。在水平常规环境中，Popover仅覆盖部分屏幕，如下图所示。在水平紧凑的环境中，默认情况下，Popover会适应`UIModalPresentationOverFullScreen`呈现样式。点击弹出视图之外的屏幕会自动移除Popover。
 
 ![图8-2](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_popover-style_2x.png)
 
@@ -523,13 +529,13 @@ UIKit会使用我们分配的恢复标识符去重新创建视图控制器，所
 
 `UIModalPresentationCustom`样式允许我们使用自己定义的自定义样式来呈现一个视图控制器。创建自定义样式需要子类化`UIPresentationController`，并使用其方法来将任何自定义视图动画到屏幕上，同时设置需要被呈现的视图控制器的尺寸和位置。起始控制器还处理由于其所呈现的视图控制器的特性的变化而发生的任何适应。
 
-#### 转场过渡样式
+#### 转场动画样式
 
-转场过渡样式确定了用于呈现一个视图控制器的动画类型。对于官方提供的转场过渡呈现样式，可以将其中一种标准样式分配给需要呈现的视图控制器的`modalTransitionStyle`属性。呈现一个视图控制器时，UIKit会创建与该样式相对应的动画。例如，下图说明了标准的`UIModalTransitionStyleCoverVertical`滑动转场过渡样式如何为屏幕上的视图控制器生成动画。视图控制器B开始进入屏幕时，动画滑动到视图控制器A的顶部上方。当视图控制器B被移除时，动画反转，以便B向下滑动以显示A。
+转场动画样式确定了用于呈现一个视图控制器的动画类型。对于官方提供的转场动画样式，可以将其中一种标准样式分配给需要呈现的视图控制器的`modalTransitionStyle`属性。呈现一个视图控制器时，UIKit会创建与该样式相对应的动画。例如，下图说明了标准的`UIModalTransitionStyleCoverVertical`滑动转场动画样式如何为屏幕上的视图控制器生成动画。视图控制器B开始进入屏幕时，动画滑动到视图控制器A的顶部上方。当视图控制器B被移除时，动画反转，以便B向下滑动以显示A。
 
 ![图8-4](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_SlideTransition_fig_8-1_2x.png)
 
-可以使用动画对象和转场过渡委托来创建自定义转场。动画对象创建用于将视图控制器显示到屏幕上的过渡动画。转场过渡委托在适当的时候将动画对象提供给UIKit。
+可以使用动画对象和转场动画委托对象来创建自定义转场。动画对象创建用于将视图控制器显示到屏幕上的过渡动画。转场动画委托在适当的时候将动画对象提供给UIKit。
 
 #### 呈现一个视图控制器的方式
 
@@ -551,17 +557,17 @@ UIViewController类提供了两种方式来显示视图控制器：
 当使用`showViewController:sender:`和`showDetailViewController:sender:`方法时，将新视图控制器添加到屏幕上的过程很简单：
 - 创建需要呈现的视图控制器对象。在创建视图控制器时，需要使用任何需要执行其任务的数据对其进行初始化。
 - 将视图控制器的`modalPresentationStyle`属性设置为需要的样式。这种样式可能不会在最终呈现中使用。
-- 将视图控制器的`modalTransitionStyle`属性设置为需要的转场过渡动画样式。这种样式可能不会在最终呈现中使用。
+- 将视图控制器的`modalTransitionStyle`属性设置为需要的转场动画样式。这种样式可能不会在最终呈现中使用。
 - 调用当前视图控制器的`showViewController:sender:`和`showDetailViewController:sender:`方法。
 
-UIKit会将对`showViewController:sender:`和`showDetailViewController:sender:`方法的调用转发给合适的视图控制器。该视图控制器可以决定如何最好地执行呈现，并可以根据需要更改呈现样式和转场过渡样式。例如，导航控制器可能会将视图控制器推到其导航堆栈上。
+UIKit会将对`showViewController:sender:`和`showDetailViewController:sender:`方法的调用转发给合适的视图控制器。该视图控制器可以决定如何最好地执行呈现，并可以根据需要更改呈现样式和转场动画样式。例如，导航控制器可能会将视图控制器推到其导航堆栈上。
 
 #### 模态呈现视图控制器
 
 当直接呈现视图控制器时，需要告诉UIKit如何显示新的视图控制器以及如何动画显示到屏幕上：
 - 创建需要呈现的视图控制器对象。在创建视图控制器时，需要使用任何需要执行其任务的数据对其进行初始化。
 - 将视图控制器的`modalPresentationStyle`属性设置为需要的样式。
-- 将视图控制器的`modalTransitionStyle`属性设置为需要的转场过渡动画样式。
+- 将视图控制器的`modalTransitionStyle`属性设置为需要的转场动画样式。
 - 调用当前视图控制器的`presentViewController:animated:completion:`方法。
 
 调用`presentViewController:animated:completion:`方法的视图控制器可能不是实际发起模态呈现的视图控制器。呈现样式决定来如何呈现视图控制器，包括发起呈现的视图控制器所需的特性。例如，全屏呈现必须由覆盖全屏的视图控制器发起。如果当前视图控制器不合适，UIKit将遍历视图控制器层次结构，直到找到一个为止。UIKit在完成模态呈现后，会更新受影响的视图控制器的`presentingViewController`和`presentedViewController`属性。
@@ -576,17 +582,17 @@ UIKit会将对`showViewController:sender:`和`showDetailViewController:sender:`�
     
 可以使用`UIPopoverPresentationController`对象根据需要对Popover的外观进行其他调整。Popover控制器对象还支持设置委托对象来响应在呈现过程中的更改。例如，当Popover出现、消失或在屏幕上重新定位时，可以使用委托对象来响应。有关此对象的更多信息，可以参阅[UIPopoverPresentationController Class Reference](https://developer.apple.com/documentation/uikit/uipopoverpresentationcontroller)。
 
-### 移除被呈现的视图控制器
+### 移除呈现的视图控制器
 
-要移除当前被呈现的视图控制器，需要调用该视图控制器的`dismissViewControllerAnimated:completion:`方法。也可以调用呈现该视图控制器的起始视图控制器的该方法来移除当前被呈现的视图控制器。当调用起始视图控制器的该方法时，UIKit会自动将移除请求转发给被呈现的视图控制器。
+要移除当前呈现的视图控制器，需要调用该视图控制器的`dismissViewControllerAnimated:completion:`方法。也可以调用呈现该视图控制器的起始视图控制器的该方法来移除当前被呈现的视图控制器。当调用起始视图控制器的该方法时，UIKit会自动将移除请求转发给被呈现的视图控制器。
 
 在移除视图控制器之前，请总是保持视图控制器中的重要信息。移除视图控制器会将其从视图控制器层次结构中删除，并将其视图从屏幕上移除。如果没有强引用该视图控制器，移除该视图控制器将释放与之关联的内存。
 
-如果被呈现的视图控制器必须传输数据给发起呈现的视图控制器，则使用委托设计模式来促进传输。委托可以使在应用程序的不同部分来重用视图控制器变得简单。使用委托，被呈现的视图控制器会存储对实现来协议方法的委托对象的引用。当被呈现的视图控制器需要接收数据时，其会调用委托对象的协议方法。
+如果呈现的视图控制器必须传输数据给发起呈现的视图控制器，则使用委托设计模式来促进传输。委托可以使在应用程序的不同部分来重用视图控制器变得简单。使用委托，被呈现的视图控制器会存储对实现来协议方法的委托对象的引用。当被呈现的视图控制器需要接收数据时，其会调用委托对象的协议方法。
 
 ### 在不同storyboard文件中的视图控制器之间发起呈现
 
-我们可以在同一个storyboard文件中的视图控制器之间创建segue，但不能在不同storyboard文件中的视图控制器之间创建segue。当需要呈现一个存储在不同storyboard文件中的视图控制器时，必须在呈现其之前明确地实例化这个视图控制器，如下所示。该示例以模态方式呈现视图控制器，但我们也可以将其推到导航堆栈上或以其他方式显示。
+可以在同一个storyboard文件中的视图控制器之间创建segue，但不能在不同storyboard文件中的视图控制器之间创建segue。当需要呈现一个存储在不同storyboard文件中的视图控制器时，必须在呈现其之前明确地实例化这个视图控制器，如下所示。该示例以模态方式呈现视图控制器，但我们也可以将其推到导航堆栈上或以其他方式显示。
 ```
 UIStoryboard* sb = [UIStoryboard storyboardWithName:@"SecondStoryboard" bundle:nil];
 MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewController"];
@@ -603,7 +609,7 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 
 ![图9-1](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/segue_defined_2x.png)
 
-我们不需要以编程方式触发segue。在运行时，UIKit加载与视图控制器相关联的segue，并将它们连接到相应的元素。当用户与元素产生交互时，UIKit会加载相应的视图控制器，通知应用程序即将触发segue，并执行转换。可以使用UIKit发送的通知将数据传递到新的视图控制器或者防止此种情况发生。
+不需要以编程方式触发segue。在运行时，UIKit加载与视图控制器相关联的segue，并将它们连接到相应的元素。当用户与元素产生交互时，UIKit会加载相应的视图控制器，通知应用程序即将触发segue，并执行转换。可以使用UIKit发送的通知将数据传递到新的视图控制器或者防止此种情况发生。
 
 ### 在视图控制器之间创建一个segue
 
@@ -620,14 +626,14 @@ MyViewController* myVC = [sb instantiateViewControllerWithIdentifier:@"MyViewCon
 当为segue选择关系类型时，尽可能选择一个自适应segue。自适应segue会根据当前屏幕环境调整其行为。例如，Show segue的行为基于需要呈现的视图控制器而改变。非自适应segue适用于必须在iOS 7系统运行的应用程序。以下列出了自适应segue类型以及它们在应用程序中的行为：
 - **Show (Push)** : 该segue使用目标视图控制器的`showViewController:sender:`方法来显示新的内容。对于大多数视图控制器，该segue在源视图控制器上以模态方式呈现新内容。一些视图控制器专门覆盖该方法并使用它来实现不同的行为。例如，导航控制器将新的视图控制器推到其导航堆栈上。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
 - **Show Detail (Replace)** : 该segue使用目标视图控制器的`showDetailViewController:sender:`方法来显示新的内容。其仅与嵌入在`UISplitViewController`对象内的视图控制器有关。通过该segue，分割视图控制器用新的内容替换它的第二个子视图控制器（细节控制器）。大多数其他控制器以模态方式呈现新内容。UIKit使用`targetViewControllerForAction:sender:`方法来定位源视图控制器。
-- **Present Modally** : 该segue使用指定的呈现样式和转场过渡样式以模态方式显示视图控制器。定义了相应的呈现上下文的视图控制器会处理实际的呈现。
+- **Present Modally** : 该segue使用指定的呈现样式和转场动画样式以模态方式显示视图控制器。定义了相应的呈现上下文的视图控制器会处理实际的呈现。
 - **Present as Popover** : 在水平常规屏幕环境中，视图控制器显示在Popover中。在水平紧凑屏幕环境中，视图控制器使用全屏呈现样式来被显示。
 
 创建一个segue之后，选中segue对象并使用属性检查器为其分配一个标识符。在执行segue时，可以使用标识符来确定哪个segue被触发。如果视图控制器支持多个segue，那么这样做是特别有用的。标识符包含在执行segue时传递给视图控制器的`UIStoryboardSegue`对象中。
 
 ### 在运行时修改segue的行为
 
-下图显示了当一个segue被触发时发生了什么。大多数工作发生在发起呈现的视图控制器中，其管理着到新视图控制器的转场过渡。新视图控制器的配置与以编码方式创建视图控制器并呈现它的过程基本相同。由于是在storyboard文件中配置segue，所以与segue关联的两个视图控制器必须在同一个storyboard文件中。
+下图显示了当一个segue被触发时发生了什么。大多数工作发生在发起呈现的视图控制器中，其管理着到新视图控制器的转场。新视图控制器的配置与以编码方式创建视图控制器并呈现它的过程基本相同。由于是在storyboard文件中配置segue，所以与segue关联的两个视图控制器必须在同一个storyboard文件中。
 
 ![图9-4](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_displaying-view-controller-using-segue_9-4_2x.png)
 
@@ -655,7 +661,7 @@ unwind segue能够移除已经被呈现的视图控制器。可以在Interface B
 
 ### 以编程方式发起segue
 
-segue通常是由在storyboard文件中创建的连接触发的。但是，有时可能无法在storyboard文件中创建segue，可能是因为无法确定目标视图控制器。例如，游戏应用程序可能会根据游戏的结果转场过渡到不同的界面。在这些情况下，可以使用当前视图控制器的`performSegueWithIdentifier:sender:`方法编程方式出发segue。
+segue通常是由在storyboard文件中创建的连接触发的。但是，有时可能无法在storyboard文件中创建segue，可能是因为无法确定目标视图控制器。例如，游戏应用程序可能会根据游戏的结果转场到不同的界面。在这些情况下，可以使用当前视图控制器的`performSegueWithIdentifier:sender:`方法编程方式出发segue。
 
 以下代码演示了从纵向到横向旋转时呈现特定视图控制器的segue。因为这种情况下的通知对象没有提供执行segue命令的有用信息，视图控制器就将自己指定为segue的发起者。
 ```
@@ -690,7 +696,7 @@ Interface Builder提供了从一个视图控制器转换到另一个视图控制
 
 为了实现一个自定义segue，需要子类化`UIStoryboardSegue`并实现以下方法：
 - 覆写`initWithIdentifier:source:destination:`方法，并使用该方法来初始化自定义的segue对象。需要首先调用`super`。
-- 实现`perform`方法并使用该方法来配置转场过渡动画。
+- 实现`perform`方法并使用该方法来配置转场动画。
 
 > **注意**：如果自定义segue类中添加了配置segue的属性，是无法在Interface Builder中配置这些属性的。但可以在触发segue的源视图控制器的`prepareForSegue:sender:`方法中配置自定义segue的附加属性。
 
@@ -704,7 +710,7 @@ Interface Builder提供了从一个视图控制器转换到另一个视图控制
 }
 ```
 
-# 自定义转场动画
+# UIViewController详解 -- 自定义转场动画
 
 转场动画提供了与应用程序的界面更改有关的视觉反馈。UIKit提供了一组用于呈现一个视图控制器的标准转场动画样式，我们也可以使用自定义转场动画来实现特定的视觉效果。
 
@@ -968,7 +974,7 @@ animator对象是任何符合`UIViewControllerAnimatedTransitioning`协议的对
 有关如何创建自定义presentation controller的信息，请参看[Creating Custom Presentations](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/DefiningCustomPresentations.html#//apple_ref/doc/uid/TP40007457-CH25-SW1);
 
 
-# 创建自定义presentation controller
+# UIViewController详解 -- 创建自定义presentation controller
 
 UIKit将视图控制器的内容与内容被呈现和显示在屏幕上的方式分开。呈现的视图控制器由底层的presentation controller对象管理，该对象管理用于显示视图控制器的视图的视觉样式。presentation controller可以执行以下操作：
 - 设置所呈现的视图控制器的尺寸。
@@ -1140,17 +1146,17 @@ presentation Controller负责创建和管理与呈现有关的所有自定义视
 有关如何适应新的trait和size的信息，请参看[Building an Adaptive Interface](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/BuildinganAdaptiveInterface.html#//apple_ref/doc/uid/TP40007457-CH32-SW1)。
 
 
-# 自适应和尺寸的变化
+# UIViewController详解 -- 自适应和尺寸的变化
 
-## 自适应模型
+## 自适应模式
 
-自适应界面能够充分利用屏幕的可用空间，适应性意味着能够调整内容以便其能够适合任何iOS设备。iOS中的自适应模型支持以简单但是动态的方式来重新排列和调整内容，以响应更改。当使用这种模型时，一个应用程序只需要很少的额外代码就可以适应不同的屏幕尺寸（如图12-1所示）。
+自适应界面能够充分利用屏幕的可用空间，适应性意味着能够调整内容以便其能够适合任何iOS设备。iOS中的自适应模式支持以简单但是动态的方式来重新排列和调整内容，以响应更改。当使用这种模式时，一个应用程序只需要很少的额外代码就可以适应不同的屏幕尺寸（如图12-1所示）。
 
 ![图12-1](https://developer.apple.com/library/content/featuredarticles/ViewControllerPGforiPhoneOS/Art/VCPG_AdaptiveModel_13-1_2x.png)
 
 Auto Layout是构建自适应界面的重要工具。使用Auto Layout，我们可以定义管理视图控制器视图布局的规则（称为约束）。可以在Interface Builder中以可视化方式创建约束，也可以在代码中编程创建约束。当父视图的尺寸发生变化时，iOS系统将根据我们指定的约束条件自动调整视图的尺寸并重新定位其余视图。
 
-特征（trait）是自适应模型的另一个重要组成部分。特征描述了视图控制器和视图必须运行的环境，特征可以帮助我们做出关于界面的高层决策。
+特征（trait）是自适应模式的另一个重要组成部分。特征描述了视图控制器和视图必须运行的环境，特征可以帮助我们做出关于界面的高层决策。
 
 ### 特征的作用
 
