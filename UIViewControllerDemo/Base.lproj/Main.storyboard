@@ -70,10 +70,10 @@
             </objects>
             <point key="canvasLocation" x="1716" y="-515.8920539730135"/>
         </scene>
-        <!--呈现一个视图控制器-->
+        <!--自定义容器视图控制器-->
         <scene sceneID="7nJ-kn-0Vd">
             <objects>
-                <viewController storyboardIdentifier="PresentingViewController" title="呈现一个视图控制器" id="G0N-K2-Ekb" customClass="PresentingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomContainerViewController" title="自定义容器视图控制器" id="G0N-K2-Ekb" customClass="CustomContainerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t2F-NK-546"/>
                         <viewControllerLayoutGuide type="bottom" id="9x7-oK-qvx"/>

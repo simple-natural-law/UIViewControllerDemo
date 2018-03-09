@@ -1,5 +1,5 @@
 //
-//  PresentingViewController.h
+//  CustomContainerViewController.h
 //  UIViewControllerDemo
 //
 //  Created by 讯心科技 on 2018/1/18.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PresentingViewController : UIViewController
+@interface CustomContainerViewController : UIViewController
+
 
 @end

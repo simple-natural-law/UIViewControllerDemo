@@ -28,7 +28,7 @@
     backButtonItem.title = @"返回";
     self.navigationItem.backBarButtonItem = backButtonItem;
     
-    self.dataSource = @[@{@"title":@"呈现一个视图控制器",@"target":@"PresentingViewController"}];
+    self.dataSource = @[@{@"title":@"实现一个自定义容器视图控制器",@"target":@"CustomContainerViewController"}];
 }
 
 

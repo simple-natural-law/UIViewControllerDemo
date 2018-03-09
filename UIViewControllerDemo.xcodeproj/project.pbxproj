@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A76A97120109A7F00935AE4 /* PresentingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76A97020109A7F00935AE4 /* PresentingViewController.m */; };
+		1A76A97120109A7F00935AE4 /* CustomContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A76A97020109A7F00935AE4 /* CustomContainerViewController.m */; };
 		1AFB53C01FD943F5003BCFA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */; };
 		1AFB53C31FD943F5003BCFA3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53C21FD943F5003BCFA3 /* HomeViewController.m */; };
 		1AFB53C61FD943F5003BCFA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFB53C41FD943F5003BCFA3 /* Main.storyboard */; };
@@ -18,8 +18,8 @@
 
 /* Begin PBXFileReference section */
 		1A76A96D2010970B00935AE4 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		1A76A96F20109A7F00935AE4 /* PresentingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresentingViewController.h; sourceTree = "<group>"; };
-		1A76A97020109A7F00935AE4 /* PresentingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresentingViewController.m; sourceTree = "<group>"; };
+		1A76A96F20109A7F00935AE4 /* CustomContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomContainerViewController.h; sourceTree = "<group>"; };
+		1A76A97020109A7F00935AE4 /* CustomContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomContainerViewController.m; sourceTree = "<group>"; };
 		1AFB53BB1FD943F5003BCFA3 /* UIViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFB53BE1FD943F5003BCFA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -42,13 +42,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A76A96E20109A2D00935AE4 /* 呈现一个视图控制器 */ = {
+		1A76A96E20109A2D00935AE4 /* 自定义容器视图控制器 */ = {
 			isa = PBXGroup;
 			children = (
-				1A76A96F20109A7F00935AE4 /* PresentingViewController.h */,
-				1A76A97020109A7F00935AE4 /* PresentingViewController.m */,
+				1A76A96F20109A7F00935AE4 /* CustomContainerViewController.h */,
+				1A76A97020109A7F00935AE4 /* CustomContainerViewController.m */,
 			);
-			path = "呈现一个视图控制器";
+			path = "自定义容器视图控制器";
 			sourceTree = "<group>";
 		};
 		1AFB53B21FD943F4003BCFA3 = {
@@ -74,7 +74,7 @@
 				1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */,
 				1A76A96D2010970B00935AE4 /* HomeViewController.h */,
 				1AFB53C21FD943F5003BCFA3 /* HomeViewController.m */,
-				1A76A96E20109A2D00935AE4 /* 呈现一个视图控制器 */,
+				1A76A96E20109A2D00935AE4 /* 自定义容器视图控制器 */,
 				1AFB53C41FD943F5003BCFA3 /* Main.storyboard */,
 				1AFB53C71FD943F5003BCFA3 /* Assets.xcassets */,
 				1AFB53C91FD943F5003BCFA3 /* LaunchScreen.storyboard */,
@@ -158,7 +158,7 @@
 				1AFB53C31FD943F5003BCFA3 /* HomeViewController.m in Sources */,
 				1AFB53CE1FD943F5003BCFA3 /* main.m in Sources */,
 				1AFB53C01FD943F5003BCFA3 /* AppDelegate.m in Sources */,
-				1A76A97120109A7F00935AE4 /* PresentingViewController.m in Sources */,
+				1A76A97120109A7F00935AE4 /* CustomContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
