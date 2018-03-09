@@ -7,6 +7,8 @@
 //
 
 #import "HomeViewController.h"
+#import "CustomContainerViewController.h"
+#import "CustomChildViewController.h"
 
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -54,9 +56,26 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:self.dataSource[indexPath.row][@"target"]];
-    
-    [self.navigationController pushViewController:vc animated:YES];
+    if (indexPath.row == self.dataSource.count - 1)
+    {
+        NSArray *titleArray = @[@"标题A",@"标题B",@"标题C",@"标题D"];
+        
+        CustomChildViewController *childA = [[CustomChildViewController alloc] init];
+        CustomChildViewController *childB = [[CustomChildViewController alloc] init];
+        CustomChildViewController *childC = [[CustomChildViewController alloc] init];
+        CustomChildViewController *childD = [[CustomChildViewController alloc] init];
+        NSArray *viewControllers = @[childA,childB,childC,childD];
+        
+        CustomContainerViewController *containerViewController = [[CustomContainerViewController alloc] initWithTitleArray:titleArray viewControllers:viewControllers];
+        
+        [self.navigationController pushViewController:containerViewController animated:YES];
+        
+    }else
+    {
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:self.dataSource[indexPath.row][@"target"]];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

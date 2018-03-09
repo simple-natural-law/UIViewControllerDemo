@@ -10,5 +10,6 @@
 
 @interface CustomContainerViewController : UIViewController
 
+- (instancetype)initWithTitleArray:(NSArray<NSString *> *)titleArray viewControllers:(NSArray <UIViewController *>*)viewControllers;
 
 @end
