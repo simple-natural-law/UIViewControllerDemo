@@ -85,17 +85,26 @@
 #pragma mark- UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger oldIndex = self.currentIndex;
+    
     self.currentIndex = indexPath.row;
     
     [self.collectionView reloadData];
     
     [self.contentView setContentOffset:CGPointMake(self.contentView.frame.size.width*self.currentIndex, 0) animated:NO];
     
+    UIViewController *currentChildVC = self.viewControllers[oldIndex];
+    
     UIViewController *childVC = self.viewControllers[self.currentIndex];
+    
+    [currentChildVC.view removeFromSuperview];
     
     if (![self.childViewControllers containsObject:childVC])
     {
         [self displayChildViewController:childVC atIndex:self.currentIndex];
+    }else
+    {
+        [self.contentView addSubview:childVC.view];
     }
 }
 
@@ -107,15 +116,24 @@
     {
         int index = (int)(scrollView.contentOffset.x/scrollView.frame.size.width);
         
+        NSInteger oldIndex = self.currentIndex;
+        
         self.currentIndex = index;
         
         [self.collectionView reloadData];
         
-        UIViewController *childVC = self.viewControllers[index];
+        UIViewController *currentChildVC = self.viewControllers[oldIndex];
+        
+        UIViewController *childVC = self.viewControllers[self.currentIndex];
+        
+        [currentChildVC.view removeFromSuperview];
         
         if (![self.childViewControllers containsObject:childVC])
         {
-            [self displayChildViewController:childVC atIndex:index];
+            [self displayChildViewController:childVC atIndex:self.currentIndex];
+        }else
+        {
+            [self.contentView addSubview:childVC.view];
         }
     }
 }
