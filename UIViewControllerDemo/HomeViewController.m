@@ -30,7 +30,8 @@
     backButtonItem.title = @"返回";
     self.navigationItem.backBarButtonItem = backButtonItem;
     
-    self.dataSource = @[@{@"title":@"实现一个自定义容器视图控制器",@"target":@"CustomContainerViewController"}];
+    self.dataSource = @[@{@"title":@"实现一个自定义容器视图控制器",@"target":@"CustomContainerViewController"},
+                        @{@"title":@"子视图控制器之间的转场动画",@"target":@"TransitionContainerViewController"}];
 }
 
 
@@ -56,7 +57,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row == self.dataSource.count - 1)
+    if (indexPath.row == 0)
     {
         NSArray *titleArray = @[@"标题A",@"标题B",@"标题C",@"标题D"];
         

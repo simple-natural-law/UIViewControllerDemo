@@ -15,6 +15,7 @@
 		1AFB53C81FD943F5003BCFA3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AFB53C71FD943F5003BCFA3 /* Assets.xcassets */; };
 		1AFB53CB1FD943F5003BCFA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFB53C91FD943F5003BCFA3 /* LaunchScreen.storyboard */; };
 		1AFB53CE1FD943F5003BCFA3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53CD1FD943F5003BCFA3 /* main.m */; };
+		3438E5EE2053C134007A601F /* TransitionContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3438E5ED2053C134007A601F /* TransitionContainerViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		1AFB53CA1FD943F5003BCFA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AFB53CC1FD943F5003BCFA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AFB53CD1FD943F5003BCFA3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3438E5EC2053C134007A601F /* TransitionContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransitionContainerViewController.h; sourceTree = "<group>"; };
+		3438E5ED2053C134007A601F /* TransitionContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransitionContainerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +82,7 @@
 				1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */,
 				1A76A96D2010970B00935AE4 /* HomeViewController.h */,
 				1AFB53C21FD943F5003BCFA3 /* HomeViewController.m */,
+				3438E5EB2053C0A0007A601F /* 子视图控制器之间的转场动画 */,
 				1A76A96E20109A2D00935AE4 /* 自定义容器视图控制器 */,
 				1AFB53C41FD943F5003BCFA3 /* Main.storyboard */,
 				1AFB53C71FD943F5003BCFA3 /* Assets.xcassets */,
@@ -87,6 +91,15 @@
 				1AFB53CD1FD943F5003BCFA3 /* main.m */,
 			);
 			path = UIViewControllerDemo;
+			sourceTree = "<group>";
+		};
+		3438E5EB2053C0A0007A601F /* 子视图控制器之间的转场动画 */ = {
+			isa = PBXGroup;
+			children = (
+				3438E5EC2053C134007A601F /* TransitionContainerViewController.h */,
+				3438E5ED2053C134007A601F /* TransitionContainerViewController.m */,
+			);
+			path = "子视图控制器之间的转场动画";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +176,7 @@
 				1AFB53C31FD943F5003BCFA3 /* HomeViewController.m in Sources */,
 				1AFB53CE1FD943F5003BCFA3 /* main.m in Sources */,
 				1AFB53C01FD943F5003BCFA3 /* AppDelegate.m in Sources */,
+				3438E5EE2053C134007A601F /* TransitionContainerViewController.m in Sources */,
 				1A76A97120109A7F00935AE4 /* CustomContainerViewController.m in Sources */,
 				1A9F3270205276E500DB89CC /* CustomChildViewController.m in Sources */,
 			);
