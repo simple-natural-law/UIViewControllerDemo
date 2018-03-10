@@ -91,6 +91,8 @@
     
     [self.collectionView reloadData];
     
+    [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    
     [self.contentView setContentOffset:CGPointMake(self.contentView.frame.size.width*self.currentIndex, 0) animated:NO];
     
     UIViewController *currentChildVC = self.viewControllers[oldIndex];
@@ -121,6 +123,8 @@
         self.currentIndex = index;
         
         [self.collectionView reloadData];
+        
+        [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
         
         UIViewController *currentChildVC = self.viewControllers[oldIndex];
         
