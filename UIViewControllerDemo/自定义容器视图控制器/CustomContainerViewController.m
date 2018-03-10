@@ -99,15 +99,9 @@
     
     UIViewController *childVC = self.viewControllers[self.currentIndex];
     
-    [currentChildVC.view removeFromSuperview];
+    [self hideChildViewController:currentChildVC];
     
-    if (![self.childViewControllers containsObject:childVC])
-    {
-        [self displayChildViewController:childVC atIndex:self.currentIndex];
-    }else
-    {
-        [self.contentView addSubview:childVC.view];
-    }
+    [self displayChildViewController:childVC atIndex:self.currentIndex];
 }
 
 
@@ -130,15 +124,9 @@
         
         UIViewController *childVC = self.viewControllers[self.currentIndex];
         
-        [currentChildVC.view removeFromSuperview];
+        [self hideChildViewController:currentChildVC];
         
-        if (![self.childViewControllers containsObject:childVC])
-        {
-            [self displayChildViewController:childVC atIndex:self.currentIndex];
-        }else
-        {
-            [self.contentView addSubview:childVC.view];
-        }
+        [self displayChildViewController:childVC atIndex:self.currentIndex];
     }
 }
 
@@ -190,6 +178,14 @@
     [childViewController didMoveToParentViewController:self];
 }
 
+- (void)hideChildViewController:(UIViewController *)childViewController
+{
+    [childViewController willMoveToParentViewController:nil];
+    
+    [childViewController.view removeFromSuperview];
+    
+    [childViewController removeFromParentViewController];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
