@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic) UIScrollView *contentView;
 
+@property (assign, nonatomic) NSInteger currentIndex;
+
 @property (strong, nonatomic) NSArray<NSString *> *titleArray;
 
 @property (strong, nonatomic) NSArray<UIViewController *> *viewControllers;
@@ -38,6 +40,8 @@
         self.titleArray = titleArray;
         
         self.viewControllers = viewControllers;
+        
+        self.currentIndex = 0;
     }
     
     return self;
@@ -73,7 +77,7 @@
     
     titleLabel.text = self.titleArray[indexPath.row];
     
-    titleLabel.textColor = cell.selected ? [UIColor redColor] : [UIColor blackColor];
+    titleLabel.textColor = self.currentIndex == indexPath.row ? [UIColor redColor] : [UIColor blackColor];
     
     return cell;
 }
@@ -81,13 +85,20 @@
 #pragma mark- UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.contentView setContentOffset:CGPointMake(self.contentView.frame.size.width*indexPath.row, 0) animated:NO];
+    self.currentIndex = indexPath.row;
+    
+    [self.collectionView reloadData];
+    
+    [self.contentView setContentOffset:CGPointMake(self.contentView.frame.size.width*self.currentIndex, 0) animated:NO];
+    
+    UIViewController *childVC = self.viewControllers[self.currentIndex];
+    
+    if (![self.childViewControllers containsObject:childVC])
+    {
+        [self displayChildViewController:childVC atIndex:self.currentIndex];
+    }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    [collectionView reloadData];
-}
 
 #pragma mark- UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -95,6 +106,10 @@
     if (scrollView == self.contentView)
     {
         int index = (int)(scrollView.contentOffset.x/scrollView.frame.size.width);
+        
+        self.currentIndex = index;
+        
+        [self.collectionView reloadData];
         
         UIViewController *childVC = self.viewControllers[index];
         
@@ -139,7 +154,7 @@
     
     UIViewController *vc = self.viewControllers.firstObject;
     
-    [self displayChildViewController:vc atIndex:0];
+    [self displayChildViewController:vc atIndex:self.currentIndex];
 }
 
 - (void)displayChildViewController:(UIViewController *)childViewController atIndex:(NSInteger)index
