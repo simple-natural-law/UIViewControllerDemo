@@ -1,18 +1,18 @@
 //
-//  SegueDemoViewController.m
+//  CustomTransitionDemoViewController.m
 //  UIViewControllerDemo
 //
 //  Created by 讯心科技 on 2018/3/12.
 //  Copyright © 2018年 讯心科技. All rights reserved.
 //
 
-#import "SegueDemoViewController.h"
+#import "CustomTransitionDemoViewController.h"
 
-@interface SegueDemoViewController ()
+@interface CustomTransitionDemoViewController ()
 
 @end
 
-@implementation SegueDemoViewController
+@implementation CustomTransitionDemoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

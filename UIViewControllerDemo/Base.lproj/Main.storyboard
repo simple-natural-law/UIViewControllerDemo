@@ -223,10 +223,10 @@
             </objects>
             <point key="canvasLocation" x="3654" y="-1095"/>
         </scene>
-        <!--使用Segue和Unwind Segue-->
+        <!--自定义转场动画-->
         <scene sceneID="8wR-8n-I7d">
             <objects>
-                <viewController storyboardIdentifier="SegueDemoViewController" title="使用Segue和Unwind Segue" id="ZsH-6Z-jqA" customClass="SegueDemoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomTransitionDemoViewController" title="自定义转场动画" id="ZsH-6Z-jqA" customClass="CustomTransitionDemoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uPE-or-SzF"/>
                         <viewControllerLayoutGuide type="bottom" id="75M-fr-RwT"/>
