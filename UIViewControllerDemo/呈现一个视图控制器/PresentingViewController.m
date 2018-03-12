@@ -29,7 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.titleArray = @[@[@"UIModalPresentationFullScreen",@"UIModalPresentationPopover",@"UIModalPresentationOverFullScreen",@"UIModalPresentationOverCurrentContext",@"UIModalPresentationPageSheet(iPad)",@"UIModalPresentationFormSheet(iPad)"],@[@"UIModalTransitionStyleCoverVertical"]];
+    self.titleArray = @[@[@"UIModalPresentationFullScreen",@"UIModalPresentationPopover",@"UIModalPresentationOverFullScreen",@"UIModalPresentationOverCurrentContext",@"UIModalPresentationPageSheet(iPad)",@"UIModalPresentationFormSheet(iPad)",@"UIModalPresentationCustom(首页-->自定义转场动画和自定义Presentation Controller)"],@[@"UIModalTransitionStyleFlipHorizontal",@"UIModalTransitionStyleCoverVertical",@"UIModalTransitionStyleCrossDissolve",@"UIModalTransitionStylePartialCurl"]];
 }
 
 #pragma mark- UITableViewDataSource
@@ -162,6 +162,11 @@
                     }];
                 }
                     break;
+                case 6:
+                {
+                    
+                }
+                    break;
                 default:
                     break;
             }
@@ -173,10 +178,44 @@
             {
                 case 0:
                 {
+                    UIViewController *vc = [[CurrentPresentedViewController alloc] initWithTransitionStyle:UIModalTransitionStyleFlipHorizontal];
                     
+                    [self presentViewController:vc animated:YES completion:^{
+                        
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+                    }];
                 }
                     break;
+                case 1:
+                {
+                    UIViewController *vc = [[CurrentPresentedViewController alloc] initWithTransitionStyle:UIModalTransitionStyleCoverVertical];
                     
+                    [self presentViewController:vc animated:YES completion:^{
+                        
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+                    }];
+                }
+                    break;
+                case 2:
+                {
+                    UIViewController *vc = [[CurrentPresentedViewController alloc] initWithTransitionStyle:UIModalTransitionStyleCrossDissolve];
+                    
+                    [self presentViewController:vc animated:YES completion:^{
+                        
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+                    }];
+                }
+                    break;
+                case 3:
+                {
+                    UIViewController *vc = [[CurrentPresentedViewController alloc] initWithTransitionStyle:UIModalTransitionStylePartialCurl];
+                    
+                    [self presentViewController:vc animated:YES completion:^{
+                        
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+                    }];
+                }
+                    break;
                 default:
                     break;
             }

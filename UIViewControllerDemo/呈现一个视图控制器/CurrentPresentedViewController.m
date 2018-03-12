@@ -19,6 +19,19 @@
     NSLog(@"\n *** dealloc *** : %@", self);
 }
 
+- (instancetype)initWithTransitionStyle:(UIModalTransitionStyle)transitionStyle
+{
+    self = [super init];
+    
+    if (self)
+    {
+        self.modalTransitionStyle = transitionStyle;
+        
+        self.view.backgroundColor = [UIColor greenColor];
+    }
+    
+    return self;
+}
 
 - (instancetype)initWithPresentationStyle:(UIModalPresentationStyle)PresentationStyle
 {

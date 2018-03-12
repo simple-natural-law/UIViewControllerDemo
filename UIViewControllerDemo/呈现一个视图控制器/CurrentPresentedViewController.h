@@ -12,4 +12,6 @@
 
 - (instancetype)initWithPresentationStyle:(UIModalPresentationStyle)PresentationStyle;
 
+- (instancetype)initWithTransitionStyle:(UIModalTransitionStyle)transitionStyle;
+
 @end
