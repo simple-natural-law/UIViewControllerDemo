@@ -13,6 +13,7 @@
 		1A9F327620562F9D00DB89CC /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F327520562F9D00DB89CC /* ContainerViewController.m */; };
 		1A9F3279205652B400DB89CC /* ChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F3278205652B400DB89CC /* ChildViewController.m */; };
 		1A9F327D2056731100DB89CC /* CustomTransitionDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F327C2056731100DB89CC /* CustomTransitionDemoViewController.m */; };
+		1A9F328120567B4800DB89CC /* CustomPresentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F328020567B4800DB89CC /* CustomPresentationViewController.m */; };
 		1AFB53C01FD943F5003BCFA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */; };
 		1AFB53C31FD943F5003BCFA3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53C21FD943F5003BCFA3 /* HomeViewController.m */; };
 		1AFB53C61FD943F5003BCFA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFB53C41FD943F5003BCFA3 /* Main.storyboard */; };
@@ -37,6 +38,8 @@
 		1A9F3278205652B400DB89CC /* ChildViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChildViewController.m; sourceTree = "<group>"; };
 		1A9F327B2056731100DB89CC /* CustomTransitionDemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTransitionDemoViewController.h; sourceTree = "<group>"; };
 		1A9F327C2056731100DB89CC /* CustomTransitionDemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTransitionDemoViewController.m; sourceTree = "<group>"; };
+		1A9F327F20567B4800DB89CC /* CustomPresentationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomPresentationViewController.h; sourceTree = "<group>"; };
+		1A9F328020567B4800DB89CC /* CustomPresentationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPresentationViewController.m; sourceTree = "<group>"; };
 		1AFB53BB1FD943F5003BCFA3 /* UIViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFB53BE1FD943F5003BCFA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -83,6 +86,15 @@
 			path = "自定义转场动画";
 			sourceTree = "<group>";
 		};
+		1A9F327E20567B0E00DB89CC /* 自定义Presentation Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1A9F327F20567B4800DB89CC /* CustomPresentationViewController.h */,
+				1A9F328020567B4800DB89CC /* CustomPresentationViewController.m */,
+			);
+			path = "自定义Presentation Controller";
+			sourceTree = "<group>";
+		};
 		1AFB53B21FD943F4003BCFA3 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +118,7 @@
 				1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */,
 				1A76A96D2010970B00935AE4 /* HomeViewController.h */,
 				1AFB53C21FD943F5003BCFA3 /* HomeViewController.m */,
+				1A9F327E20567B0E00DB89CC /* 自定义Presentation Controller */,
 				1A9F327A205672EA00DB89CC /* 自定义转场动画 */,
 				3438E5EF2053DF3F007A601F /* 呈现一个视图控制器 */,
 				3438E5EB2053C0A0007A601F /* 子视图控制器之间的转场动画 */,
@@ -225,6 +238,7 @@
 				1A9F3279205652B400DB89CC /* ChildViewController.m in Sources */,
 				1A9F327320561DF100DB89CC /* CurrentPresentedViewController.m in Sources */,
 				3438E5F22053DF80007A601F /* PresentingViewController.m in Sources */,
+				1A9F328120567B4800DB89CC /* CustomPresentationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

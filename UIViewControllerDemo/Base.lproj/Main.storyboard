@@ -241,6 +241,24 @@
             </objects>
             <point key="canvasLocation" x="3469.5999999999999" y="993.55322338830592"/>
         </scene>
+        <!--自定义Presentation Controller-->
+        <scene sceneID="jaZ-Ur-djV">
+            <objects>
+                <viewController storyboardIdentifier="CustomPresentationViewController" title="自定义Presentation Controller" id="gnC-Ke-xsZ" customClass="CustomPresentationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sqU-PU-Eqc"/>
+                        <viewControllerLayoutGuide type="bottom" id="TB0-cK-MLo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5m8-IS-Omo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gof-tn-qd2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4255" y="994"/>
+        </scene>
         <!--Child View Controller-->
         <scene sceneID="xjd-t3-lsl">
             <objects>

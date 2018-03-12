@@ -35,7 +35,8 @@
     self.dataSource = @[@{@"title":@"实现一个自定义容器视图控制器",@"target":@"CustomContainerViewController"},
                         @{@"title":@"子视图控制器之间的转场动画",@"target":@"TransitionContainerViewController"},
                         @{@"title":@"呈现一个视图控制器",@"target":@"PresentingViewController"},
-                        @{@"title":@"自定义转场动画",@"target":@"CustomTransitionDemoViewController"}];
+                        @{@"title":@"自定义转场动画",@"target":@"CustomTransitionDemoViewController"},
+                        @{@"title":@"自定义Presentation Controller",@"target":@"CustomPresentationViewController"}];
 }
 
 
