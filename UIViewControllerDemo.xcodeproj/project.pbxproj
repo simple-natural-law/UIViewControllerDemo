@@ -74,13 +74,13 @@
 			path = "自定义容器视图控制器";
 			sourceTree = "<group>";
 		};
-		1A9F327A205672EA00DB89CC /* 使用Segue和Unwind Segue */ = {
+		1A9F327A205672EA00DB89CC /* 自定义转场动画 */ = {
 			isa = PBXGroup;
 			children = (
 				1A9F327B2056731100DB89CC /* SegueDemoViewController.h */,
 				1A9F327C2056731100DB89CC /* SegueDemoViewController.m */,
 			);
-			path = "使用Segue和Unwind Segue";
+			path = "自定义转场动画";
 			sourceTree = "<group>";
 		};
 		1AFB53B21FD943F4003BCFA3 = {
@@ -106,7 +106,7 @@
 				1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */,
 				1A76A96D2010970B00935AE4 /* HomeViewController.h */,
 				1AFB53C21FD943F5003BCFA3 /* HomeViewController.m */,
-				1A9F327A205672EA00DB89CC /* 使用Segue和Unwind Segue */,
+				1A9F327A205672EA00DB89CC /* 自定义转场动画 */,
 				3438E5EF2053DF3F007A601F /* 呈现一个视图控制器 */,
 				3438E5EB2053C0A0007A601F /* 子视图控制器之间的转场动画 */,
 				1A76A96E20109A2D00935AE4 /* 自定义容器视图控制器 */,

@@ -234,51 +234,12 @@
                     <view key="view" contentMode="scaleToFill" id="8lS-jP-fzY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pes-3M-iJF">
-                                <rect key="frame" x="147.5" y="80" width="80" height="40"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="WII-ug-95U"/>
-                                    <constraint firstAttribute="width" constant="80" id="hxk-lw-jAx"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Push">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="WRt-lk-B1j" kind="show" id="eW5-w7-yPF"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Pes-3M-iJF" firstAttribute="top" secondItem="uPE-or-SzF" secondAttribute="bottom" constant="60" id="JjR-BN-TBX"/>
-                            <constraint firstItem="Pes-3M-iJF" firstAttribute="centerX" secondItem="8lS-jP-fzY" secondAttribute="centerX" id="bhB-2a-Vdb"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4nh-Zs-Xh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3469.5999999999999" y="993.55322338830592"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="ikp-Ic-b1j">
-            <objects>
-                <viewController id="WRt-lk-B1j" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="DWB-Az-FMY"/>
-                        <viewControllerLayoutGuide type="bottom" id="OEE-rf-8oo"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ucj-kq-ak3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gsn-j4-CKo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4209" y="990"/>
         </scene>
         <!--Child View Controller-->
         <scene sceneID="xjd-t3-lsl">
