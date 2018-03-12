@@ -122,7 +122,7 @@
                 {
                     UIViewController *vc = [[CurrentPresentedViewController alloc] initWithPresentationStyle:UIModalPresentationOverFullScreen];
                     
-                    vc.view.backgroundColor = [UIColor clearColor];
+                    vc.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.6];
                     
                     [self presentViewController:vc animated:YES completion:^{
                         
