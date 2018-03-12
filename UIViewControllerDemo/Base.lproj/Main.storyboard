@@ -171,10 +171,13 @@
                                     <segue destination="7kj-m8-Fuj" kind="embed" id="ztS-os-aUW"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNt-BD-Cxw">
-                                <rect key="frame" x="236" y="103" width="90" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNt-BD-Cxw">
+                                <rect key="frame" x="143" y="308.5" width="90" height="50"/>
                                 <color key="backgroundColor" red="0.94509803920000002" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="8yF-iD-UeN"/>
+                                    <constraint firstAttribute="width" constant="90" id="Ilk-WB-dqg"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="dismiss">
                                     <color key="titleColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -192,8 +195,10 @@
                             <constraint firstItem="ihm-xN-hkf" firstAttribute="top" secondItem="RfT-NH-TNM" secondAttribute="top" id="GB1-KP-CDw"/>
                             <constraint firstItem="ihm-xN-hkf" firstAttribute="width" secondItem="RfT-NH-TNM" secondAttribute="width" multiplier="0.5" id="Uc8-xs-r5M"/>
                             <constraint firstItem="S1v-dC-fGc" firstAttribute="leading" secondItem="ihm-xN-hkf" secondAttribute="trailing" id="Vw7-cN-d0Z"/>
+                            <constraint firstItem="FNt-BD-Cxw" firstAttribute="centerY" secondItem="RfT-NH-TNM" secondAttribute="centerY" id="XGm-1k-OcC"/>
                             <constraint firstItem="ihm-xN-hkf" firstAttribute="leading" secondItem="RfT-NH-TNM" secondAttribute="leading" id="arI-la-f1J"/>
                             <constraint firstAttribute="trailing" secondItem="S1v-dC-fGc" secondAttribute="trailing" id="r6A-hZ-oYr"/>
+                            <constraint firstItem="FNt-BD-Cxw" firstAttribute="centerX" secondItem="RfT-NH-TNM" secondAttribute="centerX" id="y3b-Qk-sp7"/>
                         </constraints>
                     </view>
                 </viewController>

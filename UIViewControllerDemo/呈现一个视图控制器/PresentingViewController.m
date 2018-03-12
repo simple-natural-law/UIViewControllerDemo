@@ -29,7 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.titleArray = @[@[@"UIModalPresentationFullScreen",@"UIModalPresentationPopover",@"UIModalPresentationOverFullScreen",@"UIModalPresentationOverCurrentContext"],@[@"UIModalTransitionStyleCoverVertical"]];
+    self.titleArray = @[@[@"UIModalPresentationFullScreen",@"UIModalPresentationPopover",@"UIModalPresentationOverFullScreen",@"UIModalPresentationOverCurrentContext",@"UIModalPresentationPageSheet(iPad)",@"UIModalPresentationFormSheet(iPad)"],@[@"UIModalTransitionStyleCoverVertical"]];
 }
 
 #pragma mark- UITableViewDataSource
@@ -133,6 +133,28 @@
                 case 3:
                 {
                     UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ContainerViewController"];
+                    
+                    [self presentViewController:vc animated:YES completion:^{
+                        
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+                    }];
+                }
+                    break;
+                case 4:
+                {
+                    UIViewController *vc = [[CurrentPresentedViewController alloc] initWithPresentationStyle:UIModalPresentationPageSheet];
+                    
+                    [self presentViewController:vc animated:YES completion:^{
+                        
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+                    }];
+                }
+                    break;
+                case 5:
+                {
+                    UIViewController *vc = [[CurrentPresentedViewController alloc] initWithPresentationStyle:UIModalPresentationFormSheet];
+                    
+                    vc.preferredContentSize = CGSizeMake(200.0, 200.0);
                     
                     [self presentViewController:vc animated:YES completion:^{
                         
