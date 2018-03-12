@@ -10,7 +10,7 @@
 #import "CurrentPresentedViewController.h"
 
 
-@interface PresentingViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface PresentingViewController ()<UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate>
 
 @property (nonatomic, strong) NSArray *titleArray;
 
@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.titleArray = @[@[@"全屏样式",@"Popover样式",@"当前上下文样式",@"自定义呈现样式"],@[@"UIModalTransitionStyleCoverVertical"]];
+    self.titleArray = @[@[@"UIModalPresentationFullScreen",@"UIModalPresentationPopover",@"UIModalPresentationOverFullScreen",@"自定义呈现样式"],@[@"UIModalTransitionStyleCoverVertical"]];
 }
 
 #pragma mark- UITableViewDataSource
@@ -86,12 +86,51 @@
                     
                     [self presentViewController:vc animated:YES completion:^{
                         
-                        NSLog(@"%@",vc.presentingViewController);
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
                     }];
-                    
                 }
                     break;
+                case 1:
+                {
+                    UIViewController *vc = [[CurrentPresentedViewController alloc] initWithPresentationStyle:UIModalPresentationPopover];
+                    // 设置视图控制器的尺寸
+                    vc.preferredContentSize = CGSizeMake(200, 200);
                     
+                    vc.popoverPresentationController.backgroundColor = [UIColor whiteColor];
+                    
+                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                    
+                    vc.popoverPresentationController.sourceView = cell.contentView;
+                    
+                    vc.popoverPresentationController.sourceRect = cell.contentView.bounds;
+                    
+                    vc.popoverPresentationController.delegate = self;
+                    
+                    [self presentViewController:vc animated:YES completion:^{
+                        
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+                    }];
+                }
+                    break;
+                case 2:
+                {
+                    UIViewController *vc = [[CurrentPresentedViewController alloc] initWithPresentationStyle:UIModalPresentationOverFullScreen];
+                    
+                    vc.view.backgroundColor = [UIColor clearColor];
+                    
+                    [self presentViewController:vc animated:YES completion:^{
+                        
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+                    }];
+                }
+                    break;
+                case 3:
+                {
+                    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ContainerViewController"];
+                    
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                    break;
                 default:
                     break;
             }
@@ -116,6 +155,14 @@
             break;
     }
 }
+
+
+#pragma mark- UIPopoverPresentationControllerDelegate
+- (UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller
+{
+    return UIModalPresentationNone;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

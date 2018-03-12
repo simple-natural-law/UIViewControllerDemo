@@ -20,7 +20,7 @@
     
     if (self)
     {
-        self.modalPresentationStyle = UIModalPresentationFullScreen;
+        self.modalPresentationStyle = PresentationStyle;
             
         self.view.backgroundColor = [UIColor whiteColor];
     }
@@ -33,15 +33,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIButton *dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *dismissButton = [UIButton buttonWithType:UIButtonTypeSystem];
     
     dismissButton.frame = CGRectMake(0, 0, 100, 40);
     
     dismissButton.center = self.view.center;
     
+    dismissButton.backgroundColor = [UIColor blueColor];
+    
     [dismissButton setTitle:@"Dismiss" forState:UIControlStateNormal];
     
-    [dismissButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [dismissButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     [dismissButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
     
