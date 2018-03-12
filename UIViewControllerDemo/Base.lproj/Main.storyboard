@@ -105,7 +105,7 @@
         <!--呈现一个视图控制器-->
         <scene sceneID="lEO-J6-hPm">
             <objects>
-                <viewController storyboardIdentifier="PresentViewController" title="呈现一个视图控制器" id="bvG-EP-LcQ" customClass="PresentViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PresentingViewController" title="呈现一个视图控制器" id="bvG-EP-LcQ" customClass="PresentingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Kwa-yu-niU"/>
                         <viewControllerLayoutGuide type="bottom" id="ng0-MV-QdV"/>
@@ -118,15 +118,19 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="62" id="YHy-Av-1QC">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="62"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="60" id="YHy-Av-1QC">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YHy-Av-1QC" id="fIv-h6-ZYc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="bvG-EP-LcQ" id="ga9-BZ-7pp"/>
+                                    <outlet property="delegate" destination="bvG-EP-LcQ" id="Syv-gq-pnv"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -146,6 +150,10 @@
         <scene sceneID="EPv-4y-JuB">
             <objects>
                 <viewController storyboardIdentifier="CustomChildViewController" id="FiC-dd-YJJ" customClass="CustomChildViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TTn-64-T5J"/>
+                        <viewControllerLayoutGuide type="bottom" id="3Pe-RR-uin"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oBl-Qj-PVT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

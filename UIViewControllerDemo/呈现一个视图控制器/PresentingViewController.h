@@ -1,5 +1,5 @@
 //
-//  PresentViewController.h
+//  PresentingViewController.h
 //  UIViewControllerDemo
 //
 //  Created by 张诗健 on 2018/3/10.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PresentViewController : UIViewController
+@interface PresentingViewController : UIViewController
 
 @end
