@@ -11,6 +11,7 @@
 		1A9F3270205276E500DB89CC /* CustomChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F326F205276E500DB89CC /* CustomChildViewController.m */; };
 		1A9F327320561DF100DB89CC /* CurrentPresentedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F327220561DF100DB89CC /* CurrentPresentedViewController.m */; };
 		1A9F327620562F9D00DB89CC /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F327520562F9D00DB89CC /* ContainerViewController.m */; };
+		1A9F3279205652B400DB89CC /* ChildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F3278205652B400DB89CC /* ChildViewController.m */; };
 		1AFB53C01FD943F5003BCFA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */; };
 		1AFB53C31FD943F5003BCFA3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53C21FD943F5003BCFA3 /* HomeViewController.m */; };
 		1AFB53C61FD943F5003BCFA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFB53C41FD943F5003BCFA3 /* Main.storyboard */; };
@@ -31,6 +32,8 @@
 		1A9F327220561DF100DB89CC /* CurrentPresentedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrentPresentedViewController.m; sourceTree = "<group>"; };
 		1A9F327420562F9D00DB89CC /* ContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
 		1A9F327520562F9D00DB89CC /* ContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		1A9F3277205652B400DB89CC /* ChildViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChildViewController.h; sourceTree = "<group>"; };
+		1A9F3278205652B400DB89CC /* ChildViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChildViewController.m; sourceTree = "<group>"; };
 		1AFB53BB1FD943F5003BCFA3 /* UIViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFB53BE1FD943F5003BCFA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -121,6 +124,8 @@
 				1A9F327220561DF100DB89CC /* CurrentPresentedViewController.m */,
 				1A9F327420562F9D00DB89CC /* ContainerViewController.h */,
 				1A9F327520562F9D00DB89CC /* ContainerViewController.m */,
+				1A9F3277205652B400DB89CC /* ChildViewController.h */,
+				1A9F3278205652B400DB89CC /* ChildViewController.m */,
 			);
 			path = "呈现一个视图控制器";
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 				3438E5EE2053C134007A601F /* TransitionContainerViewController.m in Sources */,
 				1A76A97120109A7F00935AE4 /* CustomContainerViewController.m in Sources */,
 				1A9F3270205276E500DB89CC /* CustomChildViewController.m in Sources */,
+				1A9F3279205652B400DB89CC /* ChildViewController.m in Sources */,
 				1A9F327320561DF100DB89CC /* CurrentPresentedViewController.m in Sources */,
 				3438E5F22053DF80007A601F /* PresentingViewController.m in Sources */,
 			);

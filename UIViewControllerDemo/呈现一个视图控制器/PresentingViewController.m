@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.titleArray = @[@[@"UIModalPresentationFullScreen",@"UIModalPresentationPopover",@"UIModalPresentationOverFullScreen",@"自定义呈现样式"],@[@"UIModalTransitionStyleCoverVertical"]];
+    self.titleArray = @[@[@"UIModalPresentationFullScreen",@"UIModalPresentationPopover",@"UIModalPresentationOverFullScreen",@"UIModalPresentationOverCurrentContext"],@[@"UIModalTransitionStyleCoverVertical"]];
 }
 
 #pragma mark- UITableViewDataSource
@@ -128,7 +128,10 @@
                 {
                     UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ContainerViewController"];
                     
-                    [self.navigationController pushViewController:vc animated:YES];
+                    [self presentViewController:vc animated:YES completion:^{
+                        
+                        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+                    }];
                 }
                     break;
                 default:

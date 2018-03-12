@@ -35,9 +35,7 @@
     
     UIButton *dismissButton = [UIButton buttonWithType:UIButtonTypeSystem];
     
-    dismissButton.frame = CGRectMake(0, 0, 100, 40);
-    
-    dismissButton.center = self.view.center;
+    dismissButton.translatesAutoresizingMaskIntoConstraints = NO;
     
     dismissButton.backgroundColor = [UIColor blueColor];
     
@@ -48,6 +46,12 @@
     [dismissButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:dismissButton];
+    
+    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:dismissButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:100.0];
+    NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:dismissButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40.0];
+    NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:dismissButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0];
+    NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:dismissButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0];
+    [self.view addConstraints:@[width,height,centerX,centerY]];
 }
 
 - (void)dismissViewController

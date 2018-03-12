@@ -1,25 +1,37 @@
 //
-//  ContainerViewController.m
+//  ChildViewController.m
 //  UIViewControllerDemo
 //
 //  Created by 讯心科技 on 2018/3/12.
 //  Copyright © 2018年 讯心科技. All rights reserved.
 //
 
-#import "ContainerViewController.h"
+#import "ChildViewController.h"
+#import "CurrentPresentedViewController.h"
 
-@interface ContainerViewController ()
+@interface ChildViewController ()
 
 @end
 
-
-@implementation ContainerViewController
+@implementation ChildViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.definesPresentationContext = YES;
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesEnded:touches withEvent:event];
     
+    UIViewController *vc = [[CurrentPresentedViewController alloc] initWithPresentationStyle:UIModalPresentationCurrentContext];
+    
+    [self presentViewController:vc animated:YES completion:^{
+       
+        NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

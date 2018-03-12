@@ -207,17 +207,26 @@
             </objects>
             <point key="canvasLocation" x="3654" y="-1095"/>
         </scene>
-        <!--View Controller-->
+        <!--Child View Controller-->
         <scene sceneID="xjd-t3-lsl">
             <objects>
-                <viewController id="OVC-ZM-G1a" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChildViewController" id="OVC-ZM-G1a" customClass="ChildViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="loz-Ow-h5c">
                         <rect key="frame" x="0.0" y="0.0" width="188" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIW-6k-ViB">
-                                <rect key="frame" x="0.0" y="0.0" width="188" height="667"/>
+                                <rect key="frame" x="0.0" y="308.5" width="188" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="rn1-JY-A6I"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
+                                <color key="textColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="单击视图控制器A来触发UIModalPresentationOverCurrentContext样式的呈现" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7x-Yo-kaT">
+                                <rect key="frame" x="8" y="0.0" width="172" height="308.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -225,8 +234,11 @@
                         <color key="backgroundColor" red="0.94509803920000002" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="HIW-6k-ViB" secondAttribute="trailing" id="2rc-30-dQk"/>
-                            <constraint firstItem="HIW-6k-ViB" firstAttribute="top" secondItem="loz-Ow-h5c" secondAttribute="top" id="9Lw-3r-pdk"/>
-                            <constraint firstAttribute="bottom" secondItem="HIW-6k-ViB" secondAttribute="bottom" id="IoN-Cc-foI"/>
+                            <constraint firstItem="P7x-Yo-kaT" firstAttribute="top" secondItem="loz-Ow-h5c" secondAttribute="top" id="2y1-HH-5aj"/>
+                            <constraint firstAttribute="trailing" secondItem="P7x-Yo-kaT" secondAttribute="trailing" constant="8" id="3SL-K8-czn"/>
+                            <constraint firstItem="P7x-Yo-kaT" firstAttribute="leading" secondItem="loz-Ow-h5c" secondAttribute="leading" constant="8" id="ZPF-9v-udc"/>
+                            <constraint firstItem="HIW-6k-ViB" firstAttribute="top" secondItem="P7x-Yo-kaT" secondAttribute="bottom" id="ZgG-cS-tlo"/>
+                            <constraint firstItem="HIW-6k-ViB" firstAttribute="centerY" secondItem="loz-Ow-h5c" secondAttribute="centerY" id="hf6-ZG-o83"/>
                             <constraint firstItem="HIW-6k-ViB" firstAttribute="leading" secondItem="loz-Ow-h5c" secondAttribute="leading" id="uoa-0a-Mf8"/>
                         </constraints>
                     </view>
@@ -244,7 +256,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zf6-aj-s6e">
-                                <rect key="frame" x="0.0" y="0.0" width="187" height="667"/>
+                                <rect key="frame" x="0.0" y="308.5" width="187" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="f0H-K9-R8Z"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="40"/>
                                 <color key="textColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -254,8 +269,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Zf6-aj-s6e" secondAttribute="trailing" id="AiX-Yc-wGg"/>
                             <constraint firstItem="Zf6-aj-s6e" firstAttribute="leading" secondItem="m7f-SU-vpa" secondAttribute="leading" id="Gi7-ZS-UvI"/>
-                            <constraint firstAttribute="bottom" secondItem="Zf6-aj-s6e" secondAttribute="bottom" id="HG5-eB-CRN"/>
-                            <constraint firstItem="Zf6-aj-s6e" firstAttribute="top" secondItem="m7f-SU-vpa" secondAttribute="top" id="he4-Z7-E3g"/>
+                            <constraint firstItem="Zf6-aj-s6e" firstAttribute="centerY" secondItem="m7f-SU-vpa" secondAttribute="centerY" id="OTI-A6-VJ8"/>
                         </constraints>
                     </view>
                 </viewController>
