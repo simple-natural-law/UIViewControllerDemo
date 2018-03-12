@@ -7,8 +7,11 @@
 //
 
 #import "CustomTransitionDemoViewController.h"
+#import "CustomTransition.h"
 
 @interface CustomTransitionDemoViewController ()
+
+@property (nonatomic, strong) CustomTransition *customTransition;
 
 @end
 
@@ -21,6 +24,23 @@
     UIBarButtonItem * backButtonItem = [[UIBarButtonItem alloc] init];
     backButtonItem.title = @"返回";
     self.navigationItem.backBarButtonItem = backButtonItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    _customTransition = nil;
+}
+
+- (CustomTransition *)customTransition
+{
+    if (_customTransition == nil)
+    {
+        _customTransition = [[CustomTransition alloc] init];
+    }
+    
+    return _customTransition;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -11,4 +11,10 @@
 
 @interface DismissAnimator : NSObject<UIViewControllerAnimatedTransitioning>
 
+@property (nonatomic, strong) UIImage *transitionImage;
+
+@property (nonatomic, assign) CGRect beforeFrame;
+
+@property (nonatomic, assign) CGRect afterFrame;
+
 @end
