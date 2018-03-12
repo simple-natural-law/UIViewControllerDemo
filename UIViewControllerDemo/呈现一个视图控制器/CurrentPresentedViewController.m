@@ -14,6 +14,12 @@
 
 @implementation CurrentPresentedViewController
 
+- (void)dealloc
+{
+    NSLog(@"\n *** dealloc *** : %@", self);
+}
+
+
 - (instancetype)initWithPresentationStyle:(UIModalPresentationStyle)PresentationStyle
 {
     self = [super init];

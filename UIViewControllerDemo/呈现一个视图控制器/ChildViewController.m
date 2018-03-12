@@ -15,6 +15,11 @@
 
 @implementation ChildViewController
 
+- (void)dealloc
+{
+    NSLog(@"\n *** dealloc *** : %@", self);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -29,7 +34,7 @@
     UIViewController *vc = [[CurrentPresentedViewController alloc] initWithPresentationStyle:UIModalPresentationCurrentContext];
     
     [self presentViewController:vc animated:YES completion:^{
-       
+        
         NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
     }];
 }

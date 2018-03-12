@@ -19,6 +19,12 @@
 
 @implementation PresentingViewController
 
+- (void)dealloc
+{
+    NSLog(@"\n *** dealloc *** : %@", self);
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.

@@ -147,10 +147,10 @@
             </objects>
             <point key="canvasLocation" x="2749.5999999999999" y="-123.68815592203899"/>
         </scene>
-        <!--自定义分屏容器视图控制器-->
+        <!--UIModalPresentationOverCurrentContext样式-->
         <scene sceneID="7ZF-dT-KGJ">
             <objects>
-                <viewController storyboardIdentifier="ContainerViewController" title="自定义分屏容器视图控制器" id="R7l-dy-BU0" customClass="ContainerViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContainerViewController" title="UIModalPresentationOverCurrentContext样式" id="R7l-dy-BU0" customClass="ContainerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QJy-rA-InA"/>
                         <viewControllerLayoutGuide type="bottom" id="HxA-I3-ycW"/>
@@ -171,6 +171,18 @@
                                     <segue destination="7kj-m8-Fuj" kind="embed" id="ztS-os-aUW"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNt-BD-Cxw">
+                                <rect key="frame" x="236" y="103" width="90" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.94509803920000002" green="0.16862745100000001" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="dismiss">
+                                    <color key="titleColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissViewController:" destination="R7l-dy-BU0" eventType="touchUpInside" id="G7i-QD-cu4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -210,7 +222,7 @@
         <!--Child View Controller-->
         <scene sceneID="xjd-t3-lsl">
             <objects>
-                <viewController storyboardIdentifier="ChildViewController" id="OVC-ZM-G1a" customClass="ChildViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChildViewController" modalPresentationStyle="currentContext" id="OVC-ZM-G1a" customClass="ChildViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="loz-Ow-h5c">
                         <rect key="frame" x="0.0" y="0.0" width="188" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
