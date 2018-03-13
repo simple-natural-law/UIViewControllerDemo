@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) UIImage *transitionImage;
 
+@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactiveAnimator;
+
 @end
 
 @implementation CustomTransition
@@ -51,6 +53,41 @@
     animator.transitionImage = self.transitionImage;
     
     return animator;
+}
+
+- (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator
+{
+    return self.interactiveAnimator;
+}
+
+- (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator
+{
+    return self.interactiveAnimator;
+}
+
+- (void)finishInteractiveTransition
+{
+    [self.interactiveAnimator finishInteractiveTransition];
+}
+
+- (void)cancelInteractiveTransition
+{
+    [self.interactiveAnimator cancelInteractiveTransition];
+}
+
+- (void)updateInteractiveTransition:(CGFloat)percentComplete
+{
+    [self.interactiveAnimator updateInteractiveTransition:percentComplete];
+}
+
+- (UIPercentDrivenInteractiveTransition *)interactiveAnimator
+{
+    if (_interactiveAnimator == nil)
+    {
+        _interactiveAnimator = [[UIPercentDrivenInteractiveTransition alloc] init];
+    }
+    
+    return _interactiveAnimator;
 }
 
 @end

@@ -283,6 +283,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="DUG-WJ-JSA" firstAttribute="top" secondItem="sqU-PU-Eqc" secondAttribute="bottom" constant="40" id="4ZD-iT-YIZ"/>
                             <constraint firstItem="JqG-7N-xp4" firstAttribute="top" secondItem="DUG-WJ-JSA" secondAttribute="bottom" constant="30" id="56l-RD-WhM"/>
@@ -291,6 +292,9 @@
                             <constraint firstItem="DUG-WJ-JSA" firstAttribute="centerX" secondItem="5m8-IS-Omo" secondAttribute="centerX" id="RMt-Nf-4AX"/>
                             <constraint firstAttribute="trailing" secondItem="JqG-7N-xp4" secondAttribute="trailing" constant="8" id="yvt-Y1-2TW"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="zJB-lx-DJy" appends="YES" id="lqt-G3-pl9"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="DUG-WJ-JSA" id="Zkw-DM-Ztc"/>
@@ -302,6 +306,11 @@
                         <action selector="tapAction:" destination="gnC-Ke-xsZ" id="n0l-5Z-0CU"/>
                     </connections>
                 </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="zJB-lx-DJy">
+                    <connections>
+                        <action selector="panAction:" destination="gnC-Ke-xsZ" id="Izr-Ck-V5m"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4253.6000000000004" y="993.55322338830592"/>
         </scene>

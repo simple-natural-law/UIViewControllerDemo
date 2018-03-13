@@ -13,4 +13,10 @@
 
 - (void)setTransitionImage:(UIImage *)transitionImage animationStartFrame:(CGRect)animationStartFrame;
 
+- (void)finishInteractiveTransition;
+
+- (void)cancelInteractiveTransition;
+
+- (void)updateInteractiveTransition:(CGFloat)percentComplete;
+
 @end

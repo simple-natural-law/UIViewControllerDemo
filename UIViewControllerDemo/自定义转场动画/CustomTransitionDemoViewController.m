@@ -52,6 +52,61 @@
     }
 }
 
+- (IBAction)panAction:(UIPanGestureRecognizer *)sender
+{
+    switch (sender.state)
+    {
+        case UIGestureRecognizerStateBegan:
+        {
+            [self.customTransition setTransitionImage:self.imageView.image animationStartFrame:[self.view convertRect:self.imageView.frame toView:[UIApplication sharedApplication].delegate.window]];
+            
+            UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ImageDetailsViewController"];
+            
+            vc.transitioningDelegate = self.customTransition;
+            
+            [self presentViewController:vc animated:YES completion:^{
+                
+                NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+            }];
+        }
+            break;
+        case UIGestureRecognizerStateChanged:
+        {
+            CGPoint translation = [sender translationInView:self.view];
+            
+            // 根据手指拖动的距离计算一个百分比，切换的动画效果也随着这个百分比来走
+            CGFloat percentComplete = fabs(translation.x / self.view.frame.size.width);
+            
+            [self.customTransition updateInteractiveTransition:percentComplete];
+        }
+            break;
+        case UIGestureRecognizerStateEnded:
+        {
+            CGPoint translation = [sender translationInView:self.view];
+            
+            // 根据手指拖动的距离计算一个百分比，切换的动画效果也随着这个百分比来走
+            CGFloat percentComplete = fabs(translation.x / self.view.frame.size.width);
+            
+            // 移动超过 2/5 就强制完成
+            if (percentComplete > 0.3)
+            {
+                [self.customTransition finishInteractiveTransition];
+            }else
+            {
+                [self.customTransition cancelInteractiveTransition];
+            }
+        }
+            break;
+        case UIGestureRecognizerStateCancelled:
+        {
+            [self.customTransition cancelInteractiveTransition];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
 
 - (CustomTransition *)customTransition
 {
