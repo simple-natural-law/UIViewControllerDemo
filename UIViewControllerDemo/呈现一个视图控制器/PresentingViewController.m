@@ -29,7 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.titleArray = @[@[@"UIModalPresentationFullScreen",@"UIModalPresentationPopover",@"UIModalPresentationOverFullScreen",@"UIModalPresentationOverCurrentContext",@"UIModalPresentationPageSheet(iPad)",@"UIModalPresentationFormSheet(iPad)",@"UIModalPresentationCustom(首页-->自定义转场动画和自定义Presentation Controller)"],@[@"UIModalTransitionStyleFlipHorizontal",@"UIModalTransitionStyleCoverVertical",@"UIModalTransitionStyleCrossDissolve",@"UIModalTransitionStylePartialCurl"]];
+    self.titleArray = @[@[@"UIModalPresentationFullScreen",@"UIModalPresentationPopover",@"UIModalPresentationOverFullScreen",@"UIModalPresentationOverCurrentContext",@"UIModalPresentationPageSheet(iPad)",@"UIModalPresentationFormSheet(iPad)",@"UIModalPresentationCustom(首页-->自定义Presentation Controller)"],@[@"UIModalTransitionStyleFlipHorizontal",@"UIModalTransitionStyleCoverVertical",@"UIModalTransitionStyleCrossDissolve",@"UIModalTransitionStylePartialCurl"]];
 }
 
 #pragma mark- UITableViewDataSource
