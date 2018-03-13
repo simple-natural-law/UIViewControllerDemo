@@ -237,6 +237,7 @@
                         <subviews>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xxxxxx" translatesAutoresizingMaskIntoConstraints="NO" id="RFO-I1-12e">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <gestureRecognizers/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -250,7 +251,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4nh-Zs-Xh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3469.5999999999999" y="993.55322338830592"/>
+            <point key="canvasLocation" x="4972" y="994"/>
         </scene>
         <!--自定义转场动画-->
         <scene sceneID="jaZ-Ur-djV">
