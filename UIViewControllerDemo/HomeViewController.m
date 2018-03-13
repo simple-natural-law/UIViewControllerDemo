@@ -9,11 +9,14 @@
 #import "HomeViewController.h"
 #import "CustomContainerViewController.h"
 #import "CustomChildViewController.h"
-
+#import "CurrentPresentedViewController.h"
+#import "CustomPresentationTransition.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray *dataSource;
+
+@property (nonatomic, strong) CustomPresentationTransition *transition;
 
 @end
 
@@ -79,6 +82,17 @@
     }else if (indexPath.row == self.dataSource.count - 1)
     {
         
+        CurrentPresentedViewController *vc = [[CurrentPresentedViewController alloc] initWithPresentationStyle:UIModalPresentationCustom];
+        
+        self.transition = [[CustomPresentationTransition alloc] init];
+        
+        vc.transitioningDelegate = self.transition;
+        
+        [self presentViewController:vc animated:YES completion:^{
+            
+            NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+        }];
+        
     }else
     {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:self.dataSource[indexPath.row][@"target"]];
@@ -91,7 +105,6 @@
 {
     return 50.0;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

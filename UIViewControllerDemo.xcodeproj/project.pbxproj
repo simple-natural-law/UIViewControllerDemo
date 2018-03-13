@@ -19,6 +19,7 @@
 		1A9F328D20576F4E00DB89CC /* ImageDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F328C20576F4E00DB89CC /* ImageDetailsViewController.m */; };
 		1A9F32962057A23A00DB89CC /* CustomPresentationTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F32952057A23A00DB89CC /* CustomPresentationTransition.m */; };
 		1A9F32992057A5A700DB89CC /* CustomPresentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F32982057A5A700DB89CC /* CustomPresentationViewController.m */; };
+		1A9F329C2057B11200DB89CC /* CustomPresentationAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F329B2057B11200DB89CC /* CustomPresentationAnimator.m */; };
 		1AFB53C01FD943F5003BCFA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */; };
 		1AFB53C31FD943F5003BCFA3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53C21FD943F5003BCFA3 /* HomeViewController.m */; };
 		1AFB53C61FD943F5003BCFA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFB53C41FD943F5003BCFA3 /* Main.storyboard */; };
@@ -55,6 +56,8 @@
 		1A9F32952057A23A00DB89CC /* CustomPresentationTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPresentationTransition.m; sourceTree = "<group>"; };
 		1A9F32972057A5A700DB89CC /* CustomPresentationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomPresentationViewController.h; sourceTree = "<group>"; };
 		1A9F32982057A5A700DB89CC /* CustomPresentationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPresentationViewController.m; sourceTree = "<group>"; };
+		1A9F329A2057B11200DB89CC /* CustomPresentationAnimator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomPresentationAnimator.h; sourceTree = "<group>"; };
+		1A9F329B2057B11200DB89CC /* CustomPresentationAnimator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPresentationAnimator.m; sourceTree = "<group>"; };
 		1AFB53BB1FD943F5003BCFA3 /* UIViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFB53BE1FD943F5003BCFA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -114,6 +117,8 @@
 			children = (
 				1A9F32942057A23A00DB89CC /* CustomPresentationTransition.h */,
 				1A9F32952057A23A00DB89CC /* CustomPresentationTransition.m */,
+				1A9F329A2057B11200DB89CC /* CustomPresentationAnimator.h */,
+				1A9F329B2057B11200DB89CC /* CustomPresentationAnimator.m */,
 				1A9F32972057A5A700DB89CC /* CustomPresentationViewController.h */,
 				1A9F32982057A5A700DB89CC /* CustomPresentationViewController.m */,
 			);
@@ -265,6 +270,7 @@
 				1A9F3279205652B400DB89CC /* ChildViewController.m in Sources */,
 				1A9F328720567F1400DB89CC /* DismissAnimator.m in Sources */,
 				1A9F32992057A5A700DB89CC /* CustomPresentationViewController.m in Sources */,
+				1A9F329C2057B11200DB89CC /* CustomPresentationAnimator.m in Sources */,
 				1A9F327320561DF100DB89CC /* CurrentPresentedViewController.m in Sources */,
 				3438E5F22053DF80007A601F /* PresentingViewController.m in Sources */,
 				1A9F328420567E6300DB89CC /* CustomTransition.m in Sources */,
