@@ -76,6 +76,9 @@
         
         [self.navigationController pushViewController:containerViewController animated:YES];
         
+    }else if (indexPath.row == self.dataSource.count - 1)
+    {
+        
     }else
     {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:self.dataSource[indexPath.row][@"target"]];

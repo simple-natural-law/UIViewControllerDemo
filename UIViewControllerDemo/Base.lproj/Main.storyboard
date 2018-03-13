@@ -251,7 +251,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4nh-Zs-Xh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4972" y="994"/>
+            <point key="canvasLocation" x="3500" y="1038"/>
+        </scene>
+        <!--自定义Presentation Controller-->
+        <scene sceneID="R9Z-eP-kXS">
+            <objects>
+                <viewController storyboardIdentifier="CustomPresentationViewController" title="自定义Presentation Controller" id="WfK-iA-vEH" customClass="CustomPresentationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="h7p-Mk-6Le"/>
+                        <viewControllerLayoutGuide type="bottom" id="vE5-pP-2eN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OJd-wd-irW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9LC-Xj-9jA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4681" y="1038"/>
         </scene>
         <!--自定义转场动画-->
         <scene sceneID="jaZ-Ur-djV">
@@ -276,7 +294,7 @@
                                     <outletCollection property="gestureRecognizers" destination="1fI-Q4-Tae" appends="YES" id="dIh-ri-Zlb"/>
                                 </connections>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击图片或者向右滑动" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqG-7N-xp4">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击图片或者水平方向滑动" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqG-7N-xp4">
                                 <rect key="frame" x="8" y="250" width="359" height="387"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
@@ -313,7 +331,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4253.6000000000004" y="993.55322338830592"/>
+            <point key="canvasLocation" x="2711" y="1038"/>
         </scene>
         <!--Child View Controller-->
         <scene sceneID="xjd-t3-lsl">
