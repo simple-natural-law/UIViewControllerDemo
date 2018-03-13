@@ -11,4 +11,6 @@
 
 @interface CustomTransition : NSObject<UIViewControllerTransitioningDelegate>
 
+- (void)setTransitionImage:(UIImage *)transitionImage animationStartFrame:(CGRect)animationStartFrame;
+
 @end

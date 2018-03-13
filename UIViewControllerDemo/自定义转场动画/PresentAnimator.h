@@ -13,8 +13,6 @@
 
 @property (nonatomic, strong) UIImage *transitionImage;
 
-@property (nonatomic, assign) CGRect beforeFrame;
-
-@property (nonatomic, assign) CGRect afterFrame;
+@property (nonatomic, assign) CGRect startFrame;
 
 @end

@@ -12,7 +12,7 @@
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    return 0.3;
+    return 0.8;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
@@ -26,7 +26,7 @@
     [containerView addSubview:toView];
     
     //图片背景的空白view (设置和控制器的背景颜色一样，给人一种图片被调走的假象)
-    UIView *imgBgWhiteView = [[UIView alloc] initWithFrame:self.beforeFrame];
+    UIView *imgBgWhiteView = [[UIView alloc] initWithFrame:self.endFrame];
     imgBgWhiteView.backgroundColor = [UIColor whiteColor];
     [containerView addSubview:imgBgWhiteView];
     
@@ -38,16 +38,15 @@
     
     //过渡的图片
     UIImageView *transitionImgView = [[UIImageView alloc] init];
-    transitionImgView.frame = self.afterFrame;
+    transitionImgView.frame = [self getFullScreenImageRectWithImage:self.transitionImage];
     transitionImgView.contentMode = UIViewContentModeScaleAspectFill;
     transitionImgView.clipsToBounds = YES;
     transitionImgView.image = self.transitionImage;
     [transitionContext.containerView addSubview:transitionImgView];
     
-    
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         
-        transitionImgView.frame = self.beforeFrame;
+        transitionImgView.frame = self.endFrame;
         bgView.alpha = 0;
         
     }completion:^(BOOL finished) {
@@ -61,6 +60,28 @@
         //设置transitionContext通知系统动画执行完毕
         [transitionContext completeTransition:!wasCancelled];
     }];
+}
+
+- (CGRect)getFullScreenImageRectWithImage:(UIImage *)image
+{
+    CGSize size = image.size;
+    
+    CGFloat scaleX = [UIScreen mainScreen].bounds.size.width/size.width;
+    
+    CGFloat scaleY = [UIScreen mainScreen].bounds.size.height/size.height;
+    
+    if (scaleX > scaleY)
+    {
+        CGFloat width = size.width * scaleY;
+        
+        return CGRectMake([UIScreen mainScreen].bounds.size.width/2.0 - width/2.0, 0.0, width, [UIScreen mainScreen].bounds.size.height);
+        
+    }else
+    {
+        CGFloat height = size.height * scaleX;
+        
+        return CGRectMake(0, [UIScreen mainScreen].bounds.size.height/2.0 - height/2.0, [UIScreen mainScreen].bounds.size.width, height);
+    }
 }
 
 @end

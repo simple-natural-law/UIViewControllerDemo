@@ -17,6 +17,7 @@
 		1A9F328420567E6300DB89CC /* CustomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F328320567E6300DB89CC /* CustomTransition.m */; };
 		1A9F328720567F1400DB89CC /* DismissAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F328620567F1400DB89CC /* DismissAnimator.m */; };
 		1A9F328A20567F3900DB89CC /* PresentAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F328920567F3900DB89CC /* PresentAnimator.m */; };
+		1A9F328D20576F4E00DB89CC /* ImageDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A9F328C20576F4E00DB89CC /* ImageDetailsViewController.m */; };
 		1AFB53C01FD943F5003BCFA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */; };
 		1AFB53C31FD943F5003BCFA3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AFB53C21FD943F5003BCFA3 /* HomeViewController.m */; };
 		1AFB53C61FD943F5003BCFA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AFB53C41FD943F5003BCFA3 /* Main.storyboard */; };
@@ -49,6 +50,8 @@
 		1A9F328620567F1400DB89CC /* DismissAnimator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DismissAnimator.m; sourceTree = "<group>"; };
 		1A9F328820567F3900DB89CC /* PresentAnimator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresentAnimator.h; sourceTree = "<group>"; };
 		1A9F328920567F3900DB89CC /* PresentAnimator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresentAnimator.m; sourceTree = "<group>"; };
+		1A9F328B20576F4E00DB89CC /* ImageDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageDetailsViewController.h; sourceTree = "<group>"; };
+		1A9F328C20576F4E00DB89CC /* ImageDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageDetailsViewController.m; sourceTree = "<group>"; };
 		1AFB53BB1FD943F5003BCFA3 /* UIViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AFB53BE1FD943F5003BCFA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1AFB53BF1FD943F5003BCFA3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -97,6 +100,8 @@
 				1A9F328920567F3900DB89CC /* PresentAnimator.m */,
 				1A9F327B2056731100DB89CC /* CustomTransitionDemoViewController.h */,
 				1A9F327C2056731100DB89CC /* CustomTransitionDemoViewController.m */,
+				1A9F328B20576F4E00DB89CC /* ImageDetailsViewController.h */,
+				1A9F328C20576F4E00DB89CC /* ImageDetailsViewController.m */,
 			);
 			path = "自定义转场动画";
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 				3438E5F22053DF80007A601F /* PresentingViewController.m in Sources */,
 				1A9F328120567B4800DB89CC /* CustomPresentationViewController.m in Sources */,
 				1A9F328420567E6300DB89CC /* CustomTransition.m in Sources */,
+				1A9F328D20576F4E00DB89CC /* ImageDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

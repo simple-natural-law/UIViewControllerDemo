@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) CustomTransition *customTransition;
 
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
 @end
 
 @implementation CustomTransitionDemoViewController
@@ -32,6 +34,24 @@
     
     _customTransition = nil;
 }
+
+
+- (IBAction)tapAction:(UIGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        [self.customTransition setTransitionImage:self.imageView.image animationStartFrame:[self.view convertRect:self.imageView.frame toView:[UIApplication sharedApplication].delegate.window]];
+        
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"ImageDetailsViewController"];
+        vc.transitioningDelegate = self.customTransition;
+        
+        [self presentViewController:vc animated:YES completion:^{
+            
+            NSLog(@"呈现此视图控制器的请求被路由到：%@，由它来呈现此视图控制器。",vc.presentingViewController);
+        }];
+    }
+}
+
 
 - (CustomTransition *)customTransition
 {

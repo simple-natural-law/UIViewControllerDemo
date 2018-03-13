@@ -223,10 +223,10 @@
             </objects>
             <point key="canvasLocation" x="3654" y="-1095"/>
         </scene>
-        <!--自定义转场动画-->
+        <!--图片详情-->
         <scene sceneID="8wR-8n-I7d">
             <objects>
-                <viewController storyboardIdentifier="CustomTransitionDemoViewController" title="自定义转场动画" id="ZsH-6Z-jqA" customClass="CustomTransitionDemoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageDetailsViewController" title="图片详情" id="ZsH-6Z-jqA" customClass="ImageDetailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uPE-or-SzF"/>
                         <viewControllerLayoutGuide type="bottom" id="75M-fr-RwT"/>
@@ -234,17 +234,28 @@
                     <view key="view" contentMode="scaleToFill" id="8lS-jP-fzY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xxxxxx" translatesAutoresizingMaskIntoConstraints="NO" id="RFO-I1-12e">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="RFO-I1-12e" secondAttribute="bottom" id="ASN-oF-tSg"/>
+                            <constraint firstItem="RFO-I1-12e" firstAttribute="top" secondItem="8lS-jP-fzY" secondAttribute="top" id="Onn-7u-X0a"/>
+                            <constraint firstItem="RFO-I1-12e" firstAttribute="leading" secondItem="8lS-jP-fzY" secondAttribute="leading" id="boz-5H-Yej"/>
+                            <constraint firstAttribute="trailing" secondItem="RFO-I1-12e" secondAttribute="trailing" id="umh-hp-H4I"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4nh-Zs-Xh1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3469.5999999999999" y="993.55322338830592"/>
         </scene>
-        <!--自定义Presentation Controller-->
+        <!--自定义转场动画-->
         <scene sceneID="jaZ-Ur-djV">
             <objects>
-                <viewController storyboardIdentifier="CustomPresentationViewController" title="自定义Presentation Controller" id="gnC-Ke-xsZ" customClass="CustomPresentationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomTransitionDemoViewController" title="自定义转场动画" id="gnC-Ke-xsZ" customClass="CustomTransitionDemoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="sqU-PU-Eqc"/>
                         <viewControllerLayoutGuide type="bottom" id="TB0-cK-MLo"/>
@@ -252,12 +263,47 @@
                     <view key="view" contentMode="scaleToFill" id="5m8-IS-Omo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xxxxxx" translatesAutoresizingMaskIntoConstraints="NO" id="DUG-WJ-JSA">
+                                <rect key="frame" x="107.5" y="60" width="160" height="160"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="0N7-IK-svq"/>
+                                    <constraint firstAttribute="height" constant="160" id="3hw-E9-Wcy"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="1fI-Q4-Tae" appends="YES" id="dIh-ri-Zlb"/>
+                                </connections>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击图片或者向右滑动" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqG-7N-xp4">
+                                <rect key="frame" x="8" y="250" width="359" height="387"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DUG-WJ-JSA" firstAttribute="top" secondItem="sqU-PU-Eqc" secondAttribute="bottom" constant="40" id="4ZD-iT-YIZ"/>
+                            <constraint firstItem="JqG-7N-xp4" firstAttribute="top" secondItem="DUG-WJ-JSA" secondAttribute="bottom" constant="30" id="56l-RD-WhM"/>
+                            <constraint firstItem="TB0-cK-MLo" firstAttribute="top" secondItem="JqG-7N-xp4" secondAttribute="bottom" constant="30" id="EXs-LT-4fd"/>
+                            <constraint firstItem="JqG-7N-xp4" firstAttribute="leading" secondItem="5m8-IS-Omo" secondAttribute="leading" constant="8" id="Mqr-rm-Jak"/>
+                            <constraint firstItem="DUG-WJ-JSA" firstAttribute="centerX" secondItem="5m8-IS-Omo" secondAttribute="centerX" id="RMt-Nf-4AX"/>
+                            <constraint firstAttribute="trailing" secondItem="JqG-7N-xp4" secondAttribute="trailing" constant="8" id="yvt-Y1-2TW"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="DUG-WJ-JSA" id="Zkw-DM-Ztc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gof-tn-qd2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="1fI-Q4-Tae">
+                    <connections>
+                        <action selector="tapAction:" destination="gnC-Ke-xsZ" id="n0l-5Z-0CU"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4255" y="994"/>
+            <point key="canvasLocation" x="4253.6000000000004" y="993.55322338830592"/>
         </scene>
         <!--Child View Controller-->
         <scene sceneID="xjd-t3-lsl">
@@ -330,4 +376,7 @@
             <point key="canvasLocation" x="4382" y="-463"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="xxxxxx" width="600" height="400"/>
+    </resources>
 </document>
