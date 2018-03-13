@@ -8,7 +8,6 @@
 
 #import "CustomPresentationTransition.h"
 #import "CustomPresentationViewController.h"
-#import "CustomPresentationAnimator.h"
 
 @implementation CustomPresentationTransition
 
@@ -17,24 +16,6 @@
     CustomPresentationViewController *vc = [[CustomPresentationViewController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
     
     return vc;
-}
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
-{
-    CustomPresentationAnimator *animator = [[CustomPresentationAnimator alloc] init];
-    
-    animator.isDismissAnimation = YES;
-    
-    return animator;
-}
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
-{
-    CustomPresentationAnimator *animator = [[CustomPresentationAnimator alloc] init];
-    
-    animator.isDismissAnimation = NO;
-    
-    return animator;
 }
 
 @end
